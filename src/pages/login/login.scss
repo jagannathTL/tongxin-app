@@ -1,3 +1,11 @@
 page-login {
 
+  #box, #item{
+    background-color: map-get($colors, light);
+  }
+
+  #list{
+    margin-top: 50px;
+  }
+
 }

@@ -8,6 +8,8 @@ import { FuturesPage } from '../pages/futures/futures';
 import { InboxPage } from '../pages/inbox/inbox';
 import { PricePage } from '../pages/price/price';
 import { CirclePage } from '../pages/circle/circle';
+import { Global } from '../providers/global';
+import { LoginSvc } from '../providers/login-svc';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,6 @@ import { CirclePage } from '../pages/circle/circle';
     PricePage,
     CirclePage
   ],
-  providers: []
+  providers: [Global, LoginSvc]
 })
 export class AppModule {}

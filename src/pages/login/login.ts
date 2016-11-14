@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { LoginSvc } from '../../providers/login-svc';
 
 /*
   Generated class for the Login page.
@@ -15,8 +16,8 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController) {}
 
-  ionViewDidLoad() {
-    console.log('Hello LoginPage Page');
+  login(){
+    
   }
 
 }
