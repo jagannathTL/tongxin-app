@@ -11,12 +11,22 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class Global {
 
+  deviceId = '';
+
   constructor(public http: Http) {
     console.log('Hello Global Provider');
   }
 
   getServer(){
     return 'http://api.shtx.com.cn';
+  }
+
+  setDeviceId(device){
+    this.deviceId = device;
+  }
+
+  getDeviceId(){
+    return this.deviceId;
   }
 
 }

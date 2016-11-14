@@ -4,6 +4,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { Push } from 'ionic-native';
+import { Global } from '../providers/global';
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`
@@ -11,7 +12,7 @@ import { Push } from 'ionic-native';
 export class MyApp {
   rootPage = LoginPage;
 
-  constructor(platform: Platform) {
+  constructor(platform: Platform, public global: Global) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -29,7 +30,9 @@ export class MyApp {
         windows: {}
       });
       push.on('registration', (data) => {
-        console.log(data.registrationId);
+        //ios device id
+        //console.log(data.registrationId);
+        this.global.setDeviceId(data.registrationId);
       });
     });
   }

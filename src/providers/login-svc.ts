@@ -17,7 +17,7 @@ export class LoginSvc {
     console.log('Hello LoginSvc Provider');
   }
 
-  login() {
+  login(mobile, password) {
     return new Promise((resolve, reject) => {
       this.http.get(this.global.getServer() + '/singin')
     });
