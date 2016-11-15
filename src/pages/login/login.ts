@@ -4,7 +4,8 @@ import { LoginSvc } from '../../providers/login-svc';
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from '../register/register';
 import { Errors } from '../../providers/errors';
-declare var alertify: any;
+import { Global } from '../../providers/global';
+declare var notie: any;
 
 /*
   Generated class for the Login page.
@@ -20,17 +21,17 @@ export class LoginPage {
 
   mobile = '';
   password = '';
-  constructor(public navCtrl: NavController, public loginSvc: LoginSvc, public loadingCtrl: LoadingController, public err: Errors) {
+  constructor(public navCtrl: NavController, public loginSvc: LoginSvc, public loadingCtrl: LoadingController, public err: Errors, public global: Global) {
 
   }
 
   login() {
     if (this.mobile == '') {
-      alertify.error(this.err.MOBILE_EMPTY);
+      notie.alert('error',this.err.MOBILE_EMPTY,this.global.NOTIFICATION_DURATION);
       return false;
     }
     if (this.password == '') {
-      alertify.error(this.err.PASSWORD_EMPTY);
+      notie.alert('error',this.err.PASSWORD_EMPTY,this.global.NOTIFICATION_DURATION);
       return false;
     }
     let loader = this.loadingCtrl.create({});
@@ -41,11 +42,11 @@ export class LoginPage {
         this.navCtrl.setRoot(TabsPage);
       }
       else {
-        alertify.error(this.err.LOGIN_FAILED);
+        notie.alert('error',this.err.LOGIN_FAILED,this.global.NOTIFICATION_DURATION);
       }
       console.log(data.result);
       //ok error
-    }).catch(err => alertify.error(err)).finally(() => loader.dismiss());
+    }).catch(err => notie.alert('error',err,this.global.NOTIFICATION_DURATION)).finally(() => loader.dismiss());
   }
 
   registerUser() {

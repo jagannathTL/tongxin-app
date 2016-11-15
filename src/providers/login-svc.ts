@@ -21,7 +21,7 @@ export class LoginSvc {
 
   login(mobile, password) {
     return new Promise((resolve, reject) => {
-      let deviceId = this.global.getDeviceId();
+      let deviceId = this.global.DEVICE_ID;
       if(deviceId == '')
       {
           throw new Error(this.err.NO_DEVICE_ID);
@@ -40,7 +40,7 @@ export class LoginSvc {
       params.set('password', password);
       params.set('token', deviceId);
       params.set('phoneType', phoneType);
-      this.http.get(this.global.getServer() + '/Handlers/LoginHandler.ashx', {
+      this.http.get(this.global.SERVER + '/Handlers/LoginHandler.ashx', {
         search: params
       }).map(res => res.json()).subscribe(data => {
         resolve(data);

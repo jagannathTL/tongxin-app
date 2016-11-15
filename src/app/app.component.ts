@@ -6,7 +6,6 @@ import { LoginPage } from '../pages/login/login';
 import { Push } from 'ionic-native';
 import { Global } from '../providers/global';
 import { LoginSvc } from '../providers/login-svc';
-declare var alertify: any;
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`
@@ -49,7 +48,7 @@ export class MyApp {
         //ios device id
         //console.log(data.registrationId);
         let deviceId = data.registrationId;
-        this.global.setDeviceId(deviceId);
+        this.global.DEVICE_ID = deviceId;
         //自动登陆，读取用户名和密码
         let secureStorage: SecureStorage = new SecureStorage();
         secureStorage.create('tongxin')
@@ -83,8 +82,5 @@ export class MyApp {
       })
 
     });
-
-    alertify.set('notifier','position', 'top-right');
-
   }
 }
