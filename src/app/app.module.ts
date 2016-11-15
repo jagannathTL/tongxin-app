@@ -10,6 +10,7 @@ import { PricePage } from '../pages/price/price';
 import { CirclePage } from '../pages/circle/circle';
 import { Global } from '../providers/global';
 import { LoginSvc } from '../providers/login-svc';
+import { RegisterPage } from '../pages/register/register';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LoginSvc } from '../providers/login-svc';
     FuturesPage,
     InboxPage,
     PricePage,
-    CirclePage
+    CirclePage,
+    RegisterPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -38,7 +40,8 @@ import { LoginSvc } from '../providers/login-svc';
     FuturesPage,
     InboxPage,
     PricePage,
-    CirclePage
+    CirclePage,
+    RegisterPage
   ],
   providers: [Global, LoginSvc]
 })
