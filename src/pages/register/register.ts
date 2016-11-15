@@ -26,24 +26,17 @@ export class RegisterPage {
   }
 
   registUser(){
-    var errMsg = "";
     if(this.registeredPhoneNo == "")
     {
-        errMsg = "手机号码不能为空";
-    }
 
-    if(_.isEmpty(errMsg) == false){
-        let toast = this.toast.create({
-          message: errMsg,
-          duration: 3000
-        });
-        toast.present();
     }
     else{
       let loading = this.loading.create({});
       loading.present();
       this.registerSvc.registerUser(this.registeredPhoneNo).then((data) => {
         //解析result
+        var result = data.result;
+        console.log(result);
         loading.dismiss();
       });
     }

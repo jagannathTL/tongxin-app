@@ -24,11 +24,11 @@ export class RegisterSvc {
   registerUser(mobile)
   {
     return new Promise((resolve, reject) => {
-    this.http.get(this.global.getServer() + "/Handlers/CustomerHandler.ashx?method=trial&mobile=" + mobile).map(res => res.json())
+    this.http.get(this.global.SERVER + "/Handlers/CustomerHandler.ashx?method=trial&mobile=" + mobile).map(res => res.json())
     .subscribe((data) => {
       resolve(data);
     }, err => {
-      
+
     });
   });
   }
