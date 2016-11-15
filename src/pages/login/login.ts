@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { LoginSvc } from '../../providers/login-svc';
 import { RegisterPage } from '../register/register';
 import { Errors } from '../../providers/errors';
+declare var alertify: any;
 
 /*
   Generated class for the Login page.
@@ -16,16 +17,36 @@ import { Errors } from '../../providers/errors';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public err: Errors) {
+  mobile = '';
+  password = '';
+  constructor(public navCtrl: NavController, public loginSvc: LoginSvc, public loadingCtrl: LoadingController, public err: Errors) {
 
   }
 
-  login(){
-
+  login() {
+    if (this.mobile == '') {
+      alertify.alert('Tongxin',this.err.MOBILE_EMPTY);
+      return false;
+    }
+    if (this.password == '') {
+      alertify.alert('Tongxin',this.err.PASSWORD_EMPTY);
+      return false;
+    }
+    let loader = this.loadingCtrl.create({});
+    loader.present();
+    this.loginSvc.login(this.mobile, this.password).then(data => {
+      if (data.result == 'ok') {
+        console.log('登录成功');
+      }
+      else {
+        alertify.alert('Tongxin',this.err.LOGIN_FAILED);
+      }
+      console.log(data.result);
+      //ok error
+    }).catch(err => alertify.alert('Tongxin',err)).finally(() => loader.dismiss());
   }
 
-  registerUser()
-  {
+  registerUser() {
     this.navCtrl.push(RegisterPage);
   }
 }

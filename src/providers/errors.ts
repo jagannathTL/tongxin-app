@@ -13,5 +13,6 @@ export class Errors {
 
   LOGIN_FAILED = '登录失败，请重试！';
   NO_DEVICE_ID = '获取deviceID失败！';
-  
+  MOBILE_EMPTY = '手机号不能为空';
+  PASSWORD_EMPTY = '密码不能为空';
 }
