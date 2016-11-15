@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Platform, NavController } from 'ionic-angular';
+import { InAppBrowser } from 'ionic-native';
 
 /*
   Generated class for the Futures page.
@@ -13,10 +14,15 @@ import { NavController } from 'ionic-angular';
 })
 export class FuturesPage {
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, public platform: Platform) {
+
+  }
 
   ionViewDidLoad() {
-    console.log('Hello FuturesPage Page');
+    this.platform.ready().then(() => {
+      let browser = new InAppBrowser('http://futures.shtx.com.cn/', '_system');
+      browser.show();
+    });
   }
 
 }
