@@ -6,6 +6,7 @@ import { LoginPage } from '../pages/login/login';
 import { Push } from 'ionic-native';
 import { Global } from '../providers/global';
 import { LoginSvc } from '../providers/login-svc';
+declare var alertify: any;
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`
@@ -82,5 +83,8 @@ export class MyApp {
       })
 
     });
+
+    alertify.set('notifier','position', 'top-right');
+
   }
 }
