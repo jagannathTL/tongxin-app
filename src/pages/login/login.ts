@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { LoginSvc } from '../../providers/login-svc';
+import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from '../register/register';
 import { Errors } from '../../providers/errors';
 declare var alertify: any;
@@ -25,11 +26,11 @@ export class LoginPage {
 
   login() {
     if (this.mobile == '') {
-      alertify.alert('Tongxin',this.err.MOBILE_EMPTY);
+      alertify.error(this.err.MOBILE_EMPTY);
       return false;
     }
     if (this.password == '') {
-      alertify.alert('Tongxin',this.err.PASSWORD_EMPTY);
+      alertify.error(this.err.PASSWORD_EMPTY);
       return false;
     }
     let loader = this.loadingCtrl.create({});
@@ -37,13 +38,14 @@ export class LoginPage {
     this.loginSvc.login(this.mobile, this.password).then(data => {
       if (data.result == 'ok') {
         console.log('登录成功');
+        this.navCtrl.setRoot(TabsPage);
       }
       else {
-        alertify.alert('Tongxin',this.err.LOGIN_FAILED);
+        alertify.error(this.err.LOGIN_FAILED);
       }
       console.log(data.result);
       //ok error
-    }).catch(err => alertify.alert('Tongxin',err)).finally(() => loader.dismiss());
+    }).catch(err => alertify.error(err)).finally(() => loader.dismiss());
   }
 
   registerUser() {
