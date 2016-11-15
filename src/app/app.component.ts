@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, NavController } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen, SecureStorage } from 'ionic-native';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
@@ -11,9 +11,9 @@ import { LoginSvc } from '../providers/login-svc';
   template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = LoginPage;
+  rootPage: any = LoginPage;
 
-  constructor(platform: Platform, public global: Global, public loginSvc: LoginSvc, public navCtrl: NavController) {
+  constructor(platform: Platform, public global: Global, public loginSvc: LoginSvc) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -54,7 +54,7 @@ export class MyApp {
                 //自动登录，如果成功setroot到tabs页面
                 this.loginSvc.login(mobile, password).then(data => {
                   if (data.result == 'ok'){
-                    this.navCtrl.setRoot(TabsPage);
+                    this.rootPage = TabsPage;
                   }
                 }).catch(error => {
                   console.log(error);

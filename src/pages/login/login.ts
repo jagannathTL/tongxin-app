@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LoginSvc } from '../../providers/login-svc';
 import { RegisterPage } from '../register/register';
+import { Errors } from '../../providers/errors';
 
 /*
   Generated class for the Login page.
@@ -15,7 +16,9 @@ import { RegisterPage } from '../register/register';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, public err: Errors) {
+
+  }
 
   login(){
 
