@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+declare const Swiper: any;
 
 /*
   Generated class for the Price page.
@@ -13,10 +14,15 @@ import { NavController } from 'ionic-angular';
 })
 export class PricePage {
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController) { }
 
   ionViewDidLoad() {
-    console.log('Hello PricePage Page');
+    var market = new Swiper('.market', {
+
+    });
+    var product = new Swiper('.product', {
+
+    });
   }
 
 }

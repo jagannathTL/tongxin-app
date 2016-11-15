@@ -11,7 +11,11 @@ import { CirclePage } from '../pages/circle/circle';
 import { Global } from '../providers/global';
 import { LoginSvc } from '../providers/login-svc';
 import { RegisterPage } from '../pages/register/register';
+<<<<<<< HEAD
 import { RegisterSvc } from '../providers/register-svc';
+=======
+import { Errors } from '../providers/errors';
+>>>>>>> origin/master
 
 @NgModule({
   declarations: [
@@ -44,6 +48,10 @@ import { RegisterSvc } from '../providers/register-svc';
     CirclePage,
     RegisterPage
   ],
+<<<<<<< HEAD
   providers: [Global, LoginSvc, RegisterSvc]
+=======
+  providers: [Global, LoginSvc, Errors]
+>>>>>>> origin/master
 })
 export class AppModule {}

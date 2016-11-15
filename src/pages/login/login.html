@@ -13,16 +13,16 @@
   <ion-list id="list">
     <ion-item>
       <i item-left class="fa fa-tablet" aria-hidden="true"></i>
-      <ion-input type="text" placeholder="手机号"></ion-input>
+      <ion-input type="text" placeholder="手机号" [(ngModel)]="mobile"></ion-input>
     </ion-item>
     <ion-item>
       <i item-left class="fa fa-key" aria-hidden="true"></i>
-      <ion-input type="password" placeholder="密码"></ion-input>
+      <ion-input type="password" placeholder="密码" [(ngModel)]="password"></ion-input>
     </ion-item>
   </ion-list>
 
   <div>
-    <button ion-button block click='login()'>登陆</button>
+    <button ion-button block (click)='login()'>登陆</button>
   </div>
 
   <ion-list no-lines>

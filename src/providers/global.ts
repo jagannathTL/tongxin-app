@@ -17,16 +17,22 @@ export class Global {
     console.log('Hello Global Provider');
   }
 
-  getServer(){
-    return 'http://api.shtx.com.cn';
-  }
+  // getServer(){
+  //   return 'http://api.shtx.com.cn';
+  // }
+  //
+  // setDeviceId(device){
+  //   this.deviceId = device;
+  // }
+  //
+  // getDeviceId(){
+  //   return this.deviceId;
+  // }
 
-  setDeviceId(device){
-    this.deviceId = device;
-  }
+  SERVER = 'http://api.shtx.com.cn';
 
-  getDeviceId(){
-    return this.deviceId;
-  }
+  DEVICE_ID = '';
+
+  NOTIFICATION_DURATION = 2;
 
 }
