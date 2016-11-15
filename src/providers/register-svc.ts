@@ -28,7 +28,7 @@ export class RegisterSvc {
     .subscribe((data) => {
       resolve(data);
     }, err => {
-
+      reject();
     });
   });
   }
