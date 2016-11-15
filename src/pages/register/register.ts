@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, ToastController, LoadingController } from 'ionic-angular';
 import { Http }  from '@angular/http';
 import * as _ from 'lodash';
+import { RegisterSvc } from '../../providers/register-svc';
 /*
   Generated class for the Register page.
 
@@ -16,7 +17,7 @@ export class RegisterPage {
 
   registeredPhoneNo: any;
 
-  constructor(public navCtrl: NavController, public toast: ToastController, public loading: LoadingController, public http: Http) {
+  constructor(public navCtrl: NavController, public toast: ToastController, public loading: LoadingController, public http: Http, public registerSvc: RegisterSvc) {
     this.registeredPhoneNo = "";
   }
 
@@ -40,8 +41,11 @@ export class RegisterPage {
     }
     else{
       let loading = this.loading.create({});
-        loading.present();
-        // this.http.post()
+      loading.present();
+      this.registerSvc.registerUser(this.registeredPhoneNo).then((data) => {
+        //解析result
+        loading.dismiss();
+      });
     }
   }
 
