@@ -30,6 +30,20 @@ export class MyApp {
         },
         windows: {}
       });
+
+      push.on('notification', (data) => {
+        console.log(data.message);
+        console.log(data.title);
+        console.log(data.count);
+        console.log(data.sound);
+        console.log(data.image);
+        console.log(data.additionalData);
+      });
+
+      push.on('error', (e) => {
+        console.log(e.message);
+      });
+
       push.on('registration', (data) => {
         //ios device id
         //console.log(data.registrationId);
@@ -53,7 +67,7 @@ export class MyApp {
                 let password = data;
                 //自动登录，如果成功setroot到tabs页面
                 this.loginSvc.login(mobile, password).then(data => {
-                  if (data.result == 'ok'){
+                  if (data.result == 'ok') {
                     this.rootPage = TabsPage;
                   }
                 }).catch(error => {
