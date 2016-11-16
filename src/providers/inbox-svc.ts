@@ -29,9 +29,14 @@ export class InboxSvc {
     });
   }
 
-  loadMoreItems() {
+  loadMoreItems(mobile, date) {
     return new Promise((resolve, reject) => {
-
+      this.http.get(this.global.SERVER + '/handlers/InboxMsgHandler.ashx?method=getMsgByAction&actionStr=pullUp&mobile=' + mobile + '&dateStr=' + date).map(res => res.json()).subscribe(data => {
+        resolve(data);
+      }, error => {
+        console.log(error);
+        throw new Error(error);
+      });
     });
   }
 
