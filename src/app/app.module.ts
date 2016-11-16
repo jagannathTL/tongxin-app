@@ -8,10 +8,12 @@ import { FuturesPage } from '../pages/futures/futures';
 import { InboxPage } from '../pages/inbox/inbox';
 import { PricePage } from '../pages/price/price';
 import { CirclePage } from '../pages/circle/circle';
+import { ForgetPasswordPage } from '../pages/forget-password/forget-password';
 import { Global } from '../providers/global';
 import { LoginSvc } from '../providers/login-svc';
 import { RegisterPage } from '../pages/register/register';
 import { RegisterSvc } from '../providers/register-svc';
+import { ForgetPasswordSvc } from '../providers/forget-password-svc';
 import { Errors } from '../providers/errors';
 
 @NgModule({
@@ -24,7 +26,8 @@ import { Errors } from '../providers/errors';
     InboxPage,
     PricePage,
     CirclePage,
-    RegisterPage
+    RegisterPage,
+    ForgetPasswordPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -43,8 +46,9 @@ import { Errors } from '../providers/errors';
     InboxPage,
     PricePage,
     CirclePage,
-    RegisterPage
+    RegisterPage,
+    ForgetPasswordPage
   ],
-  providers: [Global, LoginSvc,RegisterSvc, Errors]
+  providers: [Global, LoginSvc,RegisterSvc, Errors, ForgetPasswordSvc]
 })
 export class AppModule {}

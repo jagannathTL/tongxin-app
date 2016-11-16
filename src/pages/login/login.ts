@@ -3,9 +3,11 @@ import { NavController, LoadingController } from 'ionic-angular';
 import { LoginSvc } from '../../providers/login-svc';
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from '../register/register';
+import { ForgetPasswordPage } from '../forget-password/forget-password';
 import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
 declare var notie: any;
+import validator from 'validator';
 
 /*
   Generated class for the Login page.
@@ -26,11 +28,16 @@ export class LoginPage {
   }
 
   login() {
-    if (this.mobile == '') {
+    if (validator.isEmpty(this.mobile.trim())) {
       notie.alert('error',this.err.MOBILE_EMPTY,this.global.NOTIFICATION_DURATION);
       return false;
     }
-    if (this.password == '') {
+    if(!validator.isMobilePhone(this.mobile.trim(), 'zh-CN'))
+    {
+      notie.alert('error',this.err.MOBILE_ERROR,this.global.NOTIFICATION_DURATION);
+      return false;
+    }
+    if (validator.isEmpty(this.password.trim())) {
       notie.alert('error',this.err.PASSWORD_EMPTY,this.global.NOTIFICATION_DURATION);
       return false;
     }
@@ -38,18 +45,19 @@ export class LoginPage {
     loader.present();
     this.loginSvc.login(this.mobile, this.password).then(data => {
       if (data.result == 'ok') {
-        console.log('登录成功');
         this.navCtrl.setRoot(TabsPage);
       }
       else {
         notie.alert('error',this.err.LOGIN_FAILED,this.global.NOTIFICATION_DURATION);
       }
-      console.log(data.result);
-      //ok error
     }).catch(err => notie.alert('error',err,this.global.NOTIFICATION_DURATION)).finally(() => loader.dismiss());
   }
 
   registerUser() {
     this.navCtrl.push(RegisterPage);
+  }
+
+  forgetPassword(){
+    this.navCtrl.push(ForgetPasswordPage);
   }
 }
