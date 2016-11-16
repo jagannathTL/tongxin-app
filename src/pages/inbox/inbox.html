@@ -15,4 +15,14 @@
 
 <ion-content padding>
 
+  <ion-card *ngFor="let i of items">
+    <ion-card-content>
+        {{i.msg}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>

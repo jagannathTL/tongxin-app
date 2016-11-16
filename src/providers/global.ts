@@ -11,8 +11,6 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class Global {
 
-  deviceId = '';
-
   constructor(public http: Http) {
     console.log('Hello Global Provider');
   }
@@ -34,5 +32,7 @@ export class Global {
   DEVICE_ID = '';
 
   NOTIFICATION_DURATION = 2;
+
+  MOBILE = '';
 
 }

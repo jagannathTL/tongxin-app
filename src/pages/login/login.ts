@@ -65,6 +65,7 @@ export class LoginPage {
           },
           error => console.log(error)
           );
+        this.global.MOBILE = this.mobile;
         this.navCtrl.setRoot(TabsPage);
       }
       else {

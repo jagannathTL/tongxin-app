@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { InboxSvc } from '../../providers/inbox-svc';
+import { Global } from '../../providers/global';
+import { Errors } from '../../providers/errors';
+declare const notie: any;
 
 /*
   Generated class for the Inbox page.
@@ -13,10 +17,19 @@ import { NavController } from 'ionic-angular';
 })
 export class InboxPage {
 
-  constructor(public navCtrl: NavController) {}
+  items = [{msg: 'eeeee'}, {msg: 'hrllo'}];
 
-  ionViewDidLoad() {
-    console.log('Hello InboxPage Page');
+  constructor(public navCtrl: NavController, public inboxSvc: InboxSvc, public global: Global, public errors: Errors) {
+    inboxSvc.loadItems('15802161396').then(data => {
+      this.items = data;
+      console.log(this.items);
+    }).catch(error => {
+      notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
+    });
+  }
+
+  doInfinite(infiniteScroll) {
+
   }
 
 }
