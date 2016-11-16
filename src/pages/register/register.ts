@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
-import { Http }  from '@angular/http';
 import { RegisterSvc } from '../../providers/register-svc';
 import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
@@ -20,7 +19,7 @@ export class RegisterPage {
 
   registeredPhoneNo = '';
 
-  constructor(public navCtrl: NavController, public loading: LoadingController, public http: Http, public registerSvc: RegisterSvc, public err: Errors, public global: Global) {
+  constructor(public navCtrl: NavController, public loading: LoadingController, public registerSvc: RegisterSvc, public err: Errors, public global: Global) {
 
   }
 

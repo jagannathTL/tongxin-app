@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http, URLSearchParams } from '@angular/http';
 import * as Promise from 'promise';
 import { Global } from './global';
 import { Errors } from './errors';
@@ -19,17 +19,17 @@ export class ForgetPasswordSvc {
 
   sendPassword(mobile: string) {
     return new Promise((resolve, reject) => {
-      var data = JSON.stringify({
-        method: 'send',
-        mobile: mobile
+      let params: URLSearchParams = new URLSearchParams();
+      params.set('method', 'send');
+      params.set('mobile', mobile);
+
+      this.http.get(this.global.SERVER + '/Handlers/CustomerHandler.ashx', {
+        search: params
+      }).map(res => res.json()).subscribe(data => {
+        resolve(data);
+      }, error => {
+        throw new Error(error);
       });
-      // this.http.post(this.global.SERVER + '/Handlers/CustomerHandler.ashx', data)
-      this.http.post('http://172.20.70.209:3838/Handlers/CustomerHandler.ashx', data)
-        .map(res => res.json()).subscribe(data => {
-          resolve(data);
-        }, error => {
-          throw new Error(error);
-        });
     });
   }
 
