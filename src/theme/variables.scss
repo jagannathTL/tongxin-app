@@ -50,7 +50,7 @@ $colors: (
 // --------------------------------------------------
 // Windows only Sass variables can go here
 
-
+$tabs-ios-tab-color-active: map-get($colors, navbar);
 
 
 // App Theme

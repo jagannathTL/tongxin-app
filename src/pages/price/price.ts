@@ -34,7 +34,7 @@ export class PricePage {
     this.priceSvc.getMarkets('13817752189',this.selectionData).then((data: any) => {
       this.marketS =  new Swiper('.market', {
           spaceBetween: 10,
-          centeredSlides: true,
+          centeredSlides: false,
           slidesPerView: 'auto',
           freeMode: true
           // touchRatio: 0.2
