@@ -31,17 +31,17 @@ export class PricePage {
   ionViewDidLoad() {
     let loading = this.loading.create({});
     loading.present();
-    this.priceSvc.getMarkets('13817752189',this.selectionData).then((data: any) => {
-      this.marketS =  new Swiper('.market', {
-          spaceBetween: 10,
-          centeredSlides: false,
-          slidesPerView: 'auto',
-          freeMode: true
-          // touchRatio: 0.2
-        });
-     this.productS = new Swiper('.product', {
-       onSlideChangeStart: this.slideChange
-        });
+    this.priceSvc.getMarkets('13817752189', this.selectionData).then((data: any) => {
+      this.marketS = new Swiper('.market', {
+        spaceBetween: 10,
+        centeredSlides: false,
+        slidesPerView: 'auto',
+        freeMode: true
+        // touchRatio: 0.2
+      });
+      this.productS = new Swiper('.product', {
+        onSlideChangeStart: this.slideChange
+      });
 
       this.productS.params.control = this.marketS;
       this.slideToPro(0);//加载页面默认显示第一个 更改第一个样式
@@ -49,24 +49,23 @@ export class PricePage {
     });
   }
 
-  slideChange(swiper)
-  {
+  slideChange(swiper) {
     var index = swiper.activeIndex;
     console.log(index);
     var divs = $(".market .swiper-wrapper .swiper-slide");
-    divs.css("color","#000").css("border-bottom-color","#d3d3d3");
-    divs.eq(index).css("color","red").css("border-bottom","2px solid red");
+    divs.css("color", 'white').css("border-bottom-width", '0px');
+    divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
-  slideToPro(index){
+  slideToPro(index) {
     this.marketS.slideTo(index);
     this.productS.slideTo(index, 500, false);
     var divs = $(".market .swiper-wrapper .swiper-slide");
-    divs.css("color","#000").css("border-bottom-color","#d3d3d3");
-    divs.eq(index).css("color","red").css("border-bottom","2px solid red");
+    divs.css("color", 'white').css("border-bottom-width", '0px');
+    divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
 
   }
 

@@ -18,4 +18,12 @@ page-price {
       padding: 10px;
       // opacity: 0.4;
   }
+
+  .toolbar-background-ios{
+    border-bottom-width: 0;
+  }
+
+  .market{
+    background-color: map-get($colors, navbar);
+  }
 }
