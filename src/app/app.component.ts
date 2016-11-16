@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, NavController } from 'ionic-angular';
 import { StatusBar, Splashscreen, SecureStorage } from 'ionic-native';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
@@ -8,9 +8,10 @@ import { Global } from '../providers/global';
 import { LoginSvc } from '../providers/login-svc';
 
 @Component({
-  template: `<ion-nav [root]="rootPage"></ion-nav>`
+  template: `<ion-nav #myNav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
+  @ViewChild('myNav') nav: NavController
   rootPage: any;
 
   constructor(platform: Platform, public global: Global, public loginSvc: LoginSvc) {
@@ -68,22 +69,20 @@ export class MyApp {
                 //自动登录，如果成功setroot到tabs页面
                 this.loginSvc.login(mobile, password).then(data => {
                   if (data.result == 'ok') {
-                    console.log(mobile);
-                    console.log(password);
-                    this.rootPage = TabsPage;
+                    this.nav.setRoot(TabsPage);
                   }
                 }).catch(error => {
-                  this.rootPage = LoginPage;
+                  this.nav.setRoot(LoginPage);
                   console.log(error);
                 });
               },
               error => {
-                this.rootPage = LoginPage;
+                this.nav.setRoot(LoginPage);
                 console.log(error);
               });
           },
           error => {
-            this.rootPage = LoginPage;
+            this.nav.setRoot(LoginPage);
             console.log(error);
           });
       })
