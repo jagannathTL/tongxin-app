@@ -49,6 +49,7 @@ export class MyApp {
         //console.log(data.registrationId);
         let deviceId = data.registrationId;
         this.global.DEVICE_ID = deviceId;
+        console.log('deviceId='+deviceId);
         //自动登陆，读取用户名和密码
         let secureStorage: SecureStorage = new SecureStorage();
         secureStorage.create('tongxin')
