@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color='navbar'>
     <ion-title>价格</ion-title>
   </ion-navbar>
 
@@ -14,19 +14,23 @@
 
 
 <ion-content>
-    <div class="swiper-container market" style="background-color: #d3d3d3">
+    <div class="swiper-container gallery-thumbs market">
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
         <!-- Slides -->
-        <div class="swiper-slide" *ngFor="let selection of selectionData">{{selection}}</div>
+        <div class="swiper-slide" *ngFor="let selection of selectionData" (click)="slideToPro(selection.index)">{{selection.name}}</div>
       </div>
     </div>
 
-    <div class="swiper-container product" style="background-color: #d3d3d3">
+    <div class="swiper-container product">
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
         <!-- Slides -->
-        <div class="swiper-slide" *ngFor="let market of markets">{{market.marketName}}</div>
+        <div class="swiper-slide" *ngFor="let s of selectionData">
+          <ion-list>
+            <ion-item *ngFor="let m of s.markets">{{m.marketName}}</ion-item>
+          </ion-list>
+        </div>
       </div>
     </div>
 </ion-content>

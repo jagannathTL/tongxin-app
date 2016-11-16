@@ -16,10 +16,25 @@ export class PriceSvc {
     console.log('Hello PriceSvc Provider');
   }
 
-  getMarkets(mobile)
+  getMarkets(mobile,sData)
   {
     return new Promise((resolve,reject) => {
       this.http.get(this.global.SERVER + "/Handlers/XHMarketHandler.ashx?method=getmarkets&mobile="+mobile).map(res => res.json()).subscribe(data => {
+        var index = 0;
+        data.forEach((r: any) => {
+          if(r.inBucket == "true")
+          {
+            if(r.markets != null)
+            {
+              var markets = [];
+              r.markets.forEach((m: any) => {
+                markets.push({name: r.name, marketId: m.id, marketName: m.name});
+              });
+            }
+            sData.push({name:r.name,index:index,markets:markets});
+            index = index + 1;
+          }
+        });
         resolve(data);
       },err => {
 

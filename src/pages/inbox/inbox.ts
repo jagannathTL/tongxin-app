@@ -4,6 +4,7 @@ import { InboxSvc } from '../../providers/inbox-svc';
 import { Global } from '../../providers/global';
 import { Errors } from '../../providers/errors';
 declare const notie: any;
+import * as _ from 'lodash';
 
 /*
   Generated class for the Inbox page.
@@ -23,10 +24,10 @@ export class InboxPage {
     public global: Global, public errors: Errors, public loadingCtrl: LoadingController) {
       let load = this.loadingCtrl.create();
       load.present();
-    inboxSvc.loadItems('13524259846').then(data => {
+    inboxSvc.loadItems('15802161396').then(data => {
       for(let i = 0;i<data.length;i++)
       {
-        data[i].date = data[i].date.substr(5,14);
+        data[i].dateStr = data[i].date.substr(5,14);
       }
       this.items = data;
     }).catch(error => {
@@ -37,7 +38,14 @@ export class InboxPage {
   }
 
   doInfinite(infiniteScroll) {
-
+    this.inboxSvc.loadMoreItems('15802161396', _.last(this.items).date).then(data => {
+      console.log(data);
+      this.items = _.concat(this.items, data);
+    }).catch(error => {
+      notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
+    }).finally(() => {
+      infiniteScroll.complete();
+    });
   }
 
 }

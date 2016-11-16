@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
   <ion-card *ngFor="let i of items">
     <ion-card-content>
@@ -21,7 +21,7 @@
     </ion-card-content>
     <ion-row>
       <ion-col padding>
-        {{i.date}}
+        {{i.dateStr}}
         <div *ngIf="i.url" style="float:right;margin-right:5%;">阅读全文&nbsp;<i class="fa fa-angle-right"></i></div>
       </ion-col>
     </ion-row>
