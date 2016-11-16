@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { Http }  from '@angular/http';
-import * as _ from 'lodash';
 import { RegisterSvc } from '../../providers/register-svc';
 import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
 declare var notie: any;
+import validator from 'validator';
 /*
   Generated class for the Register page.
 
@@ -18,41 +18,34 @@ declare var notie: any;
 })
 export class RegisterPage {
 
-  registeredPhoneNo: any;
+  registeredPhoneNo = '';
 
   constructor(public navCtrl: NavController, public loading: LoadingController, public http: Http, public registerSvc: RegisterSvc, public err: Errors, public global: Global) {
-    this.registeredPhoneNo = "";
+
   }
 
-  ionViewDidLoad() {
-    console.log('Hello RegisterPage Page');
-  }
-
-  registUser(){
-    if(this.registeredPhoneNo == "")
-    {
-      notie.alert('error',this.err.MOBILE_EMPTY,this.global.NOTIFICATION_DURATION);
+  registUser() {
+    if (validator.isEmpty(this.registeredPhoneNo.trim())) {
+      notie.alert('error', this.err.MOBILE_EMPTY, this.global.NOTIFICATION_DURATION);
       return false;
     }
-    else{
-      let loading = this.loading.create({});
-      loading.present();
-      this.registerSvc.registerUser(this.registeredPhoneNo).then((data) => {
-        //解析result
-        var result = data.result;
-        loading.dismiss().then(() => {
-          if(result == "ok")
-          {
-            notie.alert('success', this.err.REGISTER_SUC,this.global.NOTIFICATION_DURATION);
-            this.navCtrl.pop();
-          }
-          else{
-            notie.alert('error',result,this.global.NOTIFICATION_DURATION);
-          }
-
-        });
-      });
+    if (!validator.isMobilePhone(this.registeredPhoneNo.trim(), 'zh-CN')) {
+      notie.alert('error', this.err.MOBILE_ERROR, this.global.NOTIFICATION_DURATION);
+      return false;
     }
+    let loading = this.loading.create({});
+    loading.present();
+    this.registerSvc.registerUser(this.registeredPhoneNo).then((data) => {
+      //解析result
+      var result = data.result;
+      loading.dismiss().then(() => {
+        if (result == "ok") {
+          notie.alert('success', this.err.REGISTER_SUC, this.global.NOTIFICATION_DURATION);
+        }
+        else {
+          notie.alert('error', result, this.global.NOTIFICATION_DURATION);
+        }
+      });
+    });
   }
-
 }
