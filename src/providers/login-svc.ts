@@ -26,13 +26,13 @@ export class LoginSvc {
       {
           throw new Error(this.err.NO_DEVICE_ID);
       }
-      let phoneType = '1';
+      let phoneType = '1';//ios=0;android=1;
       if (this.platform.is('ios')) {
-        phoneType = '1';
+        phoneType = '0';
       }
       else
       {
-        phoneType = '2';
+        phoneType = '1';
       }
       let params: URLSearchParams = new URLSearchParams();
       params.set('method','signin');

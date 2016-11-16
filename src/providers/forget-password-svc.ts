@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import * as Promise from 'promise';
 import { Global } from './global';
 import { Errors } from './errors';
@@ -17,15 +17,22 @@ export class ForgetPasswordSvc {
     console.log('Hello ForgetPasswordSvc Provider');
   }
 
+  jsonToURLEncoded(jsonString){
+    return Object.keys(jsonString).map(function(key){
+      return encodeURIComponent(key) + '=' + encodeURIComponent(jsonString[key]);
+    }).join('&');
+  }
+
   sendPassword(mobile: string) {
     return new Promise((resolve, reject) => {
-      let params: URLSearchParams = new URLSearchParams();
-      params.set('method', 'send');
-      params.set('mobile', mobile);
-
-      this.http.get(this.global.SERVER + '/Handlers/CustomerHandler.ashx', {
-        search: params
-      }).map(res => res.json()).subscribe(data => {
+      let body = this.jsonToURLEncoded({ method: 'send', mobile: mobile });
+      let headers = new Headers({
+  			'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+  		});
+  		let options = new RequestOptions({
+  			headers: headers
+  		});
+      this.http.post(this.global.SERVER + '/Handlers/CustomerHandler.ashx',body,options).map(res => res.json()).subscribe(data => {
         resolve(data);
       }, error => {
         throw new Error(error);
