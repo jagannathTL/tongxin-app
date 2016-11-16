@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { Http }  from '@angular/http';
 import * as _ from 'lodash';
 import { RegisterSvc } from '../../providers/register-svc';
@@ -20,7 +20,7 @@ export class RegisterPage {
 
   registeredPhoneNo: any;
 
-  constructor(public navCtrl: NavController, public toast: ToastController, public loading: LoadingController, public http: Http, public registerSvc: RegisterSvc, public err: Errors, public global: Global) {
+  constructor(public navCtrl: NavController, public loading: LoadingController, public http: Http, public registerSvc: RegisterSvc, public err: Errors, public global: Global) {
     this.registeredPhoneNo = "";
   }
 
@@ -44,6 +44,7 @@ export class RegisterPage {
           if(result == "ok")
           {
             notie.alert('success', this.err.REGISTER_SUC,this.global.NOTIFICATION_DURATION);
+            this.navCtrl.pop();
           }
           else{
             notie.alert('error',result,this.global.NOTIFICATION_DURATION);
