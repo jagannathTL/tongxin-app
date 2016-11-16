@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController } from 'ionic-angular';
-import { StatusBar, Splashscreen, SecureStorage } from 'ionic-native';
+import { StatusBar, SecureStorage } from 'ionic-native';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { Push } from 'ionic-native';
@@ -12,14 +12,13 @@ import { LoginSvc } from '../providers/login-svc';
 })
 export class MyApp {
   @ViewChild('myNav') nav: NavController
-  rootPage: any;
+  rootPage: any = TabsPage;
 
   constructor(platform: Platform, public global: Global, public loginSvc: LoginSvc) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
-      Splashscreen.hide();
       let push = Push.init({
         android: {
           senderID: "021191"
