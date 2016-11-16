@@ -27,7 +27,8 @@ export class Global {
   //   return this.deviceId;
   // }
 
-  SERVER = 'http://api.shtx.com.cn';
+  //SERVER = 'http://api.shtx.com.cn';
+  SERVER = 'http://172.20.67.133:83';
 
   DEVICE_ID = '';
 
