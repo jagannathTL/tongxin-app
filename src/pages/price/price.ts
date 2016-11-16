@@ -5,7 +5,7 @@ import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
 declare const Swiper: any;
 declare var notie: any;
-
+declare var $: any;
 /*
   Generated class for the Price page.
 
@@ -21,79 +21,53 @@ export class PricePage {
   outBucket: any = [];
   selectionData: any = [];
   markets: any = [];
+  bindMarkets: any = [];
+  marketS: any;
+  productS: any;
   constructor(public navCtrl: NavController, public err: Errors, public global: Global, public priceSvc: PriceSvc, public loading: LoadingController) {
 
   }
 
   ionViewDidLoad() {
-
     let loading = this.loading.create({});
     loading.present();
-    this.priceSvc.getMarkets('13817752189').finally(()=>{
-      var market = new Swiper('.market', {
+    this.priceSvc.getMarkets('13817752189',this.selectionData).then((data: any) => {
+      this.marketS =  new Swiper('.market', {
+          spaceBetween: 10,
+          centeredSlides: true,
+          slidesPerView: 'auto',
+          freeMode: true
+          // touchRatio: 0.2
+        });
+     this.productS = new Swiper('.product', {
+       onSlideChangeStart: this.slideChange
+        });
 
-      });
-      var product = new Swiper('.product', {
-
-      });
+      this.productS.params.control = this.marketS;
+      this.slideToPro(0);//加载页面默认显示第一个 更改第一个样式
       loading.dismiss();
-    }).then((data: any) => {
-      // console.log(data);
-      data.forEach((r: any) => {
-        if(r.inBucket == "true")
-        {
-          this.inBucket.push({id: r.id, name:r.name});
-          this.selectionData.push(r.name);
-        }
-        else{
-          this.outBucket.push({id: r.id, name: r.name});
-        }
-        if(r.markets != null)
-        {
-          r.markets.forEach((m: any) => {
-            this.markets.push({name: r.name, marketId: m.id, marketName: m.name});
-          });
-        }
-      });
     });
-    // var market = new Swiper('.market', {
-    //
-    // });
-    // var product = new Swiper('.product', {
-    //
-    // });
+  }
+
+  slideChange(swiper)
+  {
+    var index = swiper.activeIndex;
+    console.log(index);
+    var divs = $(".market .swiper-wrapper .swiper-slide");
+    divs.css("color","#000").css("border-bottom-color","#d3d3d3");
+    divs.eq(index).css("color","red").css("border-bottom","2px solid red");
+  }
+
+  slideToPro(index){
+    this.marketS.slideTo(index);
+    this.productS.slideTo(index, 500, false);
+    var divs = $(".market .swiper-wrapper .swiper-slide");
+    divs.css("color","#000").css("border-bottom-color","#d3d3d3");
+    divs.eq(index).css("color","red").css("border-bottom","2px solid red");
   }
 
   ionViewWillEnter(){
-    // let loading = this.loading.create({});
-    // loading.present();
-    // this.priceSvc.getMarkets('13817752189').finally(()=>{
-    //   var market = new Swiper('.market', {
-    //
-    //   });
-    //   var product = new Swiper('.product', {
-    //
-    //   });
-    //   loading.dismiss();
-    // }).then((data: any) => {
-    //   // console.log(data);
-    //   data.forEach((r: any) => {
-    //     if(r.inBucket == "true")
-    //     {
-    //       this.inBucket.push({id: r.id, name:r.name});
-    //       this.selectionData.push(r.name);
-    //     }
-    //     else{
-    //       this.outBucket.push({id: r.id, name: r.name});
-    //     }
-    //     if(r.markets != null)
-    //     {
-    //       r.markets.forEach((m: any) => {
-    //         this.markets.push({name: r.name, marketId: m.id, marketName: m.name});
-    //       });
-    //     }
-    //   });
-    // });
+
   }
 
 }

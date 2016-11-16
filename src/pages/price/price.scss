@@ -1,3 +1,21 @@
 page-price {
+  .swiper-container{
+    height:auto;
+    width: 100%;
+  }
+  ion-list{
+    width:100%;
+  }
 
+  .gallery-thumbs {
+    // height: 20%;
+    box-sizing: border-box;
+    // padding: 10px 0;
+  }
+  .gallery-thumbs .swiper-slide {
+      width: auto;
+      height: 100%;
+      padding: 10px;
+      // opacity: 0.4;
+  }
 }
