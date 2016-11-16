@@ -15,4 +15,5 @@ export class Errors {
   MOBILE_EMPTY = '手机号不能为空';
   PASSWORD_EMPTY = '密码不能为空';
   REGISTER_SUC = '注册成功';
+  MOBILE_ERROR = '手机号不正确';
 }

@@ -13,7 +13,7 @@
   <ion-list id="list">
     <ion-item>
       <i item-left class="fa fa-tablet" aria-hidden="true"></i>
-      <ion-input type="text" placeholder="手机号" [(ngModel)]="mobile"></ion-input>
+      <ion-input type="tel" placeholder="手机号" [(ngModel)]="mobile"></ion-input>
     </ion-item>
     <ion-item>
       <i item-left class="fa fa-key" aria-hidden="true"></i>
@@ -27,7 +27,7 @@
 
   <ion-list no-lines>
     <ion-item id='item' style="background-color: transparent">
-      <button ion-button clear item-left fixed color='light'>忘记密码？</button>
+      <button ion-button clear item-left fixed color='light' (click)="forgetPassword()">忘记密码？</button>
       <button ion-button clear item-right fixed color='light' (click)="registerUser()">注册用户</button>
     </ion-item>
   </ion-list>
