@@ -55,8 +55,9 @@ export class MyApp {
         secureStorage.create('tongxin')
           .then(
           () => console.log('Storage is ready!'),
-          error => console.log(error)
-          );
+          error => {
+            this.nav.setRoot(LoginPage);
+          });
 
         secureStorage.get('mobile')
           .then(
