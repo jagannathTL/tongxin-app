@@ -11,7 +11,7 @@ import { LoginSvc } from '../providers/login-svc';
   template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage: any = LoginPage;
+  rootPage: any;
 
   constructor(platform: Platform, public global: Global, public loginSvc: LoginSvc) {
     platform.ready().then(() => {
@@ -68,19 +68,25 @@ export class MyApp {
                 //自动登录，如果成功setroot到tabs页面
                 this.loginSvc.login(mobile, password).then(data => {
                   if (data.result == 'ok') {
+                    console.log(mobile);
+                    console.log(password);
                     this.rootPage = TabsPage;
                   }
                 }).catch(error => {
+                  this.rootPage = LoginPage;
                   console.log(error);
                 });
               },
-              error => console.log(error)
-              );
+              error => {
+                this.rootPage = LoginPage;
+                console.log(error);
+              });
           },
-          error => console.log(error)
-          );
+          error => {
+            this.rootPage = LoginPage;
+            console.log(error);
+          });
       })
-
     });
   }
 }
