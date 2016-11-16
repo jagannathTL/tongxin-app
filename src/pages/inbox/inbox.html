@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color='navbar'>
     <ion-title>信箱</ion-title>
   </ion-navbar>
 
@@ -17,8 +17,13 @@
 
   <ion-card *ngFor="let i of items">
     <ion-card-content>
-        {{i.msg}}
+      {{i.msg}}
     </ion-card-content>
+    <ion-row>
+      <ion-col>
+        {{i.date}}
+      </ion-col>
+    </ion-row>
   </ion-card>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">

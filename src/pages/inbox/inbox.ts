@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { InboxSvc } from '../../providers/inbox-svc';
 import { Global } from '../../providers/global';
 import { Errors } from '../../providers/errors';
@@ -17,14 +17,18 @@ declare const notie: any;
 })
 export class InboxPage {
 
-  items = [{msg: 'eeeee'}, {msg: 'hrllo'}];
+  items = [];
 
-  constructor(public navCtrl: NavController, public inboxSvc: InboxSvc, public global: Global, public errors: Errors) {
+  constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
+    public global: Global, public errors: Errors, public loadingCtrl: LoadingController) {
+      let load = this.loadingCtrl.create();
+      load.present();
     inboxSvc.loadItems('15802161396').then(data => {
       this.items = data;
-      console.log(this.items);
     }).catch(error => {
       notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
+    }).done(() => {
+      load.dismiss();
     });
   }
 
