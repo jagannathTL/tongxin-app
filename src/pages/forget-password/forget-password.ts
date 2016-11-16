@@ -55,7 +55,9 @@ export class ForgetPasswordPage {
     clocky.start();
 
     this.forgetPasswordSvc.sendPassword(this.sendMobile.trim()).then((data)=>{
-      
+
+    }).catch((err)=>{
+
     });
   }
 

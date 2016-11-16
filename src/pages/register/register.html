@@ -9,17 +9,15 @@
   <ion-navbar>
     <ion-title>用户注册</ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
-<ion-content padding>
-  <ion-list>
+<ion-content style="background-image: url('assets/background.png'); background-size: 100% 100%;">
+  <ion-list style="padding-top: 45%">
     <ion-item>
-      <ion-input type="tel" placeholder='必填：手机号码'  [(ngModel)]='registeredPhoneNo'></ion-input>
+      <i item-left class="fa fa-tablet" aria-hidden="true"></i>
+      <ion-input type="tel" placeholder='手机号码'  [(ngModel)]='registeredPhoneNo'></ion-input>
     </ion-item>
   </ion-list>
-  <div padding>
-        <button ion-button block outline padding (click)="registUser()">注册</button>
+  <div>
+    <button ion-button block (click)="registUser()">注册</button>
   </div>
 </ion-content>

@@ -13,6 +13,7 @@ import { Global } from '../providers/global';
 import { LoginSvc } from '../providers/login-svc';
 import { RegisterPage } from '../pages/register/register';
 import { RegisterSvc } from '../providers/register-svc';
+import { PriceSvc } from '../providers/price-svc';
 import { ForgetPasswordSvc } from '../providers/forget-password-svc';
 import { Errors } from '../providers/errors';
 
@@ -49,6 +50,6 @@ import { Errors } from '../providers/errors';
     RegisterPage,
     ForgetPasswordPage
   ],
-  providers: [Global, LoginSvc,RegisterSvc, Errors, ForgetPasswordSvc]
+  providers: [Global, LoginSvc,RegisterSvc, PriceSvc,Errors, ForgetPasswordSvc]
 })
 export class AppModule {}
