@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { SecureStorage } from 'ionic-native';
+import { LoginPage } from '../login/login';
+declare const notie: any;
+import { Global } from '../../providers/global';
+import { Errors } from '../../providers/errors';
 
 /*
   Generated class for the Info page.
@@ -13,10 +18,28 @@ import { NavController } from 'ionic-angular';
 })
 export class InfoPage {
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, public errors: Errors, public global: Global) { }
 
-  ionViewDidLoad() {
-    console.log('Hello InfoPage Page');
+  logout() {
+    let secureStorage: SecureStorage = new SecureStorage();
+    secureStorage.create('tongxin')
+      .then(
+      () => {
+        secureStorage.remove('password')
+          .then(
+          data => {
+            this.navCtrl.push(LoginPage);
+          },
+          error => {
+            notie.alert('error', this.errors.LOGOUT_FAILED, this.global.NOTIFICATION_DURATION);
+            console.log(error)
+          }
+          );
+      },
+      error => {
+        notie.alert('error', this.errors.LOGOUT_FAILED, this.global.NOTIFICATION_DURATION);
+        console.log(error)
+      });
   }
 
 }
