@@ -17,6 +17,7 @@ import { PriceSvc } from '../providers/price-svc';
 import { ForgetPasswordSvc } from '../providers/forget-password-svc';
 import { Errors } from '../providers/errors';
 import { InboxSvc } from '../providers/inbox-svc';
+import { CommentDetailPage } from '../pages/comment-detail/comment-detail';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { InboxSvc } from '../providers/inbox-svc';
     PricePage,
     CirclePage,
     RegisterPage,
-    ForgetPasswordPage
+    ForgetPasswordPage,
+    CommentDetailPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -49,7 +51,8 @@ import { InboxSvc } from '../providers/inbox-svc';
     PricePage,
     CirclePage,
     RegisterPage,
-    ForgetPasswordPage
+    ForgetPasswordPage,
+    CommentDetailPage
   ],
   providers: [Global, LoginSvc,RegisterSvc, PriceSvc,Errors, ForgetPasswordSvc, InboxSvc]
 })

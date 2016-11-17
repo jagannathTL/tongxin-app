@@ -5,6 +5,7 @@ import { Global } from '../../providers/global';
 import { Errors } from '../../providers/errors';
 declare const notie: any;
 import * as _ from 'lodash';
+import { CommentDetailPage } from '../comment-detail/comment-detail';
 
 /*
   Generated class for the Inbox page.
@@ -44,6 +45,12 @@ export class InboxPage {
       notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
     }).finally(() => {
       infiniteScroll.complete();
+    });
+  }
+
+  gotoCommentDetail(url) {
+    this.navCtrl.push(CommentDetailPage, {
+      url: url
     });
   }
 
