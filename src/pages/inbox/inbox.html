@@ -16,15 +16,14 @@
 <ion-content>
 
   <ion-card *ngFor="let i of items">
-    <ion-card-content>
+    <ion-item color='light'>
+      <button item-left ion-button round [ngClass]="{'negative': i.url, 'positive': !i.url}">{{i.url ? '评' : '价'}}</button>
+      <h4>{{i.dateStr}}</h4>
+      <h4 *ngIf="i.url" item-right>阅读全文&nbsp;<i class="fa fa-angle-right"></i></h4>
+    </ion-item>
+    <ion-item>
       {{i.msg}}
-    </ion-card-content>
-    <ion-row>
-      <ion-col padding>
-        {{i.dateStr}}
-        <div *ngIf="i.url" style="float:right;margin-right:5%;">阅读全文&nbsp;<i class="fa fa-angle-right"></i></div>
-      </ion-col>
-    </ion-row>
+    </ion-item>
   </ion-card>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
