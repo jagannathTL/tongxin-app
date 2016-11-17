@@ -39,7 +39,6 @@ export class InboxPage {
 
   doInfinite(infiniteScroll) {
     this.inboxSvc.loadMoreItems(this.global.MOBILE, _.last(this.items).date).then(data => {
-      console.log(data);
       this.items = _.concat(this.items, data);
     }).catch(error => {
       notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
