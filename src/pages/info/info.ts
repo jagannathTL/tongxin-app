@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, App } from 'ionic-angular';
 import { SecureStorage } from 'ionic-native';
 import { LoginPage } from '../login/login';
 declare const notie: any;
@@ -18,7 +18,7 @@ import { Errors } from '../../providers/errors';
 })
 export class InfoPage {
 
-  constructor(public navCtrl: NavController, public errors: Errors, public global: Global) { }
+  constructor(public navCtrl: NavController, public errors: Errors, public global: Global, public app: App) { }
 
   logout() {
     let secureStorage: SecureStorage = new SecureStorage();
@@ -28,7 +28,7 @@ export class InfoPage {
         secureStorage.remove('password')
           .then(
           data => {
-            this.navCtrl.push(LoginPage);
+            this.app.getRootNav().setRoot(LoginPage);
           },
           error => {
             notie.alert('error', this.errors.LOGOUT_FAILED, this.global.NOTIFICATION_DURATION);
