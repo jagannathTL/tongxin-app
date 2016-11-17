@@ -15,18 +15,6 @@ export class Global {
     console.log('Hello Global Provider');
   }
 
-  // getServer(){
-  //   return 'http://api.shtx.com.cn';
-  // }
-  //
-  // setDeviceId(device){
-  //   this.deviceId = device;
-  // }
-  //
-  // getDeviceId(){
-  //   return this.deviceId;
-  // }
-
   //SERVER = 'http://api.shtx.com.cn';
   SERVER = 'http://172.20.67.133:83';
 

@@ -1,5 +1,5 @@
 <ion-tabs>
-  <ion-tab tabIcon="mail-open" tabTitle="信箱" [root]="inbox"></ion-tab>
+  <ion-tab tabIcon="mail-open" (ionSelect)="loadItems()" [rootParams]="items" tabTitle="信箱" [root]="inbox"></ion-tab>
   <ion-tab tabIcon="stats" tabTitle="价格" [root]="price"></ion-tab>
   <ion-tab tabIcon="paper" tabTitle="资讯" [root]="comment"></ion-tab>
   <ion-tab tabIcon="people" tabTitle="商圈" [root]="circle"></ion-tab>

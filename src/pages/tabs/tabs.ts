@@ -23,6 +23,7 @@ export class TabsPage {
   comment: any;
   circle: any;
   futures: any;
+  items = [];
 
   constructor(public navCtrl: NavController) {
     this.inbox = InboxPage;
@@ -30,6 +31,10 @@ export class TabsPage {
     this.comment = CommentPage;
     this.circle = CirclePage;
     this.futures = FuturesPage;
+  }
+
+  loadItems(){
+    //把加载的数据传到inbox的items参数里面
   }
 
 }
