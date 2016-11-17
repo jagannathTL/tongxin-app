@@ -69,7 +69,6 @@ export class MyApp {
                 //自动登录，如果成功setroot到tabs页面
                 this.loginSvc.login(mobile, password).then(data => {
                   if (data.result == 'ok') {
-                    this.nav.setRoot(TabsPage);
                   }
                 }).catch(error => {
                   this.nav.setRoot(LoginPage);
