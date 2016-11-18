@@ -3,6 +3,7 @@ import { NavController, LoadingController } from 'ionic-angular';
 import { PriceSvc } from '../../providers/price-svc';
 import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
+import { PriceDetailPage } from '../price-detail/price-detail';
 declare const Swiper: any;
 declare var notie: any;
 declare var $: any;
@@ -65,8 +66,10 @@ export class PricePage {
     divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
-  ionViewWillEnter() {
-
+  gotoPriceDetail(market){
+    console.log(market);
+    this.navCtrl.push(PriceDetailPage, {
+      market: market
+    });
   }
-
 }

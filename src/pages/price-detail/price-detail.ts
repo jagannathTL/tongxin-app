@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 /*
   Generated class for the PriceDetail page.
@@ -13,10 +13,14 @@ import { NavController } from 'ionic-angular';
 })
 export class PriceDetailPage {
 
-  constructor(public navCtrl: NavController) {}
+  market: any;
 
-  ionViewDidLoad() {
-    console.log('Hello PriceDetailPage Page');
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+    this.market = navParams.get('market');
+  }
+
+  ionViewWillEnter() {
+    this.viewCtrl.setBackButtonText('价格');
   }
 
 }

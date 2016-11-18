@@ -28,7 +28,7 @@
         <!-- Slides -->
         <div class="swiper-slide" *ngFor="let s of selectionData">
           <ion-list>
-            <ion-item *ngFor="let m of s.markets">{{m.marketName}}</ion-item>
+            <button (click)='gotoPriceDetail(m)' ion-item *ngFor="let m of s.markets">{{m.marketName}}</button>
           </ion-list>
         </div>
       </div>
