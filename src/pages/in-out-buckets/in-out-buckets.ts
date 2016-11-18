@@ -36,10 +36,28 @@ export class InOutBucketsPage {
     this.outBuckets = params.get('outBucketList');
   }
 
-  appendOut(){
-    // console.log(evt);
-    // this.sortB.removeObj(this.sortOut);
+  appendOut(name){
+    var obj = this.inBuckets.filter((inB) => {
+        return inB.name == name;
+    });
+    if(obj != null && obj != undefined){
+        var index = this.inBuckets.indexOf(obj[0]);
+        this.inBuckets.splice(index,1);
+        this.outBuckets.push(obj[0]);
+    }
   }
+
+  appendIn(name){
+    var obj = this.outBuckets.filter((outB) => {
+        return outB.name == name;
+    });
+    if(obj != null && obj != undefined){
+        var index = this.outBuckets.indexOf(obj[0]);
+        this.outBuckets.splice(index,1);
+        this.inBuckets.push(obj[0]);
+    }
+  }
+
   ionViewDidLoad() {
     console.log('Hello InOutBucketsPage Page');
     var inB = document.getElementById("inBucketC");
