@@ -40,16 +40,12 @@ export class InboxPage {
       this.loaded = true;
     });
 
+    //订阅获取最新事件
     events.subscribe('tabsPage:loadItems', (newItems) => {
-      console.log('newItems');
-      console.log(newItems);
-        if(newItems.length > 0)
-        {
-          this.items = _.concat(newItems, this.items);
-          console.log(this.items);
-        }
+      if (newItems.length > 0) {
+        this.items = _.concat(newItems, this.items);
+      }
     });
-
   }
 
   doInfinite(infiniteScroll) {
@@ -57,9 +53,9 @@ export class InboxPage {
       if (data.length > 0) {
         for (let i = 0; i < data.length; i++) {
           data[i].dateStr = data[i].date.substr(5, 14);
-          this.items.push(data[i]);
+          //this.items.push(data[i]);
         }
-        //this.items = _.concat(this.items, data);
+        this.items = _.concat(this.items, data);
       }
       else {
         notie.alert('warning', this.errors.NOMORE_DATA, this.global.NOTIFICATION_DURATION);
@@ -77,5 +73,4 @@ export class InboxPage {
       url: url
     });
   }
-
 }

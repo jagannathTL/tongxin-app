@@ -4,7 +4,6 @@ import 'rxjs/add/operator/map';
 import * as Promise from 'promise';
 import { Global } from '../providers/global';
 import { Errors } from '../providers/errors';
-import moment from 'moment';
 /*
   Generated class for the InboxSvc provider.
 
@@ -14,9 +13,7 @@ import moment from 'moment';
 @Injectable()
 export class InboxSvc {
 
-  lastDate="";
   constructor(public http: Http, public global: Global, public errors: Errors) {
-    console.log('Hello InboxSvc Provider');
   }
 
   loadItems(mobile) {
@@ -41,8 +38,7 @@ export class InboxSvc {
     });
   }
 
-  loadNewItems(mobile){
-    let date = moment().format('YYYY-MM-DD HH:mm:ss SSS');
+  loadNewItems(mobile,date){
     return new Promise((resolve, reject) => {
       this.http.get(this.global.SERVER + '/handlers/InboxMsgHandler.ashx?method=getMsgByAction&actionStr=pullDown&mobile=' + mobile + '&dateStr=' + date).map(res => res.json()).subscribe(data => {
         resolve(data);
