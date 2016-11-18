@@ -22,6 +22,6 @@ export class Global {
 
   NOTIFICATION_DURATION = 2;
 
-  MOBILE = '13817752189';
+  MOBILE = '';
 
 }

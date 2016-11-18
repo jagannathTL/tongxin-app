@@ -3,11 +3,8 @@ import { NavController, LoadingController, ModalController } from 'ionic-angular
 import { PriceSvc } from '../../providers/price-svc';
 import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
-<<<<<<< HEAD
 import { InOutBucketsPage } from '../in-out-buckets/in-out-buckets';
-=======
 import { PriceDetailPage } from '../price-detail/price-detail';
->>>>>>> origin/master
 declare const Swiper: any;
 declare var notie: any;
 declare var $: any;
@@ -34,7 +31,7 @@ export class PricePage {
   }
 
   ionViewDidLoad() {
-    
+
   }
 
   slideChange(swiper) {
