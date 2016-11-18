@@ -28,7 +28,7 @@ export class TabsPage {
   circle: any;
   futures: any;
   items = [];
-  lastDate="";
+  lastDate = "";
 
   constructor(public navCtrl: NavController, public inboxSvc: InboxSvc, public global: Global, public loadingCtrl: LoadingController, public events: Events) {
     this.inbox = InboxPage;
@@ -38,14 +38,13 @@ export class TabsPage {
     this.futures = FuturesPage;
   }
 
-  loadItems(){
-    if(this.lastDate != '')
-    {
+  loadItems() {
+    if (this.lastDate != '') {
       this.items = [];//清空数组
       //把加载的数据传到inbox的items参数里面
       let loader = this.loadingCtrl.create({});
       loader.present();
-      this.inboxSvc.loadNewItems('13524259846',this.lastDate).then(data => {
+      this.inboxSvc.loadNewItems(this.global.MOBILE, this.lastDate).then(data => {
 
         if (data.length > 0) {
           for (let i = 0; i < data.length; i++) {
