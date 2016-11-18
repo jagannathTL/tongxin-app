@@ -20,6 +20,7 @@
     "@ionic/storage": "1.1.6",
     "@types/phonegap-plugin-push": "0.0.30",
     "clocky": "^0.6.0",
+    "d3": "^4.3.0",
     "ionic-angular": "2.0.0-rc.3",
     "ionic-native": "2.2.3",
     "ionicons": "3.0.0",

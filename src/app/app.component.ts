@@ -70,7 +70,6 @@ export class MyApp {
                 this.loginSvc.login(mobile, password).then(data => {
                   if (data.result == 'ok') {
                     this.global.MOBILE = mobile;
-                    this.nav.setRoot(TabsPage);
                   }
                 }).catch(error => {
                   this.nav.setRoot(LoginPage);
