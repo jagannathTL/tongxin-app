@@ -17,6 +17,8 @@ import { PriceSvc } from '../providers/price-svc';
 import { ForgetPasswordSvc } from '../providers/forget-password-svc';
 import { Errors } from '../providers/errors';
 import { InboxSvc } from '../providers/inbox-svc';
+import { InOutBucketsPage } from '../pages/in-out-buckets/in-out-buckets';
+import { BucketSvc } from '../providers/bucket-svc';
 import { CommentDetailPage } from '../pages/comment-detail/comment-detail';
 import { InfoPage } from '../pages/info/info';
 import { PriceHistoryPage } from '../pages/price-history/price-history';
@@ -35,6 +37,7 @@ import { PriceDetailPage } from '../pages/price-detail/price-detail';
     CirclePage,
     RegisterPage,
     ForgetPasswordPage,
+    InOutBucketsPage,
     CommentDetailPage,
     InfoPage,
     PriceChartPage,
@@ -60,12 +63,13 @@ import { PriceDetailPage } from '../pages/price-detail/price-detail';
     CirclePage,
     RegisterPage,
     ForgetPasswordPage,
+    InOutBucketsPage,
     CommentDetailPage,
     InfoPage,
     PriceChartPage,
     PriceDetailPage,
     PriceHistoryPage
   ],
-  providers: [Global, LoginSvc, RegisterSvc, PriceSvc, Errors, ForgetPasswordSvc, InboxSvc]
+  providers: [Global, LoginSvc, RegisterSvc, PriceSvc, Errors, ForgetPasswordSvc, InboxSvc, BucketSvc]
 })
 export class AppModule { }

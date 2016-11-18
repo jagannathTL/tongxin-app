@@ -68,6 +68,7 @@ export class InboxPage {
   }
 
   gotoCommentDetail(url) {
+    url += '&mobile='+this.global.MOBILE;
     this.showPage = true;
     this.navCtrl.push(CommentDetailPage, {
       url: url

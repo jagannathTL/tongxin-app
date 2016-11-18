@@ -19,10 +19,7 @@ export class CommentDetailPage {
   }
 
   ionViewDidEnter() {
-    //$("#inbox").attr('src',this.url);
+    $("#inbox").attr('src',this.url);
   }
-  show(){
-    console.log(this.url);
-    //$("#inbox").attr('src',this.url);
-  }
+
 }
