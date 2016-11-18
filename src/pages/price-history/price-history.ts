@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { PriceSvc } from '../../providers/price-svc';
+import { Global } from '../../providers/global';
+import { Errors } from '../../providers/errors';
+import { PriceChartPage } from '../price-chart/price-chart';
+declare const notie: any;
 
 /*
   Generated class for the PriceHistory page.
@@ -12,11 +17,20 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'price-history.html'
 })
 export class PriceHistoryPage {
-
-  constructor(public navCtrl: NavController) {}
+  product: any;
+  backText = '';
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public viewCtrl: ViewController, public priceSvc: PriceSvc, public global: Global, public errors: Errors) {
+      this.product = navParams.get('product');
+      this.backText = navParams.get('backText');
+    }
 
   ionViewDidLoad() {
     console.log('Hello PriceHistoryPage Page');
+  }
+
+  ionViewWillEnter() {
+    this.viewCtrl.setBackButtonText(this.backText);
   }
 
 }

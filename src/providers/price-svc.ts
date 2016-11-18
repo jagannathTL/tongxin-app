@@ -22,7 +22,6 @@ export class PriceSvc {
     return new Promise((resolve, reject) => {
       this.http.get(this.global.SERVER + "/Handlers/PriceHandler.ashx?method=getPrices&mobile=" + mobile + '&marketId=' + marketId + '&groupId=' + groupId).map(res => res.json()).subscribe(data => {
         //对data按照parentname分组
-        console.log(data);
         data = _.forEach(data, x => {
           x.Change = parseFloat(x.Change);
           if (x.Change > 0) {
@@ -59,7 +58,6 @@ export class PriceSvc {
         data.forEach((r: any) => {
           if (r.inBucket == "true") {
             var markets = [];
-            console.log(r);
             inBuckets.push({ id: r.id, name: r.name });//已关注
             if (r.markets != null) {
               r.markets.forEach((m: any) => {

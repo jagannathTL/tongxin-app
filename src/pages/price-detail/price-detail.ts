@@ -3,6 +3,7 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { PriceSvc } from '../../providers/price-svc';
 import { Global } from '../../providers/global';
 import { Errors } from '../../providers/errors';
+import { PriceHistoryPage } from '../price-history/price-history';
 declare const notie: any;
 /*
   Generated class for the PriceDetail page.
@@ -31,6 +32,14 @@ export class PriceDetailPage {
 
   ionViewWillEnter() {
     this.viewCtrl.setBackButtonText(this.market.name);
+  }
+
+  gotoPriceHistory(product){
+    console.log(this.market);
+    this.navCtrl.push(PriceHistoryPage, {
+      product: product,
+      backText: this.market.marketName
+    });
   }
 
 }

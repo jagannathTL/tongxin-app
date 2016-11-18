@@ -17,7 +17,7 @@
 
   <ion-item-group *ngFor='let x of items'>
     <ion-item-divider color="light">{{x[0].ParentName}}</ion-item-divider>
-    <button ion-item *ngFor='let y of x'>
+    <button ion-item *ngFor='let y of x' (click)='gotoPriceHistory(y)'>
         <ion-row>
           <ion-col>
             &nbsp;&nbsp;&nbsp;&nbsp;{{y.ProductName}}
