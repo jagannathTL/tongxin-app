@@ -14,13 +14,21 @@
 
 
 <ion-content>
-    <div class="swiper-container gallery-thumbs market" style="background-color: #d3d3d3">
+  <div style="background-color:#d3d3d3">
+    <div class="swiper-container gallery-thumbs market" style="background-color: #d3d3d3;width:90%;float:left;">
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
         <!-- Slides -->
         <div class="swiper-slide" *ngFor="let selection of selectionData" (click)="slideToPro(selection.index)">{{selection.name}}</div>
       </div>
+
     </div>
+    <button style="float:right;width:10%;margin:0;background-color:#d3d3d3;" ion-button icon-only (click)="moreBuckets()"><ion-icon name="add" color="danger"></ion-icon></button>
+    <!-- 清除浮动 -->
+    <div style="clear:both">
+    </div>
+  </div>
+
 
     <div class="swiper-container product">
       <!-- Additional required wrapper -->

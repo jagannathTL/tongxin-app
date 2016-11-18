@@ -17,6 +17,8 @@ import { PriceSvc } from '../providers/price-svc';
 import { ForgetPasswordSvc } from '../providers/forget-password-svc';
 import { Errors } from '../providers/errors';
 import { InboxSvc } from '../providers/inbox-svc';
+import { InOutBucketsPage } from '../pages/in-out-buckets/in-out-buckets';
+import { BucketSvc } from '../providers/bucket-svc';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { InboxSvc } from '../providers/inbox-svc';
     PricePage,
     CirclePage,
     RegisterPage,
-    ForgetPasswordPage
+    ForgetPasswordPage,
+    InOutBucketsPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -49,8 +52,9 @@ import { InboxSvc } from '../providers/inbox-svc';
     PricePage,
     CirclePage,
     RegisterPage,
-    ForgetPasswordPage
+    ForgetPasswordPage,
+    InOutBucketsPage
   ],
-  providers: [Global, LoginSvc,RegisterSvc, PriceSvc,Errors, ForgetPasswordSvc, InboxSvc]
+  providers: [Global, LoginSvc,RegisterSvc, PriceSvc,Errors, ForgetPasswordSvc, InboxSvc, BucketSvc]
 })
 export class AppModule {}
