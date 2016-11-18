@@ -42,14 +42,25 @@ export class PricePage {
   }
 
   slideToPro(index) {
-    console.log(this.selectionData);
-    // console.log(this.productS);
     this.marketS.slideTo(index);
-    this.productS.slideTo(index, 500, false);
+    this.productS.slideTo(index, 500, true);
     var divs = $(".market .swiper-wrapper .swiper-slide");
     divs.css("color", 'black').css("border-bottom-width", '0px');
     divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
   }
+
+  defaultSlide(){
+    var index = this.selectionData.length - 1;
+    //slide(0)不能正常跳转 所以先跳转到其他slide然后在slide(0)
+    this.marketS.slideTo(index);
+    this.productS.slideTo(index, 500, true);
+    this.marketS.slideTo(0);
+    this.productS.slideTo(0, 500, true);
+    var divs = $(".market .swiper-wrapper .swiper-slide");
+    divs.css("color", 'black').css("border-bottom-width", '0px');
+    divs.eq(0).css("color", "red").css("border-bottom", "2px solid red");
+  }
+
 
   moreBuckets(){
     this.navCtrl.push(InOutBucketsPage, {
@@ -59,12 +70,9 @@ export class PricePage {
   }
 
   ionViewDidEnter() {
-    console.log('didenter');
-    // console.log(this.inBuckets);
     this.selectionData = [];
     this.inBuckets = [];
     this.outBuckets = [];
-    // this.marketS
     let loading = this.loading.create({});
     loading.present();
     this.priceSvc.getMarkets(this.global.MOBILE, this.selectionData,this.inBuckets,this.outBuckets).then((data: any) => {
@@ -73,14 +81,13 @@ export class PricePage {
         centeredSlides: false,
         slidesPerView: 'auto',
         freeMode: true
-        // touchRatio: 0.2
       });
       this.productS = new Swiper('.product', {
         onSlideChangeStart: this.slideChange
       });
 
       this.productS.params.control = this.marketS;
-      this.slideToPro(0);//加载页面默认显示第一个 更改第一个样式
+      this.defaultSlide();//加载页面默认显示第一个 更改第一个样式
       loading.dismiss();
     });
   }
