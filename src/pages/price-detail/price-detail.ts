@@ -20,7 +20,7 @@ export class PriceDetailPage {
   }
 
   ionViewWillEnter() {
-    this.viewCtrl.setBackButtonText('价格');
+    this.viewCtrl.setBackButtonText(this.market.name);
   }
 
 }
