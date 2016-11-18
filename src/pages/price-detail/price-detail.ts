@@ -35,7 +35,6 @@ export class PriceDetailPage {
   }
 
   gotoPriceHistory(product){
-    console.log(this.market);
     this.navCtrl.push(PriceHistoryPage, {
       product: product,
       backText: this.market.marketName
