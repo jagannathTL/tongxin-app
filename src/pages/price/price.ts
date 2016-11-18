@@ -31,7 +31,7 @@ export class PricePage {
   ionViewDidLoad() {
     let loading = this.loading.create({});
     loading.present();
-    this.priceSvc.getMarkets('13817752189', this.selectionData).then((data: any) => {
+    this.priceSvc.getMarkets(this.global.MOBILE, this.selectionData).then((data: any) => {
       this.marketS = new Swiper('.market', {
         spaceBetween: 10,
         centeredSlides: false,
@@ -53,7 +53,7 @@ export class PricePage {
     var index = swiper.activeIndex;
     console.log(index);
     var divs = $(".market .swiper-wrapper .swiper-slide");
-    divs.css("color", 'white').css("border-bottom-width", '0px');
+    divs.css("color", 'black').css("border-bottom-width", '0px');
     divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
@@ -61,7 +61,7 @@ export class PricePage {
     this.marketS.slideTo(index);
     this.productS.slideTo(index, 500, false);
     var divs = $(".market .swiper-wrapper .swiper-slide");
-    divs.css("color", 'white').css("border-bottom-width", '0px');
+    divs.css("color", 'black').css("border-bottom-width", '0px');
     divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
   }
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { InfoPage } from '../info/info';
 
 /*
   Generated class for the Circle page.
@@ -15,8 +16,7 @@ export class CirclePage {
 
   constructor(public navCtrl: NavController) {}
 
-  ionViewDidLoad() {
-    console.log('Hello CirclePage Page');
+  gotoInfo(){
+    this.navCtrl.push(InfoPage);
   }
-
 }
