@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Platform, App } from 'ionic-angular';
+import { NavController, LoadingController, Platform } from 'ionic-angular';
 import { LoginSvc } from '../../providers/login-svc';
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from '../register/register';
@@ -26,7 +26,7 @@ export class LoginPage {
   password = '';
   constructor(public navCtrl: NavController, public loginSvc: LoginSvc,
     public loadingCtrl: LoadingController, public err: Errors, public global: Global,
-    public platform: Platform, public app: App) {
+    public platform: Platform) {
     let secureStorage: SecureStorage = new SecureStorage();
     secureStorage.create('tongxin')
       .then(
@@ -79,7 +79,7 @@ export class LoginPage {
           error => console.log(error)
           );
         this.global.MOBILE = this.mobile;
-        this.app.getRootNav().setRoot(TabsPage);
+        this.navCtrl.setRoot(TabsPage);
       }
       else {
         notie.alert('error', this.err.LOGIN_FAILED, this.global.NOTIFICATION_DURATION);
