@@ -69,6 +69,7 @@ export class MyApp {
                 //自动登录，如果成功setroot到tabs页面
                 this.loginSvc.login(mobile, password).then(data => {
                   if (data.result == 'ok') {
+                    console.log('mobile:'+mobile);
                     this.global.MOBILE = mobile;
                   }
                 }).catch(error => {
