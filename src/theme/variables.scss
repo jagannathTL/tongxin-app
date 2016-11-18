@@ -28,7 +28,9 @@ $colors: (
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222,
-  navbar:     #23b0ef
+  navbar:     #23b0ef,
+  positive:   #f53d3d,
+  negative:   #69BB7B
 );
 
 
@@ -50,7 +52,7 @@ $colors: (
 // --------------------------------------------------
 // Windows only Sass variables can go here
 
-$tabs-ios-tab-color-active: map-get($colors, navbar);
+
 
 
 // App Theme
@@ -62,6 +64,7 @@ $tabs-ios-tab-color-active: map-get($colors, navbar);
 
 @import "ionic.theme.default";
 
+$tabs-ios-tab-color-active: map-get($colors, navbar);
 
 // Ionicons
 // --------------------------------------------------

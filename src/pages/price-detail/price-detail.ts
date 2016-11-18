@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
-
+import { PriceSvc } from '../../providers/price-svc';
+import { Global } from '../../providers/global';
+import { Errors } from '../../providers/errors';
+declare const notie: any;
 /*
   Generated class for the PriceDetail page.
 
@@ -14,9 +17,16 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 export class PriceDetailPage {
 
   market: any;
+  items = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public viewCtrl: ViewController, public priceSvc: PriceSvc, public global: Global, public errors: Errors) {
     this.market = navParams.get('market');
+    priceSvc.getPriceDetail(this.global.MOBILE, this.market.marketId, 1).then(data => {
+      this.items = data;
+    }).catch(err => {
+      notie.alert('error', this.errors.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);
+    });
   }
 
   ionViewWillEnter() {

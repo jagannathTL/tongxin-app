@@ -52,7 +52,6 @@ export class PricePage {
 
   slideChange(swiper) {
     var index = swiper.activeIndex;
-    console.log(index);
     var divs = $(".market .swiper-wrapper .swiper-slide");
     divs.css("color", 'black').css("border-bottom-width", '0px');
     divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
@@ -67,7 +66,6 @@ export class PricePage {
   }
 
   gotoPriceDetail(market){
-    console.log(market);
     this.navCtrl.push(PriceDetailPage, {
       market: market
     });

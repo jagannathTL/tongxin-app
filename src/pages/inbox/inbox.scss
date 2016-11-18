@@ -10,11 +10,11 @@ page-inbox {
   }
 
   .positive {
-      background: map-get($colors, danger);
+      background: map-get($colors, positive);
   }
 
   .negative {
-      background: map-get($colors, primary);
+      background: map-get($colors, negative);
   }
 
 }

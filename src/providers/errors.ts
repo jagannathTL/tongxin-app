@@ -17,4 +17,5 @@ export class Errors {
   GET_INBOX_FAILED = '获取收件箱失败！';
   NOMORE_DATA = '没有更多数据！';
   LOGOUT_FAILED = '退出失败，请重试！';
+  GET_DATA_FAILED = '获取数据失败，请重试！';
 }

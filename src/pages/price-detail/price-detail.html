@@ -13,6 +13,31 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+  <ion-item-group *ngFor='let x of items'>
+    <ion-item-divider color="light">{{x[0].ParentName}}</ion-item-divider>
+    <button ion-item *ngFor='let y of x'>
+        <ion-row>
+          <ion-col>
+            &nbsp;&nbsp;&nbsp;&nbsp;{{y.ProductName}}
+          </ion-col>
+          <ion-col text-right style="font-size: 80%">
+            {{y.Date}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col width-25 style="font-size: 80%">
+            &nbsp;&nbsp;&nbsp;&nbsp;{{y.Comment}}
+          </ion-col>
+          <ion-col text-right [ngClass]="{'negative': y.Change < 0, 'positive': y.Change > 0, 'zero': y.Change == 0}">
+            {{y.priceString}}
+          </ion-col>
+          <ion-col width-25 text-right [ngClass]="{'negative': y.Change < 0, 'positive': y.Change > 0, 'zero': y.Change == 0}">
+            {{y.absChange}}
+          </ion-col>
+        </ion-row>
+    </button>
+  </ion-item-group>
 
 </ion-content>
