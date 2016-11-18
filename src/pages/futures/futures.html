@@ -6,15 +6,15 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>futures</ion-title>
+  <ion-navbar color='navbar'>
+    <ion-title>期货行情</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
-  <button ion-button block (click)="clear()">clear</button>
-
+<ion-content>
+  <div style="overflow:auto;-webkit-overflow-scrolling:touch">
+  <iframe style="width:100%;height:600px" src="http://futures.shtx.com.cn"></iframe>
+</div>
 </ion-content>

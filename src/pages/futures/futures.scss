@@ -1,3 +1,15 @@
 page-futures {
+  .scroll-container {
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+   }
+  #iframe_survey {
+   height: 100%;
+  }
 
+ .scroll-container {
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  }
 }

@@ -19,6 +19,11 @@ import { Errors } from '../providers/errors';
 import { InboxSvc } from '../providers/inbox-svc';
 import { InOutBucketsPage } from '../pages/in-out-buckets/in-out-buckets';
 import { BucketSvc } from '../providers/bucket-svc';
+import { CommentDetailPage } from '../pages/comment-detail/comment-detail';
+import { InfoPage } from '../pages/info/info';
+import { PriceHistoryPage } from '../pages/price-history/price-history';
+import { PriceChartPage } from '../pages/price-chart/price-chart';
+import { PriceDetailPage } from '../pages/price-detail/price-detail';
 
 @NgModule({
   declarations: [
@@ -32,7 +37,12 @@ import { BucketSvc } from '../providers/bucket-svc';
     CirclePage,
     RegisterPage,
     ForgetPasswordPage,
-    InOutBucketsPage
+    InOutBucketsPage,
+    CommentDetailPage,
+    InfoPage,
+    PriceChartPage,
+    PriceDetailPage,
+    PriceHistoryPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -53,8 +63,13 @@ import { BucketSvc } from '../providers/bucket-svc';
     CirclePage,
     RegisterPage,
     ForgetPasswordPage,
-    InOutBucketsPage
+    InOutBucketsPage,
+    CommentDetailPage,
+    InfoPage,
+    PriceChartPage,
+    PriceDetailPage,
+    PriceHistoryPage
   ],
-  providers: [Global, LoginSvc,RegisterSvc, PriceSvc,Errors, ForgetPasswordSvc, InboxSvc, BucketSvc]
+  providers: [Global, LoginSvc, RegisterSvc, PriceSvc, Errors, ForgetPasswordSvc, InboxSvc, BucketSvc]
 })
-export class AppModule {}
+export class AppModule { }

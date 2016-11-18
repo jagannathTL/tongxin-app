@@ -27,7 +27,20 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public loginSvc: LoginSvc,
     public loadingCtrl: LoadingController, public err: Errors, public global: Global,
     public platform: Platform) {
-
+    let secureStorage: SecureStorage = new SecureStorage();
+    secureStorage.create('tongxin')
+      .then(
+      () => {
+        secureStorage.get('mobile')
+          .then(
+          data => {
+            this.mobile = data;
+          },
+          error => console.log(error)
+          );
+      },
+      error => console.log(error)
+      );
   }
 
   login() {

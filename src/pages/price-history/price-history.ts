@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { InfoPage } from '../info/info';
 
 /*
-  Generated class for the Circle page.
+  Generated class for the PriceHistory page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-circle',
-  templateUrl: 'circle.html'
+  selector: 'page-price-history',
+  templateUrl: 'price-history.html'
 })
-export class CirclePage {
+export class PriceHistoryPage {
 
   constructor(public navCtrl: NavController) {}
 
-  gotoInfo(){
-    this.navCtrl.push(InfoPage);
+  ionViewDidLoad() {
+    console.log('Hello PriceHistoryPage Page');
   }
+
 }

@@ -3,7 +3,11 @@ import { NavController, LoadingController, ModalController } from 'ionic-angular
 import { PriceSvc } from '../../providers/price-svc';
 import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
+<<<<<<< HEAD
 import { InOutBucketsPage } from '../in-out-buckets/in-out-buckets';
+=======
+import { PriceDetailPage } from '../price-detail/price-detail';
+>>>>>>> origin/master
 declare const Swiper: any;
 declare var notie: any;
 declare var $: any;
@@ -30,13 +34,13 @@ export class PricePage {
   }
 
   ionViewDidLoad() {
-    console.log('didload');
+    
   }
 
   slideChange(swiper) {
     var index = swiper.activeIndex;
     var divs = $(".market .swiper-wrapper .swiper-slide");
-    divs.css("color", 'white').css("border-bottom-width", '0px');
+    divs.css("color", 'black').css("border-bottom-width", '0px');
     divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
@@ -46,7 +50,7 @@ export class PricePage {
     this.marketS.slideTo(index);
     this.productS.slideTo(index, 500, false);
     var divs = $(".market .swiper-wrapper .swiper-slide");
-    divs.css("color", 'white').css("border-bottom-width", '0px');
+    divs.css("color", 'black').css("border-bottom-width", '0px');
     divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
@@ -81,6 +85,13 @@ export class PricePage {
       this.productS.params.control = this.marketS;
       this.slideToPro(0);//加载页面默认显示第一个 更改第一个样式
       loading.dismiss();
+    });
+  }
+
+  gotoPriceDetail(market){
+    console.log(market);
+    this.navCtrl.push(PriceDetailPage, {
+      market: market
     });
   }
 

@@ -49,7 +49,6 @@ export class MyApp {
         //console.log(data.registrationId);
         let deviceId = data.registrationId;
         this.global.DEVICE_ID = deviceId;
-        console.log('deviceId='+deviceId);
         //自动登陆，读取用户名和密码
         let secureStorage: SecureStorage = new SecureStorage();
         secureStorage.create('tongxin')
@@ -70,7 +69,7 @@ export class MyApp {
                 //自动登录，如果成功setroot到tabs页面
                 this.loginSvc.login(mobile, password).then(data => {
                   if (data.result == 'ok') {
-                    this.nav.setRoot(TabsPage);
+                    this.global.MOBILE = mobile;
                   }
                 }).catch(error => {
                   this.nav.setRoot(LoginPage);

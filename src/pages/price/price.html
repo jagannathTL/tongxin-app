@@ -16,6 +16,7 @@
 <ion-content>
   <div style="background-color:#d3d3d3">
     <div class="swiper-container gallery-thumbs market" style="background-color: #d3d3d3;width:90%;float:left;">
+    <div class="swiper-container gallery-thumbs market">
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
         <!-- Slides -->
@@ -36,7 +37,7 @@
         <!-- Slides -->
         <div class="swiper-slide" *ngFor="let s of selectionData">
           <ion-list>
-            <ion-item *ngFor="let m of s.markets">{{m.marketName}}</ion-item>
+            <button (click)='gotoPriceDetail(m)' ion-item *ngFor="let m of s.markets">{{m.marketName}}</button>
           </ion-list>
         </div>
       </div>

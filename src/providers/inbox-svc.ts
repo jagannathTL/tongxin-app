@@ -4,7 +4,6 @@ import 'rxjs/add/operator/map';
 import * as Promise from 'promise';
 import { Global } from '../providers/global';
 import { Errors } from '../providers/errors';
-
 /*
   Generated class for the InboxSvc provider.
 
@@ -15,7 +14,6 @@ import { Errors } from '../providers/errors';
 export class InboxSvc {
 
   constructor(public http: Http, public global: Global, public errors: Errors) {
-    console.log('Hello InboxSvc Provider');
   }
 
   loadItems(mobile) {
@@ -32,6 +30,17 @@ export class InboxSvc {
   loadMoreItems(mobile, date) {
     return new Promise((resolve, reject) => {
       this.http.get(this.global.SERVER + '/handlers/InboxMsgHandler.ashx?method=getMsgByAction&actionStr=pullUp&mobile=' + mobile + '&dateStr=' + date).map(res => res.json()).subscribe(data => {
+        resolve(data);
+      }, error => {
+        console.log(error);
+        throw new Error(error);
+      });
+    });
+  }
+
+  loadNewItems(mobile,date){
+    return new Promise((resolve, reject) => {
+      this.http.get(this.global.SERVER + '/handlers/InboxMsgHandler.ashx?method=getMsgByAction&actionStr=pullDown&mobile=' + mobile + '&dateStr=' + date).map(res => res.json()).subscribe(data => {
         resolve(data);
       }, error => {
         console.log(error);

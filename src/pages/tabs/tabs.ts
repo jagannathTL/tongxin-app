@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController, Events } from 'ionic-angular';
 import { CommentPage } from '../comment/comment';
 import { FuturesPage } from '../futures/futures';
 import { InboxPage } from '../inbox/inbox';
 import { PricePage } from '../price/price';
 import { CirclePage } from '../circle/circle';
+import { InboxSvc } from '../../providers/inbox-svc';
+import { Global } from '../../providers/global';
+import moment from 'moment';
+import * as _ from 'lodash';
 
 /*
   Generated class for the Tabs page.
@@ -24,8 +28,9 @@ export class TabsPage {
   circle: any;
   futures: any;
   items = [];
+  lastDate = "";
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public inboxSvc: InboxSvc, public global: Global, public loadingCtrl: LoadingController, public events: Events) {
     this.inbox = InboxPage;
     this.price = PricePage;
     this.comment = CommentPage;
@@ -33,8 +38,27 @@ export class TabsPage {
     this.futures = FuturesPage;
   }
 
-  loadItems(){
-    //把加载的数据传到inbox的items参数里面
-  }
+  loadItems() {
+    if (this.lastDate != '') {
+      this.items = [];//清空数组
+      //把加载的数据传到inbox的items参数里面
+      let loader = this.loadingCtrl.create({});
+      loader.present();
+      this.inboxSvc.loadNewItems(this.global.MOBILE, this.lastDate).then(data => {
 
+        if (data.length > 0) {
+          for (let i = 0; i < data.length; i++) {
+            data[i].dateStr = data[i].date.substr(5, 14);
+          }
+          this.items = _.concat(this.items, data);
+          this.events.publish('tabsPage:loadItems', this.items[0]);
+        }
+      }).catch(error => {
+        console.log(error);
+      }).finally(() => {
+        loader.dismiss();
+      });
+    }
+    this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
+  }
 }
