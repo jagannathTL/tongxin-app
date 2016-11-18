@@ -20,6 +20,7 @@ export class CommentDetailPage {
 
   ionViewDidEnter() {
     $("#inbox").attr('src',this.url);
+    //$("#inbox").attr('src','http://172.20.70.209/StaticHtml/WeixinPingLun.html?method=getpl&id=65386&mobile=13524259846');
   }
 
 }

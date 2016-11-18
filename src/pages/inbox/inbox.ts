@@ -24,27 +24,32 @@ export class InboxPage {
   showPage = false;
 
   constructor(public navCtrl: NavController, public inboxSvc: InboxSvc, public global: Global, public errors: Errors, public loadingCtrl: LoadingController, public events: Events) {
-    let load = this.loadingCtrl.create();
-    load.present();
-    inboxSvc.loadItems(global.MOBILE).then(data => {
-      if (data.length > 0) {
-        for (let i = 0; i < data.length; i++) {
-          data[i].dateStr = data[i].date.substr(5, 14);
-        }
-        this.items = _.concat(this.items, data);
-      }
-    }).catch(error => {
-      notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
-    }).done(() => {
-      load.dismiss();
-      this.loaded = true;
-    });
+
 
     //订阅获取最新事件
     events.subscribe('tabsPage:loadItems', (newItems) => {
       if (newItems.length > 0) {
         this.items = _.concat(newItems, this.items);
       }
+    });
+
+    //初始化
+    events.subscribe('app:loadInBox', () => {
+      let load = this.loadingCtrl.create();
+      load.present();
+      inboxSvc.loadItems(global.MOBILE).then(data => {
+        if (data.length > 0) {
+          for (let i = 0; i < data.length; i++) {
+            data[i].dateStr = data[i].date.substr(5, 14);
+          }
+          this.items = _.concat(this.items, data);
+        }
+      }).catch(error => {
+        notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
+      }).done(() => {
+        load.dismiss();
+        this.loaded = true;
+      });
     });
   }
 
@@ -69,6 +74,7 @@ export class InboxPage {
 
   gotoCommentDetail(url) {
     url += '&mobile='+this.global.MOBILE;
+    console.log(url);
     this.showPage = true;
     this.navCtrl.push(CommentDetailPage, {
       url: url

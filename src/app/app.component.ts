@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController } from 'ionic-angular';
+import { Platform, NavController, Events } from 'ionic-angular';
 import { StatusBar, SecureStorage } from 'ionic-native';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
@@ -14,7 +14,7 @@ export class MyApp {
   @ViewChild('myNav') nav: NavController
   rootPage: any = TabsPage;
 
-  constructor(platform: Platform, public global: Global, public loginSvc: LoginSvc) {
+  constructor(platform: Platform, public global: Global, public loginSvc: LoginSvc, public events:Events) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -71,6 +71,7 @@ export class MyApp {
                   if (data.result == 'ok') {
                     console.log('mobile:'+mobile);
                     this.global.MOBILE = mobile;
+                    this.events.publish('app:loadInBox');
                   }
                 }).catch(error => {
                   this.nav.setRoot(LoginPage);
