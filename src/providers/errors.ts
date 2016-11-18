@@ -15,4 +15,5 @@ export class Errors {
   REGISTER_SUC = '注册成功！';
   MOBILE_ERROR = '手机号不正确！';
   GET_INBOX_FAILED = '获取收件箱失败！';
+  NOMORE_DATA = '没有更多数据了';
 }

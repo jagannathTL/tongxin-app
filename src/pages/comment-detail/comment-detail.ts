@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+declare var $: any;
 
 /*
   Generated class for the CommentDetail page.
@@ -12,8 +13,16 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'comment-detail.html'
 })
 export class CommentDetailPage {
-  url: any;
+  url= 'about:blank';
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.url = navParams.get('url');
+  }
+
+  ionViewDidEnter() {
+    //$("#inbox").attr('src',this.url);
+  }
+  show(){
+    console.log(this.url);
+    //$("#inbox").attr('src',this.url);
   }
 }
