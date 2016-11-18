@@ -14,9 +14,23 @@
 
 
 <ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>我的帐号</ion-label>
+      <div item-content>{{mobile}}</div>
+    </ion-item>
+    <ion-item>
+      <ion-toggle checked={{isSound}}></ion-toggle>
+      <ion-label>
+        消息提醒
+      </ion-label>
+    </ion-item>
+    <button ion-item>我的关注</button>
+    <button ion-item>我的供求</button>
+  </ion-list>
 
   <ion-list>
-      <button ion-button block color='danger' (click)='logout()'>退出</button>
+    <button ion-button block color='danger' (click)='logout()'>退出</button>
   </ion-list>
 
 </ion-content>

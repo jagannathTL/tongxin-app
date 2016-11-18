@@ -17,7 +17,8 @@ import { Errors } from '../../providers/errors';
   templateUrl: 'info.html'
 })
 export class InfoPage {
-
+  mobile = this.global.MOBILE;
+  isSound = true;
   constructor(public navCtrl: NavController, public errors: Errors, public global: Global, public app: App) { }
 
   logout() {
