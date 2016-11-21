@@ -30,11 +30,11 @@
   </div>
 
 
-    <div class="swiper-container product" style="position:absolute">
+    <div class="swiper-container product" style="height:90%">
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
         <!-- Slides -->
-        <div class="swiper-slide" *ngFor="let s of selectionData">
+        <div class="swiper-slide pro" *ngFor="let s of selectionData">
           <ion-list>
             <button (click)='gotoPriceDetail(m)' ion-item *ngFor="let m of s.markets">{{m.marketName}}</button>
           </ion-list>
