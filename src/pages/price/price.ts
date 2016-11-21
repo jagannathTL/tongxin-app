@@ -33,7 +33,7 @@ export class PricePage {
   }
 
   ionViewDidLoad() {
-
+    this.getMarketDatas();
   }
 
   // slideChange(swiper) {
@@ -61,7 +61,6 @@ export class PricePage {
     }
     this.marketS.slideTo(this.index);
     this.productS.slideTo(this.index, 500, true);
-    var divP = $(".product .swiper-wrapper .swiper-slide");
     var divs = $(".market .swiper-wrapper .swiper-slide");
     divs.css("color", 'black').css("border-bottom-width", '0px');
     divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
@@ -69,13 +68,30 @@ export class PricePage {
 
 
   moreBuckets(){
-    this.navCtrl.push(InOutBucketsPage, {
+    // this.navCtrl.push(InOutBucketsPage, {
+    //   inBucketList: this.inBuckets,
+    //   outBucketList: this.outBuckets
+    // });
+
+    let modal = this.modalCtrl.create(InOutBucketsPage, {
       inBucketList: this.inBuckets,
       outBucketList: this.outBuckets
+    },{
+      showBackdrop:true,
+      enableBackdropDismiss:true
     });
+    modal.onDidDismiss(() => {
+      this.getMarketDatas();
+    })
+    modal.present();
   }
 
   ionViewDidEnter() {
+
+  }
+
+  getMarketDatas()
+  {
     this.selectionData = [];
     this.inBuckets = [];
     this.outBuckets = [];
@@ -97,7 +113,6 @@ export class PricePage {
         onSlideChangeStart: (swiper) => {
           var index = swiper.activeIndex;
           this.index = index;
-          var divP = $(".product .swiper-wrapper .swiper-slide");
           var divs = $(".market .swiper-wrapper .swiper-slide");
           divs.css("color", 'black').css("border-bottom-width", '0px');
           divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
@@ -109,6 +124,7 @@ export class PricePage {
       loading.dismiss();
     });
   }
+
 
   gotoPriceDetail(market){
     this.navCtrl.push(PriceDetailPage, {

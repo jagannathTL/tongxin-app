@@ -6,8 +6,13 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar  color='navbar'>
     <ion-title>选择频道</ion-title>
+    <ion-buttons end>
+      <button (click)="closeModal()" ion-button icon-only>
+        <ion-icon name="close" color="danger"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>

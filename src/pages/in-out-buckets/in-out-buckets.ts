@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController,ViewController } from 'ionic-angular';
 declare var Sortable: any;
 declare var $: any;
 import { BucketSvc } from '../../providers/bucket-svc';
@@ -24,7 +24,7 @@ export class InOutBucketsPage {
   sortOut: any;
   sortB: any;
 
-  constructor(public navCtrl: NavController, public params: NavParams, public bucketSvc: BucketSvc, public global: Global, public loading: LoadingController) {
+  constructor(public navCtrl: NavController, public params: NavParams, public bucketSvc: BucketSvc, public global: Global, public loading: LoadingController, public viewCtrl: ViewController) {
     this.allList = params.get('inBucketList');
     var obj = this.allList.filter((fir: any) => {
       return fir.id == 0;
@@ -81,7 +81,6 @@ export class InOutBucketsPage {
           this.outBuckets.splice(evt.oldIndex, 1);
           this.inBuckets.splice(evt.newIndex, 0, addObj[0]);
         }
-        console.log(this.inBuckets);
       },
       onRemove: (evt) => {
         // console.log("remove");
@@ -93,7 +92,6 @@ export class InOutBucketsPage {
           this.inBuckets.splice(evt.oldIndex, 1);
           this.outBuckets.splice(evt.newIndex, 0, removeObj[0]);
         }
-        console.log(this.inBuckets);
       },
       onUpdate: (evt) => {
         var updateObj = this.inBuckets.filter((out: any) => {
@@ -103,7 +101,6 @@ export class InOutBucketsPage {
         {
             this.inBuckets.splice(evt.oldIndex, 1);
             this.inBuckets.splice(evt.newIndex, 0, updateObj[0]);
-          console.log(this.inBuckets);
         }
       },
       onSort: (evt) => {
@@ -114,6 +111,11 @@ export class InOutBucketsPage {
       group: "sorting",
       sort: false
     });
+  }
+
+  closeModal()
+  {
+    this.viewCtrl.dismiss();
   }
 
   ionViewWillLeave()
