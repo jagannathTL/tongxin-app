@@ -54,9 +54,8 @@ export class PricePage {
     divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
-  defaultSlide(){
-    if(this.selectionData.length < (this.index + 1))
-    {
+  defaultSlide() {
+    if (this.selectionData.length < (this.index + 1)) {
       this.index = (this.selectionData.length - 1);
     }
     this.marketS.slideTo(this.index);
@@ -67,7 +66,7 @@ export class PricePage {
   }
 
 
-  moreBuckets(){
+  moreBuckets() {
     // this.navCtrl.push(InOutBucketsPage, {
     //   inBucketList: this.inBuckets,
     //   outBucketList: this.outBuckets
@@ -76,10 +75,10 @@ export class PricePage {
     let modal = this.modalCtrl.create(InOutBucketsPage, {
       inBucketList: this.inBuckets,
       outBucketList: this.outBuckets
-    },{
-      showBackdrop:true,
-      enableBackdropDismiss:true
-    });
+    }, {
+        showBackdrop: true,
+        enableBackdropDismiss: true
+      });
     modal.onDidDismiss(() => {
       this.getMarketDatas();
     })
@@ -90,17 +89,16 @@ export class PricePage {
 
   }
 
-  getMarketDatas()
-  {
+  getMarketDatas() {
     this.selectionData = [];
     this.inBuckets = [];
     this.outBuckets = [];
-    if(this.productS != null || this.productS != undefined){
-      this.productS.destroy(true,true);//修改删掉当前选中的市场的时候 后面会多出一个空白页的BUG
+    if (this.productS != null || this.productS != undefined) {
+      this.productS.destroy(true, true);//修改删掉当前选中的市场的时候 后面会多出一个空白页的BUG
     }
     let loading = this.loading.create({});
     loading.present();
-    this.priceSvc.getMarkets(this.global.MOBILE, this.selectionData,this.inBuckets,this.outBuckets).then((data: any) => {
+    this.priceSvc.getMarkets(this.global.MOBILE, this.selectionData, this.inBuckets, this.outBuckets).then((data: any) => {
       this.marketS = new Swiper('.market', {
         spaceBetween: 10,
         centeredSlides: false,
@@ -120,12 +118,15 @@ export class PricePage {
 
       this.productS.params.control = this.marketS;
       this.defaultSlide();//加载页面默认显示第一个 更改第一个样式
+    }).catch(err => {
+      console.log(err);
+    }).done(() => {
       loading.dismiss();
     });
   }
 
 
-  gotoPriceDetail(market){
+  gotoPriceDetail(market) {
     this.navCtrl.push(PriceDetailPage, {
       market: market
     });

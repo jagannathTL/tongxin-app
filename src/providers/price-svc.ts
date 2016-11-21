@@ -15,7 +15,7 @@ import * as _ from 'lodash';
 export class PriceSvc {
 
   constructor(public http: Http, public global: Global) {
-    
+
   }
 
   getPriceHistory(productId, start, end) {
@@ -110,8 +110,7 @@ export class PriceSvc {
         });
         resolve(data);
       }, err => {
-        console.log(err);
-        throw new Error();
+        throw new Error(err);
       })
     });
   }
