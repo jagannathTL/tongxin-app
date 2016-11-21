@@ -22,7 +22,6 @@ import { BucketSvc } from '../providers/bucket-svc';
 import { CommentDetailPage } from '../pages/comment-detail/comment-detail';
 import { InfoPage } from '../pages/info/info';
 import { PriceHistoryPage } from '../pages/price-history/price-history';
-import { PriceChartPage } from '../pages/price-chart/price-chart';
 import { PriceDetailPage } from '../pages/price-detail/price-detail';
 
 @NgModule({
@@ -40,7 +39,6 @@ import { PriceDetailPage } from '../pages/price-detail/price-detail';
     InOutBucketsPage,
     CommentDetailPage,
     InfoPage,
-    PriceChartPage,
     PriceDetailPage,
     PriceHistoryPage
   ],
@@ -66,7 +64,6 @@ import { PriceDetailPage } from '../pages/price-detail/price-detail';
     InOutBucketsPage,
     CommentDetailPage,
     InfoPage,
-    PriceChartPage,
     PriceDetailPage,
     PriceHistoryPage
   ],

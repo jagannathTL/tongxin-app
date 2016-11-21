@@ -8,11 +8,6 @@
 
   <ion-navbar color='navbar'>
     <ion-title>{{product.ProductName}}历史价格</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)='gotoChart()'>
-        走势图
-      </button>
-    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -34,6 +29,9 @@
       <button ion-button block (click)='getHistoryPrices()'>查询</button>
     </ion-col>
   </ion-row>
+  <div id='chart'>
+
+  </div>
   <ion-list padding-top>
     <ion-item *ngFor='let y of items'>
       <ion-row>

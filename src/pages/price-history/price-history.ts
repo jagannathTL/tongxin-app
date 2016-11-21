@@ -3,9 +3,10 @@ import { NavController, NavParams, ViewController, LoadingController } from 'ion
 import { PriceSvc } from '../../providers/price-svc';
 import { Global } from '../../providers/global';
 import { Errors } from '../../providers/errors';
-import { PriceChartPage } from '../price-chart/price-chart';
 import moment from 'moment';
 declare const notie: any;
+declare const c3: any;
+import * as _ from 'lodash';
 
 /*
   Generated class for the PriceHistory page.
@@ -30,7 +31,7 @@ export class PriceHistoryPage {
   }
 
   getHistoryPrices() {
-    if(moment(this.end).diff(moment(this.start), 'days') > this.global.PRICE_HISTORY_DURATION_DAYS){
+    if (moment(this.end).diff(moment(this.start), 'days') > this.global.PRICE_HISTORY_DURATION_DAYS) {
       notie.alert('error', this.errors.CANNOT_EXCEED_90_DAYS, this.global.NOTIFICATION_DURATION);
       return;
     }
@@ -38,6 +39,7 @@ export class PriceHistoryPage {
     loading.present();
     this.priceSvc.getPriceHistory(this.product.ProductId, this.start, this.end).then(data => {
       this.items = data;
+      this.giveChart();
     }).catch(err => {
       notie.alert('error', this.errors.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);
     }).done(() => {
@@ -49,10 +51,39 @@ export class PriceHistoryPage {
     this.viewCtrl.setBackButtonText(this.backText);
   }
 
-  gotoChart(){
-    this.navCtrl.push(PriceChartPage, {
-      product: this.product,
-      items: this.items
+  giveChart() {
+    let lPrice = [];
+    let hPrice = [];
+    let axis = [];
+
+    _.each(this.items, i => {
+      axis.push(i.Date);
+      lPrice.push(i.LPrice);
+      hPrice.push(i.HPrice);
+    });
+
+    axis.push('x');
+    lPrice.push('最低价');
+    hPrice.push('最高价');
+
+    axis = _.reverse(axis);
+    lPrice = _.reverse(lPrice);
+    hPrice = _.reverse(hPrice);
+
+    console.log(axis);
+    console.log(lPrice);
+    console.log(hPrice);
+
+    c3.generate({
+      data: {
+        x: 'x',
+        columns: [axis, lPrice, hPrice]
+      },
+      axis: {
+        x: {
+          type: 'timeseries'
+        }
+      }
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { PriceSvc } from '../../providers/price-svc';
 import { Global } from '../../providers/global';
 import { Errors } from '../../providers/errors';
@@ -21,12 +21,17 @@ export class PriceDetailPage {
   items = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public viewCtrl: ViewController, public priceSvc: PriceSvc, public global: Global, public errors: Errors) {
+    public viewCtrl: ViewController, public priceSvc: PriceSvc,
+    public global: Global, public errors: Errors, public loadingCtrl: LoadingController) {
     this.market = navParams.get('market');
+    let loading = loadingCtrl.create();
+    loading.present();
     priceSvc.getPriceDetail(this.global.MOBILE, this.market.marketId, 1).then(data => {
       this.items = data;
     }).catch(err => {
       notie.alert('error', this.errors.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);
+    }).done(() => {
+      loading.dismiss();
     });
   }
 
