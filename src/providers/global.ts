@@ -24,4 +24,6 @@ export class Global {
 
   MOBILE = '15802161396';
 
+  PRICE_HISTORY_DURATION_DAYS = 90;
+
 }

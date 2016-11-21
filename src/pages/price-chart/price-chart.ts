@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 /*
   Generated class for the PriceChart page.
@@ -12,11 +12,10 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'price-chart.html'
 })
 export class PriceChartPage {
-
-  constructor(public navCtrl: NavController) {}
-
-  ionViewDidLoad() {
-    console.log('Hello PriceChartPage Page');
+  
+  product: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.product = navParams.get('product');
   }
 
 }
