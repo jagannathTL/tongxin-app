@@ -26,6 +26,8 @@ export class PricePage {
   bindMarkets: any = [];
   marketS: any;
   productS: any;
+  index: any = 0;
+
   constructor(public navCtrl: NavController, public err: Errors, public global: Global, public priceSvc: PriceSvc, public loading: LoadingController, public modalCtrl: ModalController) {
 
   }
@@ -34,31 +36,35 @@ export class PricePage {
 
   }
 
-  slideChange(swiper) {
-    var index = swiper.activeIndex;
-    var divs = $(".market .swiper-wrapper .swiper-slide");
-    divs.css("color", 'black').css("border-bottom-width", '0px');
-    divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
-  }
+  // slideChange(swiper) {
+  //   debugger
+  //   var index = swiper.activeIndex;
+  //   this.index = index;
+  //   var divs = $(".market .swiper-wrapper .swiper-slide");
+  //   divs.css("color", 'black').css("border-bottom-width", '0px');
+  //   divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
+  // }
 
   slideToPro(index) {
+    this.index = index;
     this.marketS.slideTo(index);
-    this.productS.slideTo(index, 500, true);
+    this.productS.slideTo(index, 500, false);
     var divs = $(".market .swiper-wrapper .swiper-slide");
     divs.css("color", 'black').css("border-bottom-width", '0px');
     divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
   defaultSlide(){
-    var index = this.selectionData.length - 1;
-    //slide(0)不能正常跳转 所以先跳转到其他slide然后在slide(0)
-    this.marketS.slideTo(index);
-    this.productS.slideTo(index, 500, true);
-    this.marketS.slideTo(0);
-    this.productS.slideTo(0, 500, true);
+    if(this.selectionData.length < (this.index + 1))
+    {
+      this.index = (this.selectionData.length - 1);
+    }
+    this.marketS.slideTo(this.index);
+    this.productS.slideTo(this.index, 500, true);
+    var divP = $(".product .swiper-wrapper .swiper-slide");
     var divs = $(".market .swiper-wrapper .swiper-slide");
     divs.css("color", 'black').css("border-bottom-width", '0px');
-    divs.eq(0).css("color", "red").css("border-bottom", "2px solid red");
+    divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
 
@@ -73,6 +79,10 @@ export class PricePage {
     this.selectionData = [];
     this.inBuckets = [];
     this.outBuckets = [];
+    console.log("console");
+    if(this.productS != null || this.productS != undefined){
+      this.productS.destroy(true,true);//修改删掉当前选中的市场的时候 后面会多出一个空白页的BUG
+    }
     let loading = this.loading.create({});
     loading.present();
     this.priceSvc.getMarkets(this.global.MOBILE, this.selectionData,this.inBuckets,this.outBuckets).then((data: any) => {
@@ -83,7 +93,15 @@ export class PricePage {
         freeMode: true
       });
       this.productS = new Swiper('.product', {
-        onSlideChangeStart: this.slideChange
+        // onSlideChangeStart: this.slideChange
+        onSlideChangeStart: (swiper) => {
+          var index = swiper.activeIndex;
+          this.index = index;
+          var divP = $(".product .swiper-wrapper .swiper-slide");
+          var divs = $(".market .swiper-wrapper .swiper-slide");
+          divs.css("color", 'black').css("border-bottom-width", '0px');
+          divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
+        }
       });
 
       this.productS.params.control = this.marketS;
