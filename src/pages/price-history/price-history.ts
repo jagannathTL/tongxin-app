@@ -69,11 +69,7 @@ export class PriceHistoryPage {
     axis = _.reverse(axis);
     lPrice = _.reverse(lPrice);
     hPrice = _.reverse(hPrice);
-
-    console.log(axis);
-    console.log(lPrice);
-    console.log(hPrice);
-
+    
     c3.generate({
       data: {
         x: 'x',
