@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 declare var $: any;
 
 /*
@@ -14,12 +14,17 @@ declare var $: any;
 })
 export class CommentDetailPage {
   url= 'about:blank';
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
     this.url = navParams.get('url');
   }
 
   ionViewDidEnter() {
-    $("#inbox").attr('src',this.url);
+    let load = this.loadingCtrl.create();
+    load.present();
+    $("#inbox").attr('src',this.url).ready(function(){
+      load.dismiss();
+    });
+
     //$("#inbox").attr('src','http://172.20.70.209/StaticHtml/WeixinPingLun.html?method=getpl&id=65386&mobile=13524259846');
   }
 
