@@ -95,7 +95,6 @@ export class PricePage {
     this.selectionData = [];
     this.inBuckets = [];
     this.outBuckets = [];
-    console.log("console");
     if(this.productS != null || this.productS != undefined){
       this.productS.destroy(true,true);//修改删掉当前选中的市场的时候 后面会多出一个空白页的BUG
     }

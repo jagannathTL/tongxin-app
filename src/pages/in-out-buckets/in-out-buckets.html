@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar  color='navbar'>
+  <ion-navbar transparent>
     <ion-title>选择频道</ion-title>
     <ion-buttons end>
       <button (click)="closeModal()" ion-button icon-only>
@@ -18,7 +18,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content style="background-image: url('assets/background.png'); background-size: 100% 100%;">
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -33,7 +33,7 @@
     <ion-row>
       <ion-col>
         <div id="inBucketC" style="padding-bottom:50px">
-          <button padding ion-button color="dark">{{defaultObj.name}}</button><button (click)="appendOut(inB.name)" padding ion-button class="moveClass shake" *ngFor="let inB of inBuckets">{{inB.name}}</button>
+          <button padding ion-button color="dark">{{defaultObj.name}}</button><button color='light' (click)="appendOut(inB.name)" padding ion-button class="moveClass shake" *ngFor="let inB of inBuckets">{{inB.name}}</button>
         </div>
       </ion-col>
     </ion-row>
@@ -52,7 +52,7 @@
     <ion-row>
       <ion-col>
         <div id="outBucketC">
-          <button (click)="appendIn(outB.name)" padding ion-button class="shake" *ngFor="let outB of outBuckets">{{outB.name}}</button>
+          <button color='light' (click)="appendIn(outB.name)" padding ion-button class="shake" *ngFor="let outB of outBuckets">{{outB.name}}</button>
         </div>
       </ion-col>
     </ion-row>
