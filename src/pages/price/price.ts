@@ -32,6 +32,10 @@ export class PricePage {
 
   }
 
+  refresh() {
+    this.getMarketDatas();
+  }
+
   ionViewDidLoad() {
     this.getMarketDatas();
   }
@@ -85,10 +89,6 @@ export class PricePage {
     modal.present();
   }
 
-  ionViewDidEnter() {
-
-  }
-
   getMarketDatas() {
     this.selectionData = [];
     this.inBuckets = [];
@@ -120,6 +120,7 @@ export class PricePage {
       this.defaultSlide();//加载页面默认显示第一个 更改第一个样式
     }).catch(err => {
       console.log(err);
+      notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);
     }).done(() => {
       loading.dismiss();
     });
