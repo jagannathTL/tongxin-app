@@ -21,12 +21,12 @@ declare var $: any;
 export class PricePage {
   inBuckets: any = [];
   outBuckets: any = [];
-  selectionData: any = [];
   markets: any = [];
   bindMarkets: any = [];
   marketS: any;
   productS: any;
   index: any = 0;
+  isShow: boolean = false;
 
   constructor(public navCtrl: NavController, public err: Errors, public global: Global, public priceSvc: PriceSvc, public loading: LoadingController, public modalCtrl: ModalController) {
 
@@ -71,7 +71,7 @@ export class PricePage {
   }
 
   getMarketDatas() {
-    this.selectionData = [];
+    this.isShow = false;
     this.inBuckets = [];
     this.outBuckets = [];
     if (this.productS != null || this.productS != undefined) {
@@ -79,7 +79,7 @@ export class PricePage {
     }
     let loading = this.loading.create({});
     loading.present();
-    this.priceSvc.getMarkets(this.global.MOBILE, this.inBuckets, this.outBuckets).then((data: any) => {
+    this.priceSvc.getMarkets(this.global.MOBILE, this.inBuckets, this.outBuckets).then(() => {
       this.marketS = new Swiper('.market', {
         spaceBetween: 10,
         centeredSlides: false,
@@ -95,7 +95,7 @@ export class PricePage {
           divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
         }
       });
-
+      this.isShow = true;
       this.productS.params.control = this.marketS;
       this.defaultSlide();//加载页面默认显示第一个 更改第一个样式
     }).catch(err => {
