@@ -41,7 +41,7 @@
       <!-- Slides -->
       <div class="swiper-slide pro" *ngFor="let s of inBuckets">
         <ion-list>
-          <button (click)='gotoPriceDetail(m)' ion-item *ngFor="let m of s.markets">{{m.name}}</button>
+          <button (click)='gotoPriceDetail(m, s)' ion-item *ngFor="let m of s.markets">{{m.name}}</button>
         </ion-list>
       </div>
     </div>

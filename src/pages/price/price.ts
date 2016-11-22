@@ -107,9 +107,11 @@ export class PricePage {
   }
 
 
-  gotoPriceDetail(market) {
+  gotoPriceDetail(market, s) {
+    console.log(market);
     this.navCtrl.push(PriceDetailPage, {
-      market: market
+      market: market,
+      type: s
     });
   }
 

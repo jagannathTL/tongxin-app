@@ -4,7 +4,7 @@ import { PriceSvc } from '../../providers/price-svc';
 import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
 import { InOutBucketsPage } from '../in-out-buckets/in-out-buckets';
-import { ComDetailPage } from '../com-detail/com-detail';
+// import { ComDetailPage } from '../com-detail/com-detail';
 declare const Swiper: any;
 declare var notie: any;
 declare var $: any;
@@ -114,10 +114,10 @@ export class CommentPage {
 
 
   gotoCommentDetail(inbucket,market){
-    this.navCtrl.push(ComDetailPage,{
-      sName: inbucket.name,
-      mName: market.name
-    })
+    // this.navCtrl.push(ComDetailPage,{
+    //   sName: inbucket.name,
+    //   mName: market.name
+    // })
   }
 
 }
