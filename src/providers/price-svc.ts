@@ -79,33 +79,16 @@ export class PriceSvc {
   }
 
 
-  getMarkets(mobile, sData, inBuckets, outBuckets) {
+  getMarkets(mobile, inBuckets, outBuckets) {
     return new Promise((resolve, reject) => {
       this.http.get(this.global.SERVER + "/Handlers/XHMarketHandler.ashx?method=getmarkets&mobile=" + mobile).map(res => res.json()).subscribe(data => {
-        var index = 0;
+        // var index = 0;
         data.forEach((r: any) => {
           if (r.inBucket == "true") {
-            var markets = [];
-            inBuckets.push({ id: r.id, name: r.name });//已关注
-            if (r.markets != null) {
-              r.markets.forEach((m: any) => {
-                markets.push({ name: r.name, marketId: m.id, marketName: m.name });
-              });
-            }
-            sData.push({ name: r.name, index: index, markets: markets });
-            // inBuckets.push({id: r.id, name: r.name, index: index, markets: markets});//已关注
-            index = index + 1;
+            inBuckets.push(r);//已关注
           }
           else {
-            // var markets = [];
-            outBuckets.push({ id: r.id, name: r.name });//未关注
-            // if(r.markets != null)
-            // {
-            //   r.markets.forEach((m: any) => {
-            //     markets.push({name: r.name, marketId: m.id, marketName: m.name});
-            //   });
-            // }
-            // outBuckets.push({id: r.id, name: r.name, markets: markets});//未关注
+            outBuckets.push(r);//未关注
           }
         });
         resolve(data);

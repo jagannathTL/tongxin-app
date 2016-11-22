@@ -22,9 +22,9 @@
   <div style="background-color:#f4f4f4">
     <div class="swiper-container gallery-thumbs market" style="background-color: #f4f4f4;width:90%;float:left">
       <!-- Additional required wrapper -->
-      <div class="swiper-wrapper">
+      <div class="swiper-wrapper" id="mID">
         <!-- Slides -->
-        <div class="swiper-slide" *ngFor="let selection of selectionData" (click)="slideToPro(selection.index)">{{selection.name}}</div>
+        <div class="swiper-slide" *ngFor="let selection of inBuckets" (click)="slideToPro(selection)">{{selection.name}}</div>
       </div>
 
     </div>
@@ -39,9 +39,9 @@
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
       <!-- Slides -->
-      <div class="swiper-slide pro" *ngFor="let s of selectionData">
+      <div class="swiper-slide pro" *ngFor="let s of inBuckets">
         <ion-list>
-          <button (click)='gotoPriceDetail(m)' ion-item *ngFor="let m of s.markets">{{m.marketName}}</button>
+          <button (click)='gotoPriceDetail(m)' ion-item *ngFor="let m of s.markets">{{m.name}}</button>
         </ion-list>
       </div>
     </div>

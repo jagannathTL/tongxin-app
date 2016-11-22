@@ -19,7 +19,7 @@
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
         <!-- Slides -->
-        <div class="swiper-slide" *ngFor="let selection of selectionData" (click)="slideToPro(selection.index)">{{selection.name}}</div>
+        <div class="swiper-slide" *ngFor="let selection of inBuckets" (click)="slideToPro(selection)">{{selection.name}}</div>
       </div>
 
     </div>
@@ -34,9 +34,9 @@
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
         <!-- Slides -->
-        <div class="swiper-slide pro" *ngFor="let s of selectionData">
+        <div class="swiper-slide pro" *ngFor="let s of inBuckets">
           <ion-list>
-            <button (click)='gotoCommentDetail(m)' ion-item *ngFor="let m of s.markets">{{m.marketName}}</button>
+            <button (click)='gotoCommentDetail(s,m)' ion-item *ngFor="let m of s.markets">{{m.name}}</button>
           </ion-list>
         </div>
       </div>

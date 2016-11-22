@@ -102,9 +102,6 @@ export class InOutBucketsPage {
             this.inBuckets.splice(evt.oldIndex, 1);
             this.inBuckets.splice(evt.newIndex, 0, updateObj[0]);
         }
-      },
-      onSort: (evt) => {
-        // console.log('sort');
       }
     });
     this.sortOut =  Sortable.create(outB,{
@@ -115,7 +112,8 @@ export class InOutBucketsPage {
 
   closeModal()
   {
-    this.viewCtrl.dismiss();
+    this.inBuckets.splice(0,0,this.defaultObj);
+    this.viewCtrl.dismiss({list:this.inBuckets});
   }
 
   ionViewWillLeave()

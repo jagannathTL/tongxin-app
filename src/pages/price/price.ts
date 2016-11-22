@@ -40,52 +40,33 @@ export class PricePage {
     this.getMarketDatas();
   }
 
-  // slideChange(swiper) {
-  //   debugger
-  //   var index = swiper.activeIndex;
-  //   this.index = index;
-  //   var divs = $(".market .swiper-wrapper .swiper-slide");
-  //   divs.css("color", 'black').css("border-bottom-width", '0px');
-  //   divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
-  // }
-
-  slideToPro(index) {
-    this.index = index;
-    this.marketS.slideTo(index);
-    this.productS.slideTo(index, 500, false);
-    var divs = $(".market .swiper-wrapper .swiper-slide");
-    divs.css("color", 'black').css("border-bottom-width", '0px');
-    divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
-  }
-
-  defaultSlide() {
-    if (this.selectionData.length < (this.index + 1)) {
-      this.index = (this.selectionData.length - 1);
-    }
+  slideToPro(obj) {
+    this.index = this.inBuckets.indexOf(obj);
     this.marketS.slideTo(this.index);
-    this.productS.slideTo(this.index, 0, true);
+    this.productS.slideTo(this.index, 500, false);
     var divs = $(".market .swiper-wrapper .swiper-slide");
     divs.css("color", 'black').css("border-bottom-width", '0px');
     divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
+  defaultSlide() {
+    this.marketS.slideTo(0);
+    this.productS.slideTo(0, 0, true);
+    var divs = $(".market .swiper-wrapper .swiper-slide");
+    divs.css("color", 'black').css("border-bottom-width", '0px');
+    divs.eq(0).css("color", "red").css("border-bottom", "2px solid red");
+  }
+
 
   moreBuckets() {
-    // this.navCtrl.push(InOutBucketsPage, {
-    //   inBucketList: this.inBuckets,
-    //   outBucketList: this.outBuckets
-    // });
-
     let modal = this.modalCtrl.create(InOutBucketsPage, {
       inBucketList: this.inBuckets,
       outBucketList: this.outBuckets
-    }, {
-        showBackdrop: true,
-        enableBackdropDismiss: true
-      });
-    modal.onDidDismiss(() => {
-      this.getMarketDatas();
-    })
+    });
+    modal.onDidDismiss((data: any) => {
+      this.inBuckets = data.list;
+      this.defaultSlide();
+    });
     modal.present();
   }
 
@@ -98,7 +79,7 @@ export class PricePage {
     }
     let loading = this.loading.create({});
     loading.present();
-    this.priceSvc.getMarkets(this.global.MOBILE, this.selectionData, this.inBuckets, this.outBuckets).then((data: any) => {
+    this.priceSvc.getMarkets(this.global.MOBILE, this.inBuckets, this.outBuckets).then((data: any) => {
       this.marketS = new Swiper('.market', {
         spaceBetween: 10,
         centeredSlides: false,
@@ -106,7 +87,6 @@ export class PricePage {
         freeMode: true
       });
       this.productS = new Swiper('.product', {
-        // onSlideChangeStart: this.slideChange
         onSlideChangeStart: (swiper) => {
           var index = swiper.activeIndex;
           this.index = index;

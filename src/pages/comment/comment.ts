@@ -4,6 +4,7 @@ import { PriceSvc } from '../../providers/price-svc';
 import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
 import { InOutBucketsPage } from '../in-out-buckets/in-out-buckets';
+import { ComDetailPage } from '../com-detail/com-detail';
 declare const Swiper: any;
 declare var notie: any;
 declare var $: any;
@@ -37,25 +38,21 @@ export class CommentPage {
     this.getMarketCDatas();
   }
 
-  slideToPro(index) {
-    this.index = index;
-    this.marketC.slideTo(index);
-    this.productC.slideTo(index, 500, false);
-    var divs = $(".marketC .swiper-wrapper .swiper-slide");
-    divs.css("color", 'black').css("border-bottom-width", '0px');
-    divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
-  }
-
-  defaultSlide(){
-    if(this.selectionData.length < (this.index + 1))
-    {
-      this.index = (this.selectionData.length - 1);
-    }
+  slideToPro(obj) {
+    this.index = this.inBuckets.indexOf(obj);
     this.marketC.slideTo(this.index);
-    this.productC.slideTo(this.index, 0, true);
+    this.productC.slideTo(this.index, 500, false);
     var divs = $(".marketC .swiper-wrapper .swiper-slide");
     divs.css("color", 'black').css("border-bottom-width", '0px');
     divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
+  }
+
+  defaultSlide(){
+    this.marketC.slideTo(0);
+    this.productC.slideTo(0, 0, true);
+    var divs = $(".marketC .swiper-wrapper .swiper-slide");
+    divs.css("color", 'black').css("border-bottom-width", '0px');
+    divs.eq(0).css("color", "red").css("border-bottom", "2px solid red");
   }
 
 
@@ -67,8 +64,9 @@ export class CommentPage {
       showBackdrop:true,
       enableBackdropDismiss:true
     });
-    modal.onDidDismiss(() => {
-      this.getMarketCDatas();
+    modal.onDidDismiss((data: any) => {
+      this.inBuckets = data.list;
+      this.defaultSlide();
     })
     modal.present();
   }
@@ -87,7 +85,7 @@ export class CommentPage {
     }
     let loading = this.loading.create({});
     loading.present();
-    this.priceSvc.getMarkets(this.global.MOBILE, this.selectionData,this.inBuckets,this.outBuckets).then((data: any) => {
+    this.priceSvc.getMarkets(this.global.MOBILE, this.inBuckets, this.outBuckets).then((data: any) => {
       this.marketC = new Swiper('.marketC', {
         spaceBetween: 10,
         centeredSlides: false,
@@ -115,8 +113,11 @@ export class CommentPage {
   }
 
 
-  gotoCommentDetail(market){
-
+  gotoCommentDetail(inbucket,market){
+    this.navCtrl.push(ComDetailPage,{
+      sName: inbucket.name,
+      mName: market.name
+    })
   }
 
 }
