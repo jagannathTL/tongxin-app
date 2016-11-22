@@ -23,6 +23,8 @@ import { CommentDetailPage } from '../pages/comment-detail/comment-detail';
 import { InfoPage } from '../pages/info/info';
 import { PriceHistoryPage } from '../pages/price-history/price-history';
 import { PriceDetailPage } from '../pages/price-detail/price-detail';
+import { CommentListPage } from '../pages/comment-list/comment-list';
+import { CommentSvc } from '../providers/comment-svc';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { PriceDetailPage } from '../pages/price-detail/price-detail';
     CommentDetailPage,
     InfoPage,
     PriceDetailPage,
-    PriceHistoryPage
+    PriceHistoryPage,
+    CommentListPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -65,8 +68,9 @@ import { PriceDetailPage } from '../pages/price-detail/price-detail';
     CommentDetailPage,
     InfoPage,
     PriceDetailPage,
-    PriceHistoryPage
+    PriceHistoryPage,
+    CommentListPage
   ],
-  providers: [Global, LoginSvc, RegisterSvc, PriceSvc, Errors, ForgetPasswordSvc, InboxSvc, BucketSvc]
+  providers: [Global, LoginSvc, RegisterSvc, PriceSvc, Errors, ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc]
 })
 export class AppModule { }
