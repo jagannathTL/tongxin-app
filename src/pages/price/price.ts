@@ -108,7 +108,6 @@ export class PricePage {
 
 
   gotoPriceDetail(market, s) {
-    console.log(market);
     this.navCtrl.push(PriceDetailPage, {
       market: market,
       type: s

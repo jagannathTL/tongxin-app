@@ -46,10 +46,15 @@ export class PriceSvc {
     });
   }
 
-  getPriceDetail(mobile, marketId, groupId) {
+  getPriceDetail(mobile, marketId, groupId, typeId) {
     return new Promise((resolve, reject) => {
       this.http.get(this.global.SERVER + "/Handlers/PriceHandler.ashx?method=getPrices&mobile=" + mobile + '&marketId=' + marketId + '&groupId=' + groupId).map(res => res.json()).subscribe(data => {
         //对data按照parentname分组
+        if (typeId == 0) {
+          data = _.filter(data, x => {
+            return x.isOrder == 'YES';
+          })
+        }
         data = _.forEach(data, x => {
           x.Change = parseFloat(x.Change);
           if (x.Change > 0) {
