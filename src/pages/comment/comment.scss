@@ -1,3 +1,33 @@
 page-comment {
+  .swiper-container {
+    height: auto;
+    width: 100%;
+  }
 
+  ion-list {
+    width: 100%;
+  }
+
+  .gallery-thumbs .swiper-slide {
+    width: auto;
+    height: 100%;
+    padding: 10px;
+  }
+
+  .toolbar-background-ios {
+    border-bottom-width: 0;
+  }
+
+  .marketC {
+    background-color: map-get($colors, light);
+  }
+
+  .swiper-slide{
+    font-size: inherit;
+  }
+
+  .swiper-wrapper .pro{
+      overflow: scroll;
+      display: block;
+  }
 }

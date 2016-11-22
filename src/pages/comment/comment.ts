@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController } from 'ionic-angular';
+import { PriceSvc } from '../../providers/price-svc';
+import { Errors } from '../../providers/errors';
+import { Global } from '../../providers/global';
+import { InOutBucketsPage } from '../in-out-buckets/in-out-buckets';
+declare const Swiper: any;
+declare var notie: any;
+declare var $: any;
 
 /*
   Generated class for the Comment page.
@@ -13,10 +20,103 @@ import { NavController } from 'ionic-angular';
 })
 export class CommentPage {
 
-  constructor(public navCtrl: NavController) {}
+  inBuckets: any = [];
+  outBuckets: any = [];
+  selectionData: any = [];
+  markets: any = [];
+  bindMarkets: any = [];
+  marketC: any;
+  productC: any;
+  index: any = 0;
+
+  constructor(public navCtrl: NavController, public err: Errors, public global: Global, public priceSvc: PriceSvc, public loading: LoadingController, public modalCtrl: ModalController) {
+
+  }
 
   ionViewDidLoad() {
-    console.log('Hello CommentPage Page');
+    this.getMarketCDatas();
+  }
+
+  slideToPro(index) {
+    this.index = index;
+    this.marketC.slideTo(index);
+    this.productC.slideTo(index, 500, false);
+    var divs = $(".marketC .swiper-wrapper .swiper-slide");
+    divs.css("color", 'black').css("border-bottom-width", '0px');
+    divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
+  }
+
+  defaultSlide(){
+    if(this.selectionData.length < (this.index + 1))
+    {
+      this.index = (this.selectionData.length - 1);
+    }
+    this.marketC.slideTo(this.index);
+    this.productC.slideTo(this.index, 0, true);
+    var divs = $(".marketC .swiper-wrapper .swiper-slide");
+    divs.css("color", 'black').css("border-bottom-width", '0px');
+    divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
+  }
+
+
+  moreBuckets(){
+    let modal = this.modalCtrl.create(InOutBucketsPage, {
+      inBucketList: this.inBuckets,
+      outBucketList: this.outBuckets
+    },{
+      showBackdrop:true,
+      enableBackdropDismiss:true
+    });
+    modal.onDidDismiss(() => {
+      this.getMarketCDatas();
+    })
+    modal.present();
+  }
+
+  ionViewDidEnter() {
+
+  }
+
+  getMarketCDatas()
+  {
+    this.selectionData = [];
+    this.inBuckets = [];
+    this.outBuckets = [];
+    if(this.productC != null || this.productC != undefined){
+      this.productC.destroy(true,true);//修改删掉当前选中的市场的时候 后面会多出一个空白页的BUG
+    }
+    let loading = this.loading.create({});
+    loading.present();
+    this.priceSvc.getMarkets(this.global.MOBILE, this.selectionData,this.inBuckets,this.outBuckets).then((data: any) => {
+      this.marketC = new Swiper('.marketC', {
+        spaceBetween: 10,
+        centeredSlides: false,
+        slidesPerView: 'auto',
+        freeMode: true
+      });
+      this.productC = new Swiper('.productC', {
+        onSlideChangeStart: (swiper) => {
+          var index = swiper.activeIndex;
+          this.index = index;
+          var divs = $(".marketC .swiper-wrapper .swiper-slide");
+          divs.css("color", 'black').css("border-bottom-width", '0px');
+          divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
+        }
+      });
+
+      this.productC.params.control = this.marketC;
+      this.defaultSlide();//加载页面默认显示第一个 更改第一个样式
+      // loading.dismiss();
+    }).catch(err => {
+      notie.alert('error', err, this.global.NOTIFICATION_DURATION);//err
+    }).done(() => {
+      loading.dismiss();
+    });
+  }
+
+
+  gotoCommentDetail(market){
+
   }
 
 }

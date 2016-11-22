@@ -13,6 +13,32 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <div style="background-color:#f4f4f4">
+    <div class="swiper-container gallery-thumbs marketC" style="background-color: #f4f4f4;width:90%;float:left">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide" *ngFor="let selection of selectionData" (click)="slideToPro(selection.index)">{{selection.name}}</div>
+      </div>
 
+    </div>
+    <button clear style="float:right;width:5%;text-align:center;height:90%;margin-left:0;margin-right:0;" ion-button icon-only (click)="moreBuckets()"><ion-icon name="add" color="danger"></ion-icon></button>
+    <!-- 清除浮动 -->
+    <div style="clear:both">
+    </div>
+  </div>
+
+
+    <div class="swiper-container productC" style="height:90%">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide pro" *ngFor="let s of selectionData">
+          <ion-list>
+            <button (click)='gotoCommentDetail(m)' ion-item *ngFor="let m of s.markets">{{m.marketName}}</button>
+          </ion-list>
+        </div>
+      </div>
+    </div>
 </ion-content>
