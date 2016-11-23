@@ -31,6 +31,7 @@ export class MyApp {
 
           } else if (type == 'payload') {
             //TODO data=透传数据
+            this.setBadge(JSON.parse(data).badge);
             alert('payload: ' + data);
           } else if (type == 'online') {
             if (data == 'true') {
@@ -60,6 +61,7 @@ export class MyApp {
 
         push.on('notification', (data) => {
           console.log(data.message);
+          this.setBadge(JSON.parse(data.message).badge);
           console.log(data.title);
           console.log(data.count);
           console.log(data.sound);
@@ -137,5 +139,9 @@ export class MyApp {
       error => {
         this.nav.setRoot(LoginPage);
       });
+  }
+
+  setBadge(count){
+    this.events.publish('tabsPage:setBadge', count);
   }
 }

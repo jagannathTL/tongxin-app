@@ -29,6 +29,7 @@ export class TabsPage {
   futures: any;
   items = [];
   lastDate = "";
+  badge="";
 
   constructor(public navCtrl: NavController, public inboxSvc: InboxSvc, public global: Global, public loadingCtrl: LoadingController, public events: Events) {
     this.inbox = InboxPage;
@@ -36,6 +37,11 @@ export class TabsPage {
     this.comment = CommentPage;
     this.circle = CirclePage;
     this.futures = FuturesPage;
+
+    events.subscribe('tabsPage:setBadge', (count) => {
+      console.log('set badge:'+count);
+        this.badge = count;
+    });
   }
 
   loadItems() {
