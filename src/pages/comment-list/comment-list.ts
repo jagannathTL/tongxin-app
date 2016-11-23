@@ -60,7 +60,14 @@ export class CommentListPage {
       debugger
       if(data.result == "error")
       {
-        notie.alert('error', this.errors.SUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
+        if(pro.isOrder == "NO")
+        {
+          notie.alert('error', this.errors.SUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
+        }
+        else
+        {
+          notie.alert('error', this.errors.UNSUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
+        }
       }
       else{
         if(pro.isOrder == 'NO')
@@ -72,7 +79,7 @@ export class CommentListPage {
         }
       }
     }).catch((err) => {
-      notie.alert('error', this.errors.SUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
+      notie.alert('error', this.errors.OPTION_FAILED, this.global.NOTIFICATION_DURATION);
     }).done(() => {
       slide.close();
     })
