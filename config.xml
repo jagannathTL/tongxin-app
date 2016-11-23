@@ -69,4 +69,9 @@
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.0" />
     <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
     <icon src="resources/ios/icon/icon-small@3x.png" />
+    <plugin name="cordova-plugin-getuisdk" spec="https://github.com/GetuiLaboratory/cordova-plugin-getuisdk">
+        <variable name="PUSH_APPID" value="jpl7N75LufA7GlS1LKv7Z1" />
+        <variable name="PUSH_APPKEY" value="uIXdIxcUJo7Uc8lNHLksl3" />
+        <variable name="PUSH_APPSECRET" value="iA82akeL528lXTaszr8jz1" />
+    </plugin>
 </widget>
