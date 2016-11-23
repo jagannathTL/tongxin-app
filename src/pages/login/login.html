@@ -22,7 +22,9 @@
   </ion-list>
 
   <div>
-    <button ion-button block (click)='login()'>登陆</button>
+    <button [disabled]="isShowLoading" ion-button block (click)='login()'>
+      <ion-spinner *ngIf='isShowLoading'></ion-spinner><span *ngIf='!isShowLoading'>登录</span>
+    </button>
   </div>
 
   <ion-list no-lines>

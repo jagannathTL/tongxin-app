@@ -21,7 +21,7 @@ import { Http, URLSearchParams } from '@angular/http';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-
+  isShowLoading = false;
   mobile = '';
   password = '';
   constructor(public navCtrl: NavController,
@@ -56,8 +56,6 @@ export class LoginPage {
       notie.alert('error', this.err.PASSWORD_EMPTY, this.global.NOTIFICATION_DURATION);
       return false;
     }
-    let loader = this.loadingCtrl.create({});
-    loader.present();
     let deviceId = this.global.DEVICE_ID;
     if (deviceId == '') {
       throw new Error(this.err.NO_DEVICE_ID);
@@ -75,6 +73,7 @@ export class LoginPage {
     params.set('password', this.password);
     params.set('token', deviceId);
     params.set('phoneType', phoneType);
+    this.isShowLoading = true;
     this.http.get(this.global.SERVER + '/Handlers/LoginHandler.ashx', {
       search: params
     }).map(res => res.json()).subscribe(data => {
@@ -98,9 +97,9 @@ export class LoginPage {
         );
       this.global.MOBILE = this.mobile;
       this.navCtrl.setRoot(TabsPage);
-      loader.dismiss();
+      this.isShowLoading = false;
     }, error => {
-      loader.dismiss();
+      this.isShowLoading = false;
       notie.alert('error', this.err.LOGIN_FAILED, this.global.NOTIFICATION_DURATION);
     });
     // this.loginSvc.login(this.mobile, this.password).then(data => {
