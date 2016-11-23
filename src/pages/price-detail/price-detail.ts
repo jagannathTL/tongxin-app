@@ -49,4 +49,35 @@ export class PriceDetailPage {
     });
   }
 
+  subscribe(product, slidingItem) {
+    console.log(product);
+    this.priceSvc.subscribe(product.ProductId, this.global.MOBILE).then(data => {
+      if (data.result == 'error') {
+        notie.alert('error', this.errors.SUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
+      }else{
+        product.isOrder='YES';
+      }
+    }).catch(err => {
+      console.log(err);
+      notie.alert('error', this.errors.SUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
+    }).done(() => {
+      slidingItem.close();
+    });
+  }
+
+  unsubscribe(product, slidingItem) {
+    this.priceSvc.unsubscribe(product.ProductId, this.global.MOBILE).then(data => {
+      if (data.result == 'error') {
+        notie.alert('error', this.errors.UNSUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
+      }else{
+        product.isOrder='NO';
+      }
+    }).catch(err => {
+      console.log(err);
+      notie.alert('error', this.errors.UNSUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
+    }).done(() => {
+      slidingItem.close();
+    });
+  }
+
 }

@@ -19,4 +19,6 @@ export class Errors {
   LOGOUT_FAILED = '退出失败，请重试！';
   GET_DATA_FAILED = '获取数据失败，请重试！';
   CANNOT_EXCEED_90_DAYS = '查询时间不能超过90天！';
+  SUBSCRIBE_FAILED = '订阅失败，请重试！';
+  UNSUBSCRIBE_FAILED = '取消订阅失败，请重试！';
 }

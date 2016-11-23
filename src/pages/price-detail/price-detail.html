@@ -17,7 +17,7 @@
 
   <ion-list *ngFor='let x of items'>
     <ion-item-divider color="light">{{x[0].ParentName}}</ion-item-divider>
-    <ion-item-sliding *ngFor='let y of x'>
+    <ion-item-sliding *ngFor='let y of x' #slidingItem>
       <button ion-item (click)='gotoPriceHistory(y)'>
         <ion-row>
           <ion-col>
@@ -40,10 +40,10 @@
         </ion-row>
     </button>
       <ion-item-options side="right">
-        <button *ngIf="y.isOrder == 'NO'" ion-button>
+        <button *ngIf="y.isOrder == 'NO'" ion-button (click)='subscribe(y, slidingItem)'>
           订阅
         </button>
-        <button *ngIf="y.isOrder != 'NO'" ion-button color='danger'>
+        <button *ngIf="y.isOrder != 'NO'" ion-button color='danger' (click)='unsubscribe(y, slidingItem)'>
           取消
         </button>
       </ion-item-options>
