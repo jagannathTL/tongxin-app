@@ -5,7 +5,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { Push } from 'ionic-native';
 import { Global } from '../providers/global';
-import { LoginSvc } from '../providers/login-svc';
+import { Http, URLSearchParams } from '@angular/http';
 
 @Component({
   template: `<ion-nav #myNav [root]="rootPage"></ion-nav>`
@@ -14,7 +14,7 @@ export class MyApp {
   @ViewChild('myNav') nav: NavController
   rootPage: any = TabsPage;
 
-  constructor(platform: Platform, public global: Global, public loginSvc: LoginSvc, public events:Events) {
+  constructor(platform: Platform, public global: Global, public events: Events, public http: Http) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -67,13 +67,25 @@ export class MyApp {
               data => {
                 let password = data;
                 //自动登录，如果成功setroot到tabs页面
-                this.loginSvc.login(mobile, password).then(data => {
-                  if (data.result == 'ok') {
-                    console.log('mobile:'+mobile);
-                    this.global.MOBILE = mobile;
-                    this.events.publish('app:loadInBox');
-                  }
-                }).catch(error => {
+                let deviceId = this.global.DEVICE_ID;
+                let phoneType = '1';//ios=0;android=1;
+                if (platform.is('ios')) {
+                  phoneType = '0';
+                }
+                else {
+                  phoneType = '1';
+                }
+                let params: URLSearchParams = new URLSearchParams();
+                params.set('method', 'signin');
+                params.set('mobile', mobile);
+                params.set('password', password);
+                params.set('token', deviceId);
+                params.set('phoneType', phoneType);
+                this.http.get(this.global.SERVER + '/Handlers/LoginHandler.ashx', {
+                  search: params
+                }).map(res => res.json()).subscribe(data => {
+                  this.global.MOBILE = mobile;
+                }, error => {
                   this.nav.setRoot(LoginPage);
                   console.log(error);
                 });

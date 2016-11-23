@@ -55,7 +55,7 @@ export class TabsPage {
         }
       }).catch(error => {
         console.log(error);
-      }).finally(() => {
+      }).done(() => {
         loader.dismiss();
       });
     }

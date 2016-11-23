@@ -10,7 +10,6 @@ import { PricePage } from '../pages/price/price';
 import { CirclePage } from '../pages/circle/circle';
 import { ForgetPasswordPage } from '../pages/forget-password/forget-password';
 import { Global } from '../providers/global';
-import { LoginSvc } from '../providers/login-svc';
 import { RegisterPage } from '../pages/register/register';
 import { RegisterSvc } from '../providers/register-svc';
 import { PriceSvc } from '../providers/price-svc';
@@ -71,6 +70,6 @@ import { CommentSvc } from '../providers/comment-svc';
     PriceHistoryPage,
     CommentListPage
   ],
-  providers: [Global, LoginSvc, RegisterSvc, PriceSvc, Errors, ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc]
+  providers: [Global, RegisterSvc, PriceSvc, Errors, ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc]
 })
 export class AppModule { }
