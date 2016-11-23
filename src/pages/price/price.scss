@@ -22,13 +22,24 @@ page-price {
     background-color: map-get($colors, light);
   }
 
-  .swiper-slide{
+  .swiper-slide {
     font-size: inherit;
   }
-  
-  .swiper-wrapper .pro{
-      overflow: scroll;
-      display: block;
+
+  .swiper-wrapper .pro {
+    overflow: scroll;
+    display: block;
   }
 
+  .positive {
+    color: map-get($colors, positive);
+  }
+
+  .negative {
+    color: map-get($colors, negative);
+  }
+
+  .zero {
+    color: map-get($colors, dark);
+  }
 }

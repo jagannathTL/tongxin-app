@@ -9,7 +9,7 @@
   <ion-navbar color='navbar'>
     <ion-title>价格</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only  (click)='refresh()'>
+      <button ion-button icon-only (click)='refresh()'>
         <ion-icon name="refresh"></ion-icon>
       </button>
     </ion-buttons>
@@ -41,7 +41,32 @@
       <!-- Slides -->
       <div class="swiper-slide pro" *ngFor="let s of inBuckets">
         <ion-list>
-          <button (click)='gotoPriceDetail(m, s)' ion-item *ngFor="let m of s.markets">{{m.name}}</button>
+          <button (click)='gotoPriceDetail(m, s)' ion-item *ngFor="let m of s.markets">
+            <ion-grid>
+                <ion-row>
+                  {{m.name}}
+                </ion-row>
+                <ion-row style="font-size: 80%">
+                    <ion-col >
+                      &nbsp;&nbsp;&nbsp;&nbsp;{{m.ProductName}}
+                    </ion-col>
+                    <ion-col text-right>
+                      {{m.Date}}
+                    </ion-col>
+                </ion-row>
+                <ion-row style="font-size: 80%">
+                  <ion-col width-25>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{{m.Comment}}
+                  </ion-col>
+                  <ion-col text-right [ngClass]="{'negative': m.Change < 0, 'positive': m.Change > 0, 'zero': m.Change == 0}">
+                    {{m.priceString}}
+                  </ion-col>
+                  <ion-col width-25 text-right [ngClass]="{'negative': m.Change < 0, 'positive': m.Change > 0, 'zero': m.Change == 0}">
+                    {{m.absChange}}
+                  </ion-col>
+                </ion-row>
+            </ion-grid>
+          </button>
         </ion-list>
       </div>
     </div>

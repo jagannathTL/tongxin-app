@@ -22,21 +22,7 @@ export class PriceSvc {
     return new Promise((resolve, reject) => {
       this.http.get(this.global.SERVER + "/Handlers/PriceHandler.ashx?method=getHistoryPrices&productId=" + productId + '&start=' + start + '&end=' + end).map(res => res.json()).subscribe(data => {
         data = _.forEach(data, x => {
-          x.Change = parseFloat(x.Change);
-          if (x.Change > 0) {
-            x.absChange = '涨' + Math.abs(x.Change);
-          } else if (x.Change < 0) {
-            x.absChange = '跌' + Math.abs(x.Change);
-          } else {
-            x.absChange = '平';
-          }
-          if (x.LPrice == null || x.LPrice == '0') {
-            x.priceString = '停收';
-          } else if (x.HPrice == null || x.HPrice == '0') {
-            x.priceString = x.LPrice;
-          } else {
-            x.priceString = x.LPrice + '-' + x.HPrice;
-          }
+          this.translate(x);
         });
         resolve(data);
       }, err => {
@@ -56,21 +42,7 @@ export class PriceSvc {
           })
         }
         data = _.forEach(data, x => {
-          x.Change = parseFloat(x.Change);
-          if (x.Change > 0) {
-            x.absChange = '涨' + Math.abs(x.Change);
-          } else if (x.Change < 0) {
-            x.absChange = '跌' + Math.abs(x.Change);
-          } else {
-            x.absChange = '平';
-          }
-          if (x.LPrice == null || x.LPrice == '0') {
-            x.priceString = '停收';
-          } else if (x.HPrice == null || x.HPrice == '0') {
-            x.priceString = x.LPrice;
-          } else {
-            x.priceString = x.LPrice + '-' + x.HPrice;
-          }
+          this.translate(x);
         });
         let result = _.groupBy(data, x => {
           return x.ParentName;
@@ -88,12 +60,15 @@ export class PriceSvc {
     return new Promise((resolve, reject) => {
       this.http.get(this.global.SERVER + "/Handlers/XHMarketHandler.ashx?method=getmarkets&mobile=" + mobile).map(res => res.json()).subscribe(data => {
         // var index = 0;
-        data.forEach((r: any) => {
-          if (r.inBucket == "true") {
-            inBuckets.push(r);//已关注
+        data.forEach((x: any) => {
+          _.forEach(x.markets, m => {
+            this.translate(m);
+          });
+          if (x.inBucket == "true") {
+            inBuckets.push(x);//已关注
           }
           else {
-            outBuckets.push(r);//未关注
+            outBuckets.push(x);//未关注
           }
         });
         resolve(data);
@@ -103,27 +78,46 @@ export class PriceSvc {
     });
   }
 
-  subscribe(productId, mobile){
+  translate(x) {
+    x.Change = parseFloat(x.Change);
+    if (x.Change > 0) {
+      x.absChange = '涨' + Math.abs(x.Change);
+    } else if (x.Change < 0) {
+      x.absChange = '跌' + Math.abs(x.Change);
+    } else {
+      x.absChange = '平';
+    }
+    if (x.LPrice == null || x.LPrice == '0' || x.LPrice == '') {
+      x.priceString = '停收';
+    } else if (x.HPrice == null || x.HPrice == '0' || x.HPrice == '') {
+      x.priceString = x.LPrice;
+    } else {
+      x.priceString = x.LPrice + '-' + x.HPrice;
+    }
+    return x;
+  }
+
+  subscribe(productId, mobile) {
     return new Promise((resolve, reject) => {
       this.http.get(this.global.SERVER + "/Handlers/orderHandler.ashx?method=order&mobile=" + mobile + '&productId=' + productId + '&isOrder=YES').map(res => res.json())
-      .subscribe(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-        throw new Error(err);
-      });
+        .subscribe(data => {
+          resolve(data);
+        }, err => {
+          console.log(err);
+          throw new Error(err);
+        });
     });
   }
 
-  unsubscribe(productId, mobile){
+  unsubscribe(productId, mobile) {
     return new Promise((resolve, reject) => {
       this.http.get(this.global.SERVER + "/Handlers/orderHandler.ashx?method=order&mobile=" + mobile + '&productId=' + productId + '&isOrder=NO').map(res => res.json())
-      .subscribe(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-        throw new Error(err);
-      });
+        .subscribe(data => {
+          resolve(data);
+        }, err => {
+          console.log(err);
+          throw new Error(err);
+        });
     });
   }
 

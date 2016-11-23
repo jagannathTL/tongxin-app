@@ -80,6 +80,7 @@ export class PricePage {
     let loading = this.loading.create({});
     loading.present();
     this.priceSvc.getMarkets(this.global.MOBILE, this.inBuckets, this.outBuckets).then(() => {
+      console.log(this.inBuckets);
       this.marketS = new Swiper('.market', {
         spaceBetween: 10,
         centeredSlides: false,
