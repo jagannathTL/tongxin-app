@@ -28,7 +28,6 @@ export class CommentListPage {
   }
 
   ionViewDidLoad() {
-    console.log('Hello ComDetailPage Page');
     this.getDetailData();
   }
 
@@ -45,7 +44,6 @@ export class CommentListPage {
         data.forEach((c: any) => {
           this.comList.push({avatar:c.avatar, url:c.url, title:c.title, date:c.date, id:c.id, proName:c.productname, isOrder:c.isOrder});
         });
-        console.log(this.comList);
     }).catch((err) => {
 
     }).done(() => {
@@ -56,7 +54,6 @@ export class CommentListPage {
   subscribeOrC(pro, isOrder, slide)
   {
     this.commentSvc.subscribeOrCancel(pro.id, isOrder, this.global.MOBILE).then((data: any) => {
-      debugger
       if(data.result == "error")
       {
         if(pro.isOrder == "NO")

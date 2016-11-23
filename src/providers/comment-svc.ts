@@ -14,7 +14,7 @@ import { Global } from '../providers/global';
 export class CommentSvc {
 
   constructor(public http: Http, public global: Global) {
-    console.log('Hello CommentSvc Provider');
+
   }
 
   getCommentMarkets(mobile, inBuckets, outBuckets){
