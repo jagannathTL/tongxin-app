@@ -53,10 +53,9 @@ export class CommentListPage {
     });
   }
 
-  subscribeOrC(pro, slide)
+  subscribeOrC(pro, isOrder, slide)
   {
-    console.log(pro);
-    this.commentSvc.subscribeOrCancel(pro,this.global.MOBILE).then((data: any) => {
+    this.commentSvc.subscribeOrCancel(pro.id, isOrder, this.global.MOBILE).then((data: any) => {
       debugger
       if(data.result == "error")
       {

@@ -44,20 +44,22 @@ export class PricePage {
     this.index = this.inBuckets.indexOf(obj);
     this.marketS.slideTo(this.index);
     this.productS.slideTo(this.index, 500, false);
-    var pros = $(".product .swiper-wrapper .swiper-slide");
-    console.log(pros);
     var divs = $(".market .swiper-wrapper .swiper-slide");
     divs.css("color", 'black').css("border-bottom-width", '0px');
     divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
   defaultSlide() {
-    this.marketS.slideTo(0);
-    this.productS.slideTo(0, 0, true);
+
+    if (this.inBuckets.length < (this.index + 1)) {
+     this.index = (this.inBuckets.length - 1);
+   }
+    this.marketS.slideTo(this.index);
+    this.productS.slideTo(this.index, 0, true);
 
     var divs = $(".market .swiper-wrapper .swiper-slide");
     divs.css("color", 'black').css("border-bottom-width", '0px');
-    divs.eq(0).css("color", "red").css("border-bottom", "2px solid red");
+    divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
   moreBuckets() {
@@ -85,6 +87,7 @@ export class PricePage {
             divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
           }
         });
+      this.productS.params.control = this.marketS;
       this.defaultSlide();
     },500)
     });

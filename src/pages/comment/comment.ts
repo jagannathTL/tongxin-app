@@ -48,11 +48,16 @@ export class CommentPage {
   }
 
   defaultSlide(){
-    this.marketC.slideTo(0);
-    this.productC.slideTo(0, 0, true);
+
+    if (this.inBuckets.length < (this.index + 1)) {
+     this.index = (this.inBuckets.length - 1);
+   }
+
+    this.marketC.slideTo(this.index);
+    this.productC.slideTo(this.index, 0, false);
     var divs = $(".marketC .swiper-wrapper .swiper-slide");
     divs.css("color", 'black').css("border-bottom-width", '0px');
-    divs.eq(0).css("color", "red").css("border-bottom", "2px solid red");
+    divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
 
@@ -69,21 +74,22 @@ export class CommentPage {
       setTimeout(() => {
         this.marketC.destroy(true, false);
         this.productC.destroy(true, false);
-        this.marketC = new Swiper('.market', {
+        this.marketC = new Swiper('.marketC', {
           spaceBetween: 10,
           centeredSlides: false,
           slidesPerView: 'auto',
           freeMode: true
         });
-        this.productC = new Swiper('.product', {
+        this.productC = new Swiper('.productC', {
           onSlideChangeStart: (swiper) => {
             var index = swiper.activeIndex;
             this.index = index;
-            var divs = $(".market .swiper-wrapper .swiper-slide");
+            var divs = $(".marketC .swiper-wrapper .swiper-slide");
             divs.css("color", 'black').css("border-bottom-width", '0px');
             divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
           }
         });
+      this.productC.params.control = this.marketC;
       this.defaultSlide();
     },500)
     })
