@@ -8,28 +8,38 @@
 
 
 <ion-content>
-    <ion-grid>
-        <ion-row ion-item *ngFor="let com of comList">
-          <ion-col>
-            
-          </ion-col>
-          <ion-col>
-            <ion-grid>
-              <ion-row>
-                <ion-col>
-
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-
-                </ion-col>
-                <ion-col>
-
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-col>
+  <ion-list>
+    <ion-item-sliding *ngFor="let com of comList" #slidingComItem>
+      <button ion-item (click)="goDetail(com.url)">
+        <ion-row>
+        <ion-col width-25 style="text-align:center">
+          <img [src]="com.avatar" style="width:60px" />
+        </ion-col>
+        <ion-col>
+            <ion-row>
+              <ion-col>
+                {{com.title}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="color:#555555;font-size:14px">
+                {{com.proName}}
+              </ion-col>
+              <ion-col style="color:#ff8128;font-size:14px">
+                {{com.date}}
+              </ion-col>
+            </ion-row>
+        </ion-col>
         </ion-row>
-    </ion-grid>
+      </button>
+      <ion-item-options side="right">
+        <button *ngIf="com.isOrder == 'NO'" ion-button (click)='subscribeOrC(com, slidingComItem)'>
+          添加关注
+        </button>
+        <button *ngIf="com.isOrder != 'NO'" ion-button color='danger' (click)='subscribeOrC(com, slidingComItem)'>
+          取消关注
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

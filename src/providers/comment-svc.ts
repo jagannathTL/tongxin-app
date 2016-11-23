@@ -48,4 +48,17 @@ export class CommentSvc {
       });
     })
   }
+
+  subscribeOrCancel(pro,mobile)
+  {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.global.SERVER + "/Handlers/orderHandler.ashx?method=order&mobile=" + mobile + "&productId=" + pro.id + "&isOrder=" + pro.isOrder).map(res => res.json()).subscribe(data => {
+        debugger
+        resolve(data);
+      },err => {
+        console.log(err);
+        throw new Error(err);
+      })
+    })
+  }
 }
