@@ -17,6 +17,26 @@ export class CommentSvc {
     console.log('Hello CommentSvc Provider');
   }
 
+  getCommentMarkets(mobile, inBuckets, outBuckets){
+    return new Promise((resolve, reject) => {
+      this.http.get(this.global.SERVER + "/Handlers/PLHandler.ashx?method=getmarkets&mobile=" + mobile).map(res => res.json())
+      .subscribe((data) => {
+        data.forEach((r: any) => {
+          if (r.inBucket == "true") {
+            inBuckets.push(r);//已关注
+          }
+          else {
+            outBuckets.push(r);//未关注
+          }
+        });
+        resolve(data);
+      }, err => {
+        console.log(err);
+        throw new Error(err);
+      })
+    })
+  }
+
   getCommentDetail(mobile, marketId){
     return new Promise((resolve, reject) => {
       this.http.get(this.global.SERVER + "/Handlers/PLHandler.ashx?method=getproducts&mobile=" + mobile + "&marketId=" + marketId).map(res => res.json())

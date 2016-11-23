@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { NavController, LoadingController, ModalController } from 'ionic-angular';
 import { PriceSvc } from '../../providers/price-svc';
 import { Errors } from '../../providers/errors';
@@ -28,7 +28,7 @@ export class PricePage {
   index: any = 0;
   isShow: boolean = false;
 
-  constructor(public navCtrl: NavController, public err: Errors, public global: Global, public priceSvc: PriceSvc, public loading: LoadingController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public err: Errors, public global: Global, public priceSvc: PriceSvc, public loading: LoadingController, public modalCtrl: ModalController, public ref: ChangeDetectorRef) {
 
   }
 
@@ -44,6 +44,8 @@ export class PricePage {
     this.index = this.inBuckets.indexOf(obj);
     this.marketS.slideTo(this.index);
     this.productS.slideTo(this.index, 500, false);
+    var pros = $(".product .swiper-wrapper .swiper-slide");
+    console.log(pros);
     var divs = $(".market .swiper-wrapper .swiper-slide");
     divs.css("color", 'black').css("border-bottom-width", '0px');
     divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
@@ -52,11 +54,11 @@ export class PricePage {
   defaultSlide() {
     this.marketS.slideTo(0);
     this.productS.slideTo(0, 0, true);
+
     var divs = $(".market .swiper-wrapper .swiper-slide");
     divs.css("color", 'black').css("border-bottom-width", '0px');
     divs.eq(0).css("color", "red").css("border-bottom", "2px solid red");
   }
-
 
   moreBuckets() {
     let modal = this.modalCtrl.create(InOutBucketsPage, {
@@ -65,7 +67,26 @@ export class PricePage {
     });
     modal.onDidDismiss((data: any) => {
       this.inBuckets = data.list;
+      setTimeout(() => {
+        this.marketS.destroy(true, false);
+        this.productS.destroy(true, false);
+        this.marketS = new Swiper('.market', {
+          spaceBetween: 10,
+          centeredSlides: false,
+          slidesPerView: 'auto',
+          freeMode: true
+        });
+        this.productS = new Swiper('.product', {
+          onSlideChangeStart: (swiper) => {
+            var index = swiper.activeIndex;
+            this.index = index;
+            var divs = $(".market .swiper-wrapper .swiper-slide");
+            divs.css("color", 'black').css("border-bottom-width", '0px');
+            divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
+          }
+        });
       this.defaultSlide();
+    },500)
     });
     modal.present();
   }
