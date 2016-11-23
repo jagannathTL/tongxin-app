@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, ModalController } from 'ionic-angular';
-import { PriceSvc } from '../../providers/price-svc';
+import { CommentSvc } from '../../providers/comment-svc';
 import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
 import { InOutBucketsPage } from '../in-out-buckets/in-out-buckets';
@@ -30,7 +30,7 @@ export class CommentPage {
   productC: any;
   index: any = 0;
 
-  constructor(public navCtrl: NavController, public err: Errors, public global: Global, public priceSvc: PriceSvc, public loading: LoadingController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public err: Errors, public global: Global, public commentSvc: CommentSvc, public loading: LoadingController, public modalCtrl: ModalController) {
 
   }
 
@@ -66,7 +66,26 @@ export class CommentPage {
     });
     modal.onDidDismiss((data: any) => {
       this.inBuckets = data.list;
+      setTimeout(() => {
+        this.marketC.destroy(true, false);
+        this.productC.destroy(true, false);
+        this.marketC = new Swiper('.market', {
+          spaceBetween: 10,
+          centeredSlides: false,
+          slidesPerView: 'auto',
+          freeMode: true
+        });
+        this.productC = new Swiper('.product', {
+          onSlideChangeStart: (swiper) => {
+            var index = swiper.activeIndex;
+            this.index = index;
+            var divs = $(".market .swiper-wrapper .swiper-slide");
+            divs.css("color", 'black').css("border-bottom-width", '0px');
+            divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
+          }
+        });
       this.defaultSlide();
+    },500)
     })
     modal.present();
   }
@@ -85,7 +104,7 @@ export class CommentPage {
     }
     let loading = this.loading.create({});
     loading.present();
-    this.priceSvc.getMarkets(this.global.MOBILE, this.inBuckets, this.outBuckets).then((data: any) => {
+    this.commentSvc.getCommentMarkets(this.global.MOBILE, this.inBuckets, this.outBuckets).then((data: any) => {
       this.marketC = new Swiper('.marketC', {
         spaceBetween: 10,
         centeredSlides: false,

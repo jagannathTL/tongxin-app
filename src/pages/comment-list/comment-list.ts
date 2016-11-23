@@ -16,6 +16,7 @@ export class CommentListPage {
 
   titleStr: any;
   marketId: any;
+  comList: any;
   constructor(public navCtrl: NavController, public param: NavParams, public commentSvc: CommentSvc, public global: Global) {
     var sName = param.get("sName");
     var mName = param.get("mName");
@@ -31,6 +32,9 @@ export class CommentListPage {
   getDetailData(){
     this.commentSvc.getCommentDetail(this.global.MOBILE, this.marketId).then((data: any) => {
         console.log(data);
+        data.forEach((c: any) => {
+          this.comList.push({avatar:c.avatar, url:c.url, title:c.title, date:c.date, id:c.id, proName:c.productname, isOrder:c.isOrder});
+        })
     });
   }
 
