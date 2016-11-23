@@ -84,48 +84,50 @@ export class MyApp {
 
   checkLogin() {
     //自动登陆，读取用户名和密码
+    console.log('checkLogin');
     let secureStorage: SecureStorage = new SecureStorage();
     secureStorage.create('tongxin')
       .then(
-      () => console.log('Storage is ready!'),
-      error => {
-        this.nav.setRoot(LoginPage);
-      });
-
-    secureStorage.get('mobile')
-      .then(
-      data => {
-        let mobile = data;
-        secureStorage.get('password')
+      () => {
+        secureStorage.get('mobile')
           .then(
           data => {
-            let password = data;
-            //自动登录，如果成功setroot到tabs页面
-            let deviceId = this.global.DEVICE_ID;
-            let phoneType = '1';//ios=0;android=1;
-            if (this.platform.is('ios')) {
-              phoneType = '0';
-            }
-            else if (this.platform.is('android')) {
-              phoneType = '1';
-            }
-            else {
-              phoneType = '-1';
-            }
-            let params: URLSearchParams = new URLSearchParams();
-            params.set('method', 'signin');
-            params.set('mobile', mobile);
-            params.set('password', password);
-            params.set('token', deviceId);
-            params.set('phoneType', phoneType);
-            this.http.get(this.global.SERVER + '/Handlers/LoginHandler.ashx', {
-              search: params
-            }).map(res => res.json()).subscribe(data => {
-              this.global.MOBILE = mobile;
-            }, error => {
-              this.nav.setRoot(LoginPage);
-              console.log(error);
-            });
+            let mobile = data;
+            secureStorage.get('password')
+              .then(
+              data => {
+                let password = data;
+                //自动登录，如果成功setroot到tabs页面
+                let deviceId = this.global.DEVICE_ID;
+                let phoneType = '1';//ios=0;android=1;
+                if (this.platform.is('ios')) {
+                  phoneType = '0';
+                }
+                else if (this.platform.is('android')) {
+                  phoneType = '1';
+                }
+                else {
+                  phoneType = '-1';
+                }
+                let params: URLSearchParams = new URLSearchParams();
+                params.set('method', 'signin');
+                params.set('mobile', mobile);
+                params.set('password', password);
+                params.set('token', deviceId);
+                params.set('phoneType', phoneType);
+                this.http.get(this.global.SERVER + '/Handlers/LoginHandler.ashx', {
+                  search: params
+                }).map(res => res.json()).subscribe(data => {
+                  this.global.MOBILE = mobile;
+                }, error => {
+                  this.nav.setRoot(LoginPage);
+                  console.log(error);
+                });
+              },
+              error => {
+                this.nav.setRoot(LoginPage);
+                console.log(error);
+              });
           },
           error => {
             this.nav.setRoot(LoginPage);
@@ -134,7 +136,6 @@ export class MyApp {
       },
       error => {
         this.nav.setRoot(LoginPage);
-        console.log(error);
       });
   }
 }
