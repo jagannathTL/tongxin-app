@@ -56,21 +56,9 @@ export class PriceSvc {
   }
 
 
-  getMarkets(mobile, inBuckets, outBuckets) {
+  getMarkets(mobile) {
     return new Promise((resolve, reject) => {
       this.http.get(this.global.SERVER + "/Handlers/XHMarketHandler.ashx?method=getmarkets&mobile=" + mobile).map(res => res.json()).subscribe(data => {
-        // var index = 0;
-        data.forEach((x: any) => {
-          _.forEach(x.markets, m => {
-            this.translate(m);
-          });
-          if (x.inBucket == "true") {
-            inBuckets.push(x);//已关注
-          }
-          else {
-            outBuckets.push(x);//未关注
-          }
-        });
         resolve(data);
       }, err => {
         throw new Error(err);

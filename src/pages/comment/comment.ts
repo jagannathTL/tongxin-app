@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, LoadingController, ModalController } from 'ionic-angular';
 import { CommentSvc } from '../../providers/comment-svc';
 import { Errors } from '../../providers/errors';
@@ -31,7 +31,7 @@ export class CommentPage {
   index: any = 0;
   isShow: boolean = false;
 
-  constructor(public navCtrl: NavController, public err: Errors, public global: Global, public commentSvc: CommentSvc, public loading: LoadingController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public err: Errors, public global: Global, public commentSvc: CommentSvc, public loading: LoadingController, public modalCtrl: ModalController, public zone: NgZone) {
 
   }
 
@@ -71,10 +71,10 @@ export class CommentPage {
       enableBackdropDismiss:true
     });
     modal.onDidDismiss((data: any) => {
-      this.inBuckets = data.list;
+        this.inBuckets = data.list;
       setTimeout(() => {
-        this.marketC.destroy(true, false);
-        this.productC.destroy(true, false);
+      this.marketC.destroy(true, false);
+      this.productC.destroy(true, false);
         this.marketC = new Swiper('.marketC', {
           spaceBetween: 10,
           centeredSlides: false,
@@ -112,7 +112,17 @@ export class CommentPage {
     }
     let loading = this.loading.create({});
     loading.present();
-    this.commentSvc.getCommentMarkets(this.global.MOBILE, this.inBuckets, this.outBuckets).then((data: any) => {
+    this.commentSvc.getCommentMarkets(this.global.MOBILE).then((data: any) => {
+      this.zone.run(() => {
+        data.forEach((r: any) => {
+          if (r.inBucket == "true") {
+            this.inBuckets.push(r);//已关注
+          }
+          else {
+            this.outBuckets.push(r);//未关注
+          }
+        });
+      });
       this.marketC = new Swiper('.marketC', {
         spaceBetween: 10,
         centeredSlides: false,
