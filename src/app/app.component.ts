@@ -122,7 +122,15 @@ export class MyApp {
                 this.http.get(this.global.SERVER + '/Handlers/LoginHandler.ashx', {
                   search: params
                 }).map(res => res.json()).subscribe(data => {
-                  this.global.MOBILE = mobile;
+                  if(data.result == "ok")
+                  {
+                    this.global.MOBILE = mobile;
+                    this.events.publish('inboxPage:loadItems');
+                  }
+                  else
+                  {
+                    this.nav.setRoot(LoginPage);
+                  }
                 }, error => {
                   this.nav.setRoot(LoginPage);
                   console.log(error);

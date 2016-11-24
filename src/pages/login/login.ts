@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Platform } from 'ionic-angular';
+import { NavController, LoadingController, Platform, Events } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from '../register/register';
 import { ForgetPasswordPage } from '../forget-password/forget-password';
@@ -26,7 +26,7 @@ export class LoginPage {
   password = '';
   constructor(public navCtrl: NavController,
     public loadingCtrl: LoadingController, public err: Errors, public global: Global,
-    public platform: Platform, public http: Http) {
+    public platform: Platform, public http: Http, public events: Events) {
     platform.ready().then(() => {
       Splashscreen.hide();
       let secureStorage: SecureStorage = new SecureStorage();
@@ -104,6 +104,7 @@ export class LoginPage {
         this.global.MOBILE = this.mobile;
         this.navCtrl.setRoot(TabsPage);
         this.isShowLoading = false;
+        this.events.publish('inboxPage:loadItems');
       }
       else {
         this.isShowLoading = false;

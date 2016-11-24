@@ -32,20 +32,22 @@ export class InboxPage {
     });
 
     //初始化
-    let load = this.loadingCtrl.create();
-    load.present();
-    inboxSvc.loadItems(global.MOBILE).then(data => {
-      if (data.length > 0) {
-        for (let i = 0; i < data.length; i++) {
-          data[i].dateStr = data[i].date.substr(5, 14);
+    events.subscribe('inboxPage:loadItems', () => {
+      let load = this.loadingCtrl.create();
+      load.present();
+      inboxSvc.loadItems(global.MOBILE).then(data => {
+        if (data.length > 0) {
+          for (let i = 0; i < data.length; i++) {
+            data[i].dateStr = data[i].date.substr(5, 14);
+          }
+          this.items = _.concat(this.items, data);
         }
-        this.items = _.concat(this.items, data);
-      }
-    }).catch(error => {
-      notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
-    }).done(() => {
-      load.dismiss();
-    });
+      }).catch(error => {
+        notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
+      }).done(() => {
+        load.dismiss();
+      });
+    })
   }
 
   doInfinite(infiniteScroll) {
