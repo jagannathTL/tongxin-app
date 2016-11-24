@@ -7,7 +7,7 @@ import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
 declare var notie: any;
 import validator from 'validator';
-import { SecureStorage } from 'ionic-native';
+import { SecureStorage, Splashscreen } from 'ionic-native';
 import { Http, URLSearchParams } from '@angular/http';
 
 /*
@@ -27,20 +27,23 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
     public loadingCtrl: LoadingController, public err: Errors, public global: Global,
     public platform: Platform, public http: Http) {
-    let secureStorage: SecureStorage = new SecureStorage();
-    secureStorage.create('tongxin')
-      .then(
-      () => {
-        secureStorage.get('mobile')
-          .then(
-          data => {
-            this.mobile = data;
-          },
-          error => console.log(error)
-          );
-      },
-      error => console.log(error)
-      );
+    platform.ready().then(() => {
+      Splashscreen.hide();
+      let secureStorage: SecureStorage = new SecureStorage();
+      secureStorage.create('tongxin')
+        .then(
+        () => {
+          secureStorage.get('mobile')
+            .then(
+            data => {
+              this.mobile = data;
+            },
+            error => console.log(error)
+            );
+        },
+        error => console.log(error)
+        );
+    });
   }
 
   login() {

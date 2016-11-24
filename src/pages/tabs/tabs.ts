@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Events } from 'ionic-angular';
+import { NavController, LoadingController, Events, Platform } from 'ionic-angular';
 import { CommentPage } from '../comment/comment';
 import { FuturesPage } from '../futures/futures';
 import { InboxPage } from '../inbox/inbox';
@@ -9,6 +9,7 @@ import { InboxSvc } from '../../providers/inbox-svc';
 import { Global } from '../../providers/global';
 import moment from 'moment';
 import * as _ from 'lodash';
+import { Splashscreen } from 'ionic-native';
 
 /*
   Generated class for the Tabs page.
@@ -29,18 +30,24 @@ export class TabsPage {
   futures: any;
   items = [];
   lastDate = "";
-  badge="";
+  badge = "";
 
-  constructor(public navCtrl: NavController, public inboxSvc: InboxSvc, public global: Global, public loadingCtrl: LoadingController, public events: Events) {
+  constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
+    public global: Global, public loadingCtrl: LoadingController,
+    public events: Events, public platform: Platform) {
     this.inbox = InboxPage;
     this.price = PricePage;
     this.comment = CommentPage;
     this.circle = CirclePage;
     this.futures = FuturesPage;
 
+    platform.ready().then(() => {
+      Splashscreen.hide();
+    });
+
     events.subscribe('tabsPage:setBadge', (count) => {
-      console.log('set badge:'+count);
-        this.badge = count;
+      console.log('set badge:' + count);
+      this.badge = count;
     });
   }
 
