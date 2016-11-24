@@ -56,22 +56,22 @@ export class TabsPage {
 
   loadItems() {
     if (this.lastDate != '' && this.badge > 0) {
-      this.zone.run(()=>{
-        this.badge = 0;
-      });
-      this.inboxSvc.clearBadge(this.global.MOBILE).then().catch((err)=>console.log('clearBadge error!'));
       this.items = [];//清空数组
       //把加载的数据传到inbox的items参数里面
       let loader = this.loadingCtrl.create({});
       loader.present();
       this.inboxSvc.loadNewItems(this.global.MOBILE, this.lastDate).then(data => {
-
         if (data.length > 0) {
           for (let i = 0; i < data.length; i++) {
             data[i].dateStr = data[i].date.substr(5, 14);
           }
           this.items = _.concat(this.items, data);
           this.events.publish('tabsPage:loadItems', this.items[0]);
+          this.inboxSvc.clearBadge(this.global.MOBILE).then(() => {
+            this.zone.run(() => {
+              this.badge = 0;
+            });
+          }).catch((err) => console.log('clearBadge error!'));
         }
       }).catch(error => {
         console.log(error);
