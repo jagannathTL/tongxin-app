@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, App } from 'ionic-angular';
+import { NavController, App, Events } from 'ionic-angular';
 import { SecureStorage } from 'ionic-native';
 import { LoginPage } from '../login/login';
 declare const notie: any;
@@ -19,13 +19,17 @@ import { Errors } from '../../providers/errors';
 export class InfoPage {
   mobile = this.global.MOBILE;
   isSound = true;
-  constructor(public navCtrl: NavController, public errors: Errors, public global: Global, public app: App) { }
+  constructor(public navCtrl: NavController, public errors: Errors,
+    public global: Global, public app: App, public events: Events) { }
 
   logout() {
     let secureStorage: SecureStorage = new SecureStorage();
     secureStorage.create('tongxin')
       .then(
       () => {
+        //退订tabs的事件
+        this.events.unsubscribe('inboxPage:loadItems');
+
         secureStorage.remove('password')
           .then(
           data => {
@@ -34,8 +38,7 @@ export class InfoPage {
           error => {
             notie.alert('error', this.errors.LOGOUT_FAILED, this.global.NOTIFICATION_DURATION);
             console.log(error)
-          }
-          );
+          });
       },
       error => {
         notie.alert('error', this.errors.LOGOUT_FAILED, this.global.NOTIFICATION_DURATION);

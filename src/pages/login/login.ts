@@ -32,7 +32,7 @@ export class LoginPage {
     });
   }
 
-  ionViewDidLoad(){
+  ionViewDidLoad() {
     this.platform.ready().then(() => {
       let secureStorage: SecureStorage = new SecureStorage();
       secureStorage.create('tongxin')
@@ -92,13 +92,13 @@ export class LoginPage {
           () => {
             secureStorage.set('mobile', this.mobile)
               .then(
-              data => console.log(data),
+              data => { },
               error => console.log(error)
               );
 
             secureStorage.set('password', this.password)
               .then(
-              data => console.log(data),
+              data => { },
               error => console.log(error)
               );
           },
