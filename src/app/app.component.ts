@@ -46,7 +46,6 @@ export class MyApp {
       if (this.platform.is('android')) {
         GeTuiSdkPlugin.callback_init((type, data) => {
           if (type == 'cid') {
-            console.log('Cid: ' + data);
             this.global.DEVICE_ID = data;
             this.checkLogin();
           } else if (type == 'pid') {
@@ -58,10 +57,10 @@ export class MyApp {
           } else if (type == 'online') {
             if (data == 'true') {
               //TODO 已上线
-              console.log('SDK已在线');
+              //console.log('SDK已在线');
             } else {
               //TODO 已离线
-              console.log('SDK已离线');
+              //console.log('SDK已离线');
             }
           }
         }); //设置个推SDK的回调初始化
