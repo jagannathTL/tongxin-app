@@ -88,7 +88,6 @@ export class MyApp {
 
   checkLogin() {
     //自动登陆，读取用户名和密码
-    console.log('checkLogin');
     let secureStorage: SecureStorage = new SecureStorage();
     secureStorage.create('tongxin')
       .then(

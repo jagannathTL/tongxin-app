@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+
+import { Component, NgZone } from '@angular/core';
 import { NavController, LoadingController, Events, Platform } from 'ionic-angular';
 import { CommentPage } from '../comment/comment';
 import { FuturesPage } from '../futures/futures';
@@ -34,7 +35,7 @@ export class TabsPage {
 
   constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
     public global: Global, public loadingCtrl: LoadingController,
-    public events: Events, public platform: Platform) {
+    public events: Events, public platform: Platform, public zone: NgZone) {
     this.inbox = InboxPage;
     this.price = PricePage;
     this.comment = CommentPage;
@@ -46,8 +47,10 @@ export class TabsPage {
     });
 
     events.subscribe('tabsPage:setBadge', (count) => {
-      console.log('set badge:' + count);
-      this.badge = parseInt(count);
+      //console.log('set badge:' + count);
+      this.zone.run(() => {
+        this.badge = parseInt(count);
+      });
     });
   }
 
