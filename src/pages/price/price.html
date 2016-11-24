@@ -47,16 +47,16 @@
                   {{m.name}}
                 </ion-row>
                 <ion-row style="font-size: 80%">
-                    <ion-col >
-                      &nbsp;&nbsp;&nbsp;&nbsp;{{m.ProductName}}
+                    <ion-col class="smallColor">
+                      {{m.ProductName}}
                     </ion-col>
-                    <ion-col text-right>
+                    <ion-col width-33 text-right class="dateColor">
                       {{m.Date}}
                     </ion-col>
                 </ion-row>
                 <ion-row style="font-size: 80%">
-                  <ion-col width-25>
-                    &nbsp;&nbsp;&nbsp;&nbsp;{{m.Comment}}
+                  <ion-col width-33 class="smallColor">
+                    {{m.Comment}}
                   </ion-col>
                   <ion-col text-right [ngClass]="{'negative': m.Change < 0, 'positive': m.Change > 0, 'zero': m.Change == 0}">
                     {{m.priceString}}

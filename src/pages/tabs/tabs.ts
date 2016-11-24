@@ -55,7 +55,11 @@ export class TabsPage {
   }
 
   loadItems() {
-    if (this.lastDate != '') {
+    if (this.lastDate != '' && this.badge > 0) {
+      this.zone.run(()=>{
+        this.badge = 0;
+      });
+      this.inboxSvc.clearBadge(this.global.MOBILE).then().catch((err)=>console.log('clearBadge error!'));
       this.items = [];//清空数组
       //把加载的数据传到inbox的items参数里面
       let loader = this.loadingCtrl.create({});

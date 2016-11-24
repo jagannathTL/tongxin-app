@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
 import { NavController, LoadingController, ModalController } from 'ionic-angular';
 import { PriceSvc } from '../../providers/price-svc';
 import { Errors } from '../../providers/errors';
@@ -28,7 +28,7 @@ export class PricePage {
   index: any = 0;
   isShow: boolean = false;
 
-  constructor(public navCtrl: NavController, public err: Errors, public global: Global, public priceSvc: PriceSvc, public loading: LoadingController, public modalCtrl: ModalController, public ref: ChangeDetectorRef) {
+  constructor(public navCtrl: NavController, public err: Errors, public global: Global, public priceSvc: PriceSvc, public loading: LoadingController, public modalCtrl: ModalController, public ref: ChangeDetectorRef, public zone: NgZone) {
 
   }
 
@@ -103,7 +103,20 @@ export class PricePage {
     }
     let loading = this.loading.create({});
     loading.present();
-    this.priceSvc.getMarkets(this.global.MOBILE, this.inBuckets, this.outBuckets).then(() => {
+    this.priceSvc.getMarkets(this.global.MOBILE).then((data: any) => {
+      this.zone.run(() => {
+        data.forEach((x: any) => {
+          x.markets.forEach((m) => {
+            this.priceSvc.translate(m);
+          })
+          if (x.inBucket == "true") {
+            this.inBuckets.push(x);//已关注
+          }
+          else {
+            this.outBuckets.push(x);//未关注
+          }
+        });
+      });
       this.marketS = new Swiper('.market', {
         spaceBetween: 10,
         centeredSlides: false,

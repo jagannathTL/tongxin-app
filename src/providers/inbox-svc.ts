@@ -49,4 +49,15 @@ export class InboxSvc {
     });
   }
 
+  clearBadge(mobile){
+    return new Promise((resolve, reject) => {
+      this.http.get(this.global.SERVER + '/handlers/MessageHandler.ashx?method=clearMessage&mobile=' + mobile).map(res => res.json()).subscribe(data => {
+        resolve(data);
+      }, error => {
+        console.log(error);
+        throw new Error(error);
+      });
+    });
+  }
+
 }
