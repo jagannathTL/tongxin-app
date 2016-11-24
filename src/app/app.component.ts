@@ -5,8 +5,11 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { Push } from 'ionic-native';
 import { Global } from '../providers/global';
+import { Errors } from '../providers/errors';
 import { Http, URLSearchParams } from '@angular/http';
-declare var GeTuiSdkPlugin: any;
+declare const GeTuiSdkPlugin: any;
+declare const notie: any;
+
 @Component({
   template: `<ion-nav #myNav [root]="rootPage"></ion-nav>`
 })
@@ -14,7 +17,27 @@ export class MyApp {
   @ViewChild('myNav') nav: NavController
   rootPage: any = TabsPage;
 
-  constructor(public platform: Platform, public global: Global, public events: Events, public http: Http) {
+  msgHanlder(data) {
+    data = JSON.parse(data);
+    if (this.platform.is('android')) {
+      if (data.exit == '退出') {
+        notie.alert('error', this.errors.LOGIN_ON_OTHER_MACHINE, this.global.NOTIFICATION_DURATION);
+        this.nav.setRoot(LoginPage);
+      } else {
+        this.events.publish('tabsPage:setBadge', data.badge);
+      }
+    } else if (this.platform.is('ios')) {
+      if (data.additionalData.shyr == '1') {
+        this.nav.setRoot(LoginPage);
+        notie.alert('error', this.errors.LOGIN_ON_OTHER_MACHINE, this.global.NOTIFICATION_DURATION);
+      } else {
+        this.events.publish('tabsPage:setBadge', data.count);
+      }
+    }
+  }
+
+  constructor(public platform: Platform, public global: Global,
+    public events: Events, public http: Http, public errors: Errors) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -31,8 +54,7 @@ export class MyApp {
 
           } else if (type == 'payload') {
             //TODO data=透传数据
-            this.setBadge(JSON.parse(data).badge);
-            alert('payload: ' + data);
+            this.msgHanlder(data);
           } else if (type == 'online') {
             if (data == 'true') {
               //TODO 已上线
@@ -59,16 +81,8 @@ export class MyApp {
           windows: {}
         });
 
-        push.on('notification', (data) => {
-          console.log('--------------');
-          console.log(data);
-          console.log(data.message);
-          this.setBadge(data.count);
-          console.log(data.title);
-          console.log(data.count);
-          console.log(data.sound);
-          console.log(data.image);
-          console.log(data.additionalData);
+        push.on('notification', (data: any) => {
+          this.msgHanlder(data);
         });
 
         push.on('error', (e) => {
@@ -121,13 +135,11 @@ export class MyApp {
                 this.http.get(this.global.SERVER + '/Handlers/LoginHandler.ashx', {
                   search: params
                 }).map(res => res.json()).subscribe(data => {
-                  if(data.result == "ok")
-                  {
+                  if (data.result == "ok") {
                     this.global.MOBILE = mobile;
                     this.events.publish('inboxPage:loadItems');
                   }
-                  else
-                  {
+                  else {
                     this.nav.setRoot(LoginPage);
                   }
                 }, error => {
@@ -148,9 +160,5 @@ export class MyApp {
       error => {
         this.nav.setRoot(LoginPage);
       });
-  }
-
-  setBadge(count){
-    this.events.publish('tabsPage:setBadge', count);
   }
 }

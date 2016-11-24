@@ -29,6 +29,11 @@ export class LoginPage {
     public platform: Platform, public http: Http, public events: Events) {
     platform.ready().then(() => {
       Splashscreen.hide();
+    });
+  }
+
+  ionViewDidLoad(){
+    this.platform.ready().then(() => {
       let secureStorage: SecureStorage = new SecureStorage();
       secureStorage.create('tongxin')
         .then(
