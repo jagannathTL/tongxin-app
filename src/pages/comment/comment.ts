@@ -29,6 +29,7 @@ export class CommentPage {
   marketC: any;
   productC: any;
   index: any = 0;
+  isShow: boolean = false;
 
   constructor(public navCtrl: NavController, public err: Errors, public global: Global, public commentSvc: CommentSvc, public loading: LoadingController, public modalCtrl: ModalController) {
 
@@ -102,6 +103,7 @@ export class CommentPage {
 
   getMarketCDatas()
   {
+    this.isShow = false;
     this.selectionData = [];
     this.inBuckets = [];
     this.outBuckets = [];
@@ -129,7 +131,7 @@ export class CommentPage {
 
       this.productC.params.control = this.marketC;
       this.defaultSlide();//加载页面默认显示第一个 更改第一个样式
-      // loading.dismiss();
+      this.isShow = true;
     }).catch(err => {
       notie.alert('error', err, this.global.NOTIFICATION_DURATION);//err
     }).done(() => {
