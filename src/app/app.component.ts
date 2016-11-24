@@ -60,8 +60,10 @@ export class MyApp {
         });
 
         push.on('notification', (data) => {
+          console.log('--------------');
+          console.log(data);
           console.log(data.message);
-          this.setBadge(JSON.parse(data.message).badge);
+          this.setBadge(data.count);
           console.log(data.title);
           console.log(data.count);
           console.log(data.sound);
