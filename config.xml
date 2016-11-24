@@ -74,4 +74,5 @@
         <variable name="PUSH_APPKEY" value="uIXdIxcUJo7Uc8lNHLksl3" />
         <variable name="PUSH_APPSECRET" value="iA82akeL528lXTaszr8jz1" />
     </plugin>
+    <plugin name="cordova-plugin-whitelist" spec="~1.3.0" />
 </widget>
