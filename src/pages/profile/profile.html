@@ -14,5 +14,135 @@
 
 
 <ion-content>
-
+  <div class="swiper-container">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      <div class="swiper-slide">
+      </div>
+    </div>
+  </div>
+  <!-- <ion-grid>
+    <ion-row>
+      <ion-col width-25>公司名称</ion-col>
+      <ion-col><ion-input placeholder="个人/公司"></ion-input></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-25>联系人</ion-col>
+      <ion-col><ion-input placeholder="王某某"></ion-input></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-25>联系电话</ion-col>
+      <ion-col><ion-input type="tel" placeholder="13888888888"></ion-input></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-25>主营业务</ion-col>
+      <ion-col width-33>
+        <ion-select placeholder="行业" cancelText="取消" okText="确定">
+          <ion-option>回收型</ion-option>
+          <ion-option>加工型</ion-option>
+          <ion-option>贸易型</ion-option>
+          <ion-option>冶炼型</ion-option>
+        </ion-select>
+      </ion-col>
+      <ion-col>
+        <ion-select placeholder="产品" cancelText="取消" okText="确定">
+          <ion-option>有色金属</ion-option>
+          <ion-option>废旧金属</ion-option>
+          <ion-option>废钢</ion-option>
+          <ion-option>贵金属</ion-option>
+          <ion-option>小金属</ion-option>
+          <ion-option>建材</ion-option>
+          <ion-option>不锈钢</ion-option>
+          <ion-option>铁矿石</ion-option>
+          <ion-option>生铁</ion-option>
+          <ion-option>涂镀</ion-option>
+          <ion-option>板材</ion-option>
+          <ion-option>管材</ion-option>
+          <ion-option>型材</ion-option>
+          <ion-option>铁合金</ion-option>
+          <ion-option>钢坯</ion-option>
+          <ion-option>热轧板</ion-option>
+          <ion-option>冷轧板</ion-option>
+          <ion-option>带钢</ion-option>
+          <ion-option>型材</ion-option>
+          <ion-option>废纸</ion-option>
+          <ion-option>废塑料</ion-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <ion-list>
+    <ion-item>
+      <ion-label>公司名称</ion-label>
+      <ion-input placeholder="个人/公司"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>联系人</ion-label>
+      <ion-input placeholder="王某某"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>联系电话</ion-label>
+      <ion-input type="tel" placeholder="13888888888"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>主营业务</ion-label>
+      <ion-select placeholder="行业" cancelText="取消" okText="确定">
+        <ion-option>回收型</ion-option>
+        <ion-option>加工型</ion-option>
+        <ion-option>贸易型</ion-option>
+        <ion-option>冶炼型</ion-option>
+      </ion-select>
+      <ion-select placeholder="产品" cancelText="取消" okText="确定">
+        <ion-option>有色金属</ion-option>
+        <ion-option>废旧金属</ion-option>
+        <ion-option>废钢</ion-option>
+        <ion-option>贵金属</ion-option>
+        <ion-option>小金属</ion-option>
+        <ion-option>建材</ion-option>
+        <ion-option>不锈钢</ion-option>
+        <ion-option>铁矿石</ion-option>
+        <ion-option>生铁</ion-option>
+        <ion-option>涂镀</ion-option>
+        <ion-option>板材</ion-option>
+        <ion-option>管材</ion-option>
+        <ion-option>型材</ion-option>
+        <ion-option>铁合金</ion-option>
+        <ion-option>钢坯</ion-option>
+        <ion-option>热轧板</ion-option>
+        <ion-option>冷轧板</ion-option>
+        <ion-option>带钢</ion-option>
+        <ion-option>型材</ion-option>
+        <ion-option>废纸</ion-option>
+        <ion-option>废塑料</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>公司地址</ion-label>
+      <ion-select placeholder="省份">
+        <ion-option *ngFor="let p of provinces">{{p.name}}</ion-option>
+      </ion-select>
+      <ion-select placeholder="城市">
+        <ion-option *ngFor="let c of citys">{{c.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input></ion-input>
+    </ion-item>
+  </ion-list>
 </ion-content>

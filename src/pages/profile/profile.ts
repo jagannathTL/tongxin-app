@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
+declare const Swiper: any;
+declare var notie: any;
 /*
   Generated class for the Profile page.
 
@@ -13,6 +14,8 @@ import { NavController } from 'ionic-angular';
 })
 export class ProfilePage {
 
+  provinces: any = [];
+  citys: any = [];
   constructor(public navCtrl: NavController) {}
 
   ionViewDidLoad() {
