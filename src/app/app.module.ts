@@ -25,6 +25,7 @@ import { PriceDetailPage } from '../pages/price-detail/price-detail';
 import { CommentListPage } from '../pages/comment-list/comment-list';
 import { CommentSvc } from '../providers/comment-svc';
 import { ProfilePage } from '../pages/profile/profile';
+import { ProfileSvc } from '../providers/profile-svc';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,8 @@ import { ProfilePage } from '../pages/profile/profile';
     CommentListPage,
     ProfilePage
   ],
-  providers: [Global, RegisterSvc, PriceSvc, Errors, ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc]
+  providers: [Global, RegisterSvc, PriceSvc, Errors,
+    ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc,
+    ProfileSvc]
 })
 export class AppModule { }
