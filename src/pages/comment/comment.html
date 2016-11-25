@@ -8,6 +8,11 @@
 
   <ion-navbar color='navbar'>
     <ion-title>资讯</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)='refreshComment()'>
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -36,7 +41,17 @@
         <!-- Slides -->
         <div class="swiper-slide pro" *ngFor="let s of inBuckets">
           <ion-list>
-            <button (click)='gotoCommentDetail(s,m)' ion-item *ngFor="let m of s.markets">{{m.name}}</button>
+            <ion-item *ngFor="let m of s.markets">
+              <button id="firstTitle" ion-item  (click)='gotoCommentDetail(s,m)'>
+                {{m.name}}
+              </button>
+              <button id="small" ion-item (click)="goDetail(p.url)" *ngFor="let p of m.pinglun">
+                <ion-row >
+                  <ion-col width-67 class="smallColor">{{p.title}}</ion-col>
+                  <ion-col class="dateColor" style="display:flex;flex-direction:column;justify-content:center;align-items:center">{{p.date}}</ion-col>
+                </ion-row>
+              </button>
+            </ion-item>
           </ion-list>
         </div>
       </div>

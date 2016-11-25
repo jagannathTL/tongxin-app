@@ -5,6 +5,7 @@ import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
 import { InOutBucketsPage } from '../in-out-buckets/in-out-buckets';
 import { CommentListPage } from '../comment-list/comment-list';
+import { CommentDetailPage } from '../comment-detail/comment-detail';
 declare const Swiper: any;
 declare var notie: any;
 declare var $: any;
@@ -156,6 +157,18 @@ export class CommentPage {
       mName: market.name,
       mId: market.id
     })
+  }
+
+  goDetail(url)
+  {
+    this.navCtrl.push(CommentDetailPage,{
+      url:url
+    });
+  }
+
+  refreshComment()
+  {
+    this.getMarketCDatas();
   }
 
 }

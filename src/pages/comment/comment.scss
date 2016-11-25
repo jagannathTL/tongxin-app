@@ -4,6 +4,26 @@ page-comment {
     width: 100%;
   }
 
+  .item-ios
+  {
+    padding-left: 0px;
+  }
+
+  .item-ios.item-block .item-inner{
+    padding-right: 0px;
+  }
+
+  ion-label{
+    white-space: normal;
+  }
+  .label-ios{
+    margin:0px;
+  }
+
+  ion-col{
+    padding: 1px;
+  }
+
   ion-list {
     width: 100%;
   }
@@ -29,5 +49,23 @@ page-comment {
   .swiper-wrapper .pro{
       overflow: scroll;
       display: block;
+  }
+
+  .dateColor{
+    font-size: 80%;
+    color:map-get($colors, dateColor);
+  }
+
+  .smallColor{
+    font-size:80%;
+    color: map-get($colors, smallColor);
+  }
+
+  #small .item-inner{
+    border-bottom: 0px;
+  }
+
+  #firstTitle .item-inner{
+    border-bottom: 0px;
   }
 }
