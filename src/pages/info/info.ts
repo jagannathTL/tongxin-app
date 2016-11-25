@@ -5,6 +5,7 @@ import { LoginPage } from '../login/login';
 declare const notie: any;
 import { Global } from '../../providers/global';
 import { Errors } from '../../providers/errors';
+import { ProfilePage } from '../profile/profile';
 
 /*
   Generated class for the Info page.
@@ -21,6 +22,10 @@ export class InfoPage {
   isSound = true;
   constructor(public navCtrl: NavController, public errors: Errors,
     public global: Global, public app: App, public events: Events) { }
+
+  gotoProfile(){
+    this.navCtrl.push(ProfilePage);
+  }
 
   logout() {
     let secureStorage: SecureStorage = new SecureStorage();
