@@ -19,25 +19,22 @@ export class MyApp {
 
   msgHanlder(data) {
     data = JSON.parse(data);
-    console.log(data);
     if (this.platform.is('android')) {
       if (data.exit == '退出') {
         notie.alert('error', this.errors.LOGIN_ON_OTHER_MACHINE, this.global.NOTIFICATION_DURATION);
         this.nav.setRoot(LoginPage);
       } else {
-        console.log(data);
         this.events.publish('tabsPage:setBadge', data.badge);
         let msg = data.msg;
-        if(data.badge > 1)
-        {
-          msg = "您有"+data.badge+"条消息未读!";
+        if (data.badge > 1) {
+          msg = "您有" + data.badge + "条消息未读!";
         }
         LocalNotifications.schedule({
-          title:'同鑫咨讯',
-          text:msg,
-          icon:'assets/logo.png',
-          smallIcon:'assets/logo.png',
-          sound: null
+          title: '同鑫资讯',
+          text: msg,
+          icon: 'assets/logo.png',
+          smallIcon: 'assets/logo.png',
+          sound: 'file://assets/jingle-bells-sms.mp3',
         });
       }
     } else if (this.platform.is('ios')) {
@@ -61,8 +58,7 @@ export class MyApp {
         GeTuiSdkPlugin.callback_init((type, data) => {
           if (type == 'cid') {
             console.log(data);
-            if(this.global.DEVICE_ID == "")
-            {
+            if (this.global.DEVICE_ID == "") {
               this.global.DEVICE_ID = data;
               this.checkLogin();
             }

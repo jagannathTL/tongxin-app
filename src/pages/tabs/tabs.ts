@@ -8,7 +8,7 @@ import { PricePage } from '../price/price';
 import { CirclePage } from '../circle/circle';
 import { InboxSvc } from '../../providers/inbox-svc';
 import { Global } from '../../providers/global';
-import { Splashscreen } from 'ionic-native';
+import { Splashscreen, Badge } from 'ionic-native';
 
 /*
   Generated class for the Tabs page.
@@ -46,6 +46,7 @@ export class TabsPage {
     events.subscribe('inbox:clearTabsBadge', () => {
       this.zone.run(() => {
         this.badge = 0;
+        Badge.clear();
       });
     })
     events.unsubscribe('tabsPage:setBadge');
@@ -53,6 +54,7 @@ export class TabsPage {
       //console.log('set badge:' + count);
       this.zone.run(() => {
         this.badge = parseInt(count);
+        Badge.set(this.badge);
       });
     });
   }
