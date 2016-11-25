@@ -44,11 +44,11 @@
           <button (click)='gotoPriceDetail(m, s)' ion-item *ngFor="let m of s.markets">
             <ion-grid>
                 <ion-row>
-                  <ion-col width-80>
+                  <ion-col width-67>
                     {{m.name}}
                   </ion-col>
-                  <ion-col width-20 style="font-size: 80%" text-right class="dateColor">
-                    {{m.Date}}
+                  <ion-col width-33 style="font-size: 80%" text-right class="dateColor">
+                    {{m.displayDate}}
                   </ion-col>
                 </ion-row>
                 <ion-row style="font-size: 80%">
