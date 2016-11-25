@@ -44,7 +44,7 @@
           <button (click)='gotoPriceDetail(m, s)' ion-item *ngFor="let m of s.markets">
             <ion-grid>
                 <ion-row>
-                  <ion-col class="smallColor">
+                  <ion-col>
                     {{m.name}}
                   </ion-col>
                   <ion-col style="font-size: 80%" text-right class="dateColor">
@@ -52,7 +52,7 @@
                   </ion-col>
                 </ion-row>
                 <ion-row style="font-size: 80%">
-                  <ion-col class="smallColor">
+                  <ion-col>
                     {{m.ProductName}}
                   </ion-col>
                   <ion-col text-right [ngClass]="{'negative': m.Change < 0, 'positive': m.Change > 0, 'zero': m.Change == 0}">

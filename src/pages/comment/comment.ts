@@ -9,6 +9,7 @@ import { CommentDetailPage } from '../comment-detail/comment-detail';
 declare const Swiper: any;
 declare var notie: any;
 declare var $: any;
+import * as moment from 'moment';
 
 /*
   Generated class for the Comment page.
@@ -49,11 +50,11 @@ export class CommentPage {
     divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
-  defaultSlide(){
+  defaultSlide() {
 
     if (this.inBuckets.length < (this.index + 1)) {
-     this.index = (this.inBuckets.length - 1);
-   }
+      this.index = (this.inBuckets.length - 1);
+    }
 
     this.marketC.slideTo(this.index);
     this.productC.slideTo(this.index, 0, false);
@@ -63,19 +64,19 @@ export class CommentPage {
   }
 
 
-  moreBuckets(){
+  moreBuckets() {
     let modal = this.modalCtrl.create(InOutBucketsPage, {
       inBucketList: this.inBuckets,
       outBucketList: this.outBuckets
-    },{
-      showBackdrop:true,
-      enableBackdropDismiss:true
-    });
+    }, {
+        showBackdrop: true,
+        enableBackdropDismiss: true
+      });
     modal.onDidDismiss((data: any) => {
-        this.inBuckets = data.list;
+      this.inBuckets = data.list;
       setTimeout(() => {
-      this.marketC.destroy(true, false);
-      this.productC.destroy(true, false);
+        this.marketC.destroy(true, false);
+        this.productC.destroy(true, false);
         this.marketC = new Swiper('.marketC', {
           spaceBetween: 10,
           centeredSlides: false,
@@ -91,9 +92,9 @@ export class CommentPage {
             divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
           }
         });
-      this.productC.params.control = this.marketC;
-      this.defaultSlide();
-    },500)
+        this.productC.params.control = this.marketC;
+        this.defaultSlide();
+      }, 500)
     })
     modal.present();
   }
@@ -102,20 +103,24 @@ export class CommentPage {
 
   }
 
-  getMarketCDatas()
-  {
+  getMarketCDatas() {
     this.isShow = false;
     this.selectionData = [];
     this.inBuckets = [];
     this.outBuckets = [];
-    if(this.productC != null || this.productC != undefined){
-      this.productC.destroy(true,true);//修改删掉当前选中的市场的时候 后面会多出一个空白页的BUG
+    if (this.productC != null || this.productC != undefined) {
+      this.productC.destroy(true, true);//修改删掉当前选中的市场的时候 后面会多出一个空白页的BUG
     }
     let loading = this.loading.create({});
     loading.present();
     this.commentSvc.getCommentMarkets(this.global.MOBILE).then((data: any) => {
       this.zone.run(() => {
         data.forEach((r: any) => {
+          r.markets.forEach(x => {
+            x.pinglun.forEach(y => {
+              y.date = moment(y.date).format('MM-DD');
+            });
+          });
           if (r.inBucket == "true") {
             this.inBuckets.push(r);//已关注
           }
@@ -151,23 +156,21 @@ export class CommentPage {
   }
 
 
-  gotoCommentDetail(inbucket,market){
-    this.navCtrl.push(CommentListPage,{
+  gotoCommentDetail(inbucket, market) {
+    this.navCtrl.push(CommentListPage, {
       sName: inbucket.name,
       mName: market.name,
       mId: market.id
     })
   }
 
-  goDetail(url)
-  {
-    this.navCtrl.push(CommentDetailPage,{
-      url:url
+  goDetail(url) {
+    this.navCtrl.push(CommentDetailPage, {
+      url: url
     });
   }
 
-  refreshComment()
-  {
+  refreshComment() {
     this.getMarketCDatas();
   }
 

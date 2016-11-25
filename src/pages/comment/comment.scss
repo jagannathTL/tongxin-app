@@ -39,16 +39,6 @@ page-comment {
       display: block;
   }
 
-  .dateColor{
-    font-size: 80%;
-    color:map-get($colors, dateColor);
-  }
-
-  .smallColor{
-    font-size:80%;
-    color: map-get($colors, smallColor);
-  }
-
   #small .item-inner{
     border-bottom: 0px;
   }

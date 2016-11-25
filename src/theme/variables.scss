@@ -68,6 +68,11 @@ $colors: (
 
 $tabs-ios-tab-color-active: map-get($colors, navbar);
 
+.dateColor{
+  font-size: 80%;
+  color:map-get($colors, dateColor);
+}
+
 // Ionicons
 // --------------------------------------------------
 // The premium icon font for Ionic. For more info, please see:

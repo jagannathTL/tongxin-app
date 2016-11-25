@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import * as Promise from 'promise';
 import { Global } from '../providers/global';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 
 /*
   Generated class for the PriceSvc provider.
@@ -67,6 +68,7 @@ export class PriceSvc {
   }
 
   translate(x) {
+    x.Date = moment(x.Date).format('MM-DD');
     x.Change = parseFloat(x.Change);
     if (x.Change > 0) {
       x.absChange = '涨' + Math.abs(x.Change);

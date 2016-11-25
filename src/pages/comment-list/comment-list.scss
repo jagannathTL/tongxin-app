@@ -6,14 +6,4 @@ page-comment-list {
   ion-label{
     white-space: normal;
   }
-
-  .dateColor{
-    font-size: 80%;
-    color:map-get($colors, dateColor);
-  }
-
-  .smallColor{
-    font-size:80%;
-    color: map-get($colors, smallColor);
-  }
 }
