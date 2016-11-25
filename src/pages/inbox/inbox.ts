@@ -49,7 +49,7 @@ export class InboxPage {
   doRefresh(refresher) {
     //把加载的数据传到inbox的items参数里面
     this.inboxSvc.loadNewItems(this.global.MOBILE, this.lastDate).then(data => {
-      console.log(data);
+      this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
       if (data.length > 0) {
         for (let i = 0; i < data.length; i++) {
           data[i].dateStr = data[i].date.substr(5, 14);
@@ -58,13 +58,14 @@ export class InboxPage {
         this.inboxSvc.clearBadge(this.global.MOBILE).then(() => {
           this.events.publish('inbox:clearTabsBadge');
         }).catch((err) => console.log('clearBadge error!'));
+      } else {
+        notie.alert('error', this.errors.NOMORE_DATA, this.global.NOTIFICATION_DURATION);
       }
     }).catch(error => {
       console.log(error);
     }).done(() => {
       refresher.complete();
     });
-    this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
   }
 
   doInfinite(infiniteScroll) {
