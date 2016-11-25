@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, LoadingController, Events } from 'ionic-angular';
 import { InboxSvc } from '../../providers/inbox-svc';
 import { Global } from '../../providers/global';
@@ -25,7 +25,7 @@ export class InboxPage {
   showPage = false;
 
   constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
-    public global: Global, public errors: Errors,
+    public global: Global, public errors: Errors, public zone: NgZone,
     public loadingCtrl: LoadingController, public events: Events) {
     //初始化
     events.subscribe('inboxPage:loadItems', () => {
@@ -64,7 +64,9 @@ export class InboxPage {
     }).catch(error => {
       console.log(error);
     }).done(() => {
-      refresher.complete();
+      this.zone.run(() => {
+        refresher.complete();
+      });
     });
   }
 
