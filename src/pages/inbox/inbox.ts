@@ -6,6 +6,7 @@ import { Errors } from '../../providers/errors';
 declare const notie: any;
 import * as _ from 'lodash';
 import { CommentDetailPage } from '../comment-detail/comment-detail';
+import moment from 'moment';
 
 /*
   Generated class for the Inbox page.
@@ -19,18 +20,13 @@ import { CommentDetailPage } from '../comment-detail/comment-detail';
 })
 export class InboxPage {
 
+  lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
   items = [];
   showPage = false;
 
-  constructor(public navCtrl: NavController, public inboxSvc: InboxSvc, public global: Global, public errors: Errors, public loadingCtrl: LoadingController, public events: Events) {
-
-    //订阅获取最新事件
-    events.subscribe('tabsPage:loadItems', (newItems) => {
-      if (newItems.length > 0) {
-        this.items = _.concat(newItems, this.items);
-      }
-    });
-
+  constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
+    public global: Global, public errors: Errors,
+    public loadingCtrl: LoadingController, public events: Events) {
     //初始化
     events.subscribe('inboxPage:loadItems', () => {
       let load = this.loadingCtrl.create();
@@ -48,6 +44,27 @@ export class InboxPage {
         load.dismiss();
       });
     })
+  }
+
+  doRefresh(refresher) {
+    //把加载的数据传到inbox的items参数里面
+    this.inboxSvc.loadNewItems(this.global.MOBILE, this.lastDate).then(data => {
+      console.log(data);
+      if (data.length > 0) {
+        for (let i = 0; i < data.length; i++) {
+          data[i].dateStr = data[i].date.substr(5, 14);
+        }
+        this.items = _.concat(data, this.items);
+        this.inboxSvc.clearBadge(this.global.MOBILE).then(() => {
+          this.events.publish('inbox:clearTabsBadge');
+        }).catch((err) => console.log('clearBadge error!'));
+      }
+    }).catch(error => {
+      console.log(error);
+    }).done(() => {
+      refresher.complete();
+    });
+    this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
   }
 
   doInfinite(infiniteScroll) {

@@ -8,8 +8,6 @@ import { PricePage } from '../price/price';
 import { CirclePage } from '../circle/circle';
 import { InboxSvc } from '../../providers/inbox-svc';
 import { Global } from '../../providers/global';
-import moment from 'moment';
-import * as _ from 'lodash';
 import { Splashscreen } from 'ionic-native';
 
 /*
@@ -29,8 +27,6 @@ export class TabsPage {
   comment: any;
   circle: any;
   futures: any;
-  items = [];
-  lastDate = "";
   badge = 0;
 
   constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
@@ -46,39 +42,17 @@ export class TabsPage {
       Splashscreen.hide();
     });
 
+    events.subscribe('inbox:clearTabsBadge', () => {
+      this.zone.run(() => {
+        this.badge = 0;
+      });
+    })
+
     events.subscribe('tabsPage:setBadge', (count) => {
       //console.log('set badge:' + count);
       this.zone.run(() => {
         this.badge = parseInt(count);
       });
     });
-  }
-
-  loadItems() {
-    if (this.lastDate != '' && this.badge > 0) {
-      this.items = [];//清空数组
-      //把加载的数据传到inbox的items参数里面
-      let loader = this.loadingCtrl.create({});
-      loader.present();
-      this.inboxSvc.loadNewItems(this.global.MOBILE, this.lastDate).then(data => {
-        if (data.length > 0) {
-          for (let i = 0; i < data.length; i++) {
-            data[i].dateStr = data[i].date.substr(5, 14);
-          }
-          this.items = _.concat(this.items, data);
-          this.events.publish('tabsPage:loadItems', this.items[0]);
-          this.inboxSvc.clearBadge(this.global.MOBILE).then(() => {
-            this.zone.run(() => {
-              this.badge = 0;
-            });
-          }).catch((err) => console.log('clearBadge error!'));
-        }
-      }).catch(error => {
-        console.log(error);
-      }).done(() => {
-        loader.dismiss();
-      });
-    }
-    this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
   }
 }

@@ -15,6 +15,11 @@
 
 <ion-content>
 
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content color='light' pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingText="加载中..."></ion-refresher-content>
+  </ion-refresher>
+
+
   <ion-card *ngFor="let i of items">
     <ion-item color='light'>
       <button item-left ion-button round [ngClass]="{'negative': i.url, 'positive': !i.url}">{{i.url ? '评' : '价'}}</button>
