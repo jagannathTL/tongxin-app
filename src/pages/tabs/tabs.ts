@@ -42,12 +42,13 @@ export class TabsPage {
       Splashscreen.hide();
     });
 
+    events.unsubscribe('inbox:clearTabsBadge');
     events.subscribe('inbox:clearTabsBadge', () => {
       this.zone.run(() => {
         this.badge = 0;
       });
     })
-
+    events.unsubscribe('tabsPage:setBadge');
     events.subscribe('tabsPage:setBadge', (count) => {
       //console.log('set badge:' + count);
       this.zone.run(() => {

@@ -28,6 +28,7 @@ export class InboxPage {
     public global: Global, public errors: Errors, public zone: NgZone,
     public loadingCtrl: LoadingController, public events: Events) {
     //初始化
+    events.unsubscribe('inboxPage:loadItems');
     events.subscribe('inboxPage:loadItems', () => {
       let load = this.loadingCtrl.create();
       load.present();
