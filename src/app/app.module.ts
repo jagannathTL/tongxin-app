@@ -27,6 +27,7 @@ import { CommentSvc } from '../providers/comment-svc';
 import { ProfilePage } from '../pages/profile/profile';
 import { ProfileSvc } from '../providers/profile-svc';
 import { YellowPage } from '../pages/yellow/yellow';
+import { TradePage } from '../pages/trade/trade';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { YellowPage } from '../pages/yellow/yellow';
     PriceHistoryPage,
     CommentListPage,
     ProfilePage,
-    YellowPage
+    YellowPage,
+    TradePage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -76,7 +78,8 @@ import { YellowPage } from '../pages/yellow/yellow';
     PriceHistoryPage,
     CommentListPage,
     ProfilePage,
-    YellowPage
+    YellowPage,
+    TradePage
   ],
   providers: [Global, RegisterSvc, PriceSvc, Errors,
     ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc,

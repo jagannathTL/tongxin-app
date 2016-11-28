@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { InfoPage } from '../info/info';
 import { YellowPage } from '../yellow/yellow';
+import { TradePage } from '../trade/trade';
 
 /*
   Generated class for the Circle page.
@@ -23,6 +24,12 @@ export class CirclePage {
 
   gotoYellow() {
     this.navCtrl.push(YellowPage);
+  }
+
+  gotoTrade(title) {
+    this.navCtrl.push(TradePage, {
+      title: title
+    });
   }
 
 }
