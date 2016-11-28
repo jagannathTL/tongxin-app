@@ -18,8 +18,8 @@ export class MyApp {
   rootPage: any = TabsPage;
 
   msgHanlder(data) {
-    data = JSON.parse(data);
     if (this.platform.is('android')) {
+      data = JSON.parse(data);
       if (data.exit == '退出') {
         notie.alert('error', this.errors.LOGIN_ON_OTHER_MACHINE, this.global.NOTIFICATION_DURATION);
         this.nav.setRoot(LoginPage);
@@ -42,6 +42,7 @@ export class MyApp {
         this.nav.setRoot(LoginPage);
         notie.alert('error', this.errors.LOGIN_ON_OTHER_MACHINE, this.global.NOTIFICATION_DURATION);
       } else {
+        console.log(data);
         this.events.publish('tabsPage:setBadge', data.count);
       }
     }

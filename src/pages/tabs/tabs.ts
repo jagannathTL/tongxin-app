@@ -51,7 +51,8 @@ export class TabsPage {
     })
     events.unsubscribe('tabsPage:setBadge');
     events.subscribe('tabsPage:setBadge', (count) => {
-      //console.log('set badge:' + count);
+      console.log(count);
+      //console.log('set badge:' + count`);
       this.zone.run(() => {
         this.badge = parseInt(count);
         Badge.set(this.badge);
