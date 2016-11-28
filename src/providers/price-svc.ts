@@ -68,7 +68,7 @@ export class PriceSvc {
   }
 
   translate(x) {
-    x.Date = moment(x.Date).format('MM-DD');
+    x.displayDate = moment(x.Date).format('MM-DD');
     x.Change = parseFloat(x.Change);
     if (x.Change > 0) {
       x.absChange = '涨' + Math.abs(x.Change);

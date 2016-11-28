@@ -26,6 +26,8 @@ import { CommentListPage } from '../pages/comment-list/comment-list';
 import { CommentSvc } from '../providers/comment-svc';
 import { ProfilePage } from '../pages/profile/profile';
 import { ProfileSvc } from '../providers/profile-svc';
+import { YellowPage } from '../pages/yellow/yellow';
+import { TradePage } from '../pages/trade/trade';
 
 @NgModule({
   declarations: [
@@ -45,13 +47,16 @@ import { ProfileSvc } from '../providers/profile-svc';
     PriceDetailPage,
     PriceHistoryPage,
     CommentListPage,
-    ProfilePage
+    ProfilePage,
+    YellowPage,
+    TradePage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
       backButtonText: '返回',
       mode: 'ios',
-      tabsHideOnSubPages: 'true'
+      tabsHideOnSubPages: true,
+      swipeBackEnabled: true
     })
   ],
   bootstrap: [IonicApp],
@@ -72,7 +77,9 @@ import { ProfileSvc } from '../providers/profile-svc';
     PriceDetailPage,
     PriceHistoryPage,
     CommentListPage,
-    ProfilePage
+    ProfilePage,
+    YellowPage,
+    TradePage
   ],
   providers: [Global, RegisterSvc, PriceSvc, Errors,
     ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc,

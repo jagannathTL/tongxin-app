@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController, Events } from 'ionic-angular';
-import { StatusBar, SecureStorage } from 'ionic-native';
+import { StatusBar, SecureStorage, LocalNotifications} from 'ionic-native';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { Push } from 'ionic-native';
@@ -18,19 +18,31 @@ export class MyApp {
   rootPage: any = TabsPage;
 
   msgHanlder(data) {
-    data = JSON.parse(data);
     if (this.platform.is('android')) {
+      data = JSON.parse(data);
       if (data.exit == '退出') {
         notie.alert('error', this.errors.LOGIN_ON_OTHER_MACHINE, this.global.NOTIFICATION_DURATION);
         this.nav.setRoot(LoginPage);
       } else {
         this.events.publish('tabsPage:setBadge', data.badge);
+        let msg = data.msg;
+        if (data.badge > 1) {
+          msg = "您有" + data.badge + "条消息未读!";
+        }
+        LocalNotifications.schedule({
+          title: '同鑫资讯',
+          text: msg,
+          icon: 'assets/logo.png',
+          smallIcon: 'assets/logo.png',
+          sound: 'file://assets/jingle-bells-sms.mp3',
+        });
       }
     } else if (this.platform.is('ios')) {
       if (data.additionalData.shyr == '1') {
         this.nav.setRoot(LoginPage);
         notie.alert('error', this.errors.LOGIN_ON_OTHER_MACHINE, this.global.NOTIFICATION_DURATION);
       } else {
+        console.log(data);
         this.events.publish('tabsPage:setBadge', data.count);
       }
     }
@@ -46,8 +58,11 @@ export class MyApp {
       if (this.platform.is('android')) {
         GeTuiSdkPlugin.callback_init((type, data) => {
           if (type == 'cid') {
-            this.global.DEVICE_ID = data;
-            this.checkLogin();
+            console.log(data);
+            if (this.global.DEVICE_ID == "") {
+              this.global.DEVICE_ID = data;
+              this.checkLogin();
+            }
           } else if (type == 'pid') {
             //TODO data = 进程pid
 
@@ -136,6 +151,9 @@ export class MyApp {
                 }).map(res => res.json()).subscribe(data => {
                   if (data.result == "ok") {
                     this.global.MOBILE = mobile;
+                    // LocalNotifications.on('click',(notification, state)=>{
+                    //   console.log('你点击了notification!');
+                    // });
                     this.events.publish('inboxPage:loadItems');
                   }
                   else {

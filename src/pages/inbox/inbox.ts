@@ -20,7 +20,7 @@ import moment from 'moment';
 })
 export class InboxPage {
 
-  lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
+  lastDate: string;
   items = [];
   showPage = false;
 
@@ -28,6 +28,8 @@ export class InboxPage {
     public global: Global, public errors: Errors, public zone: NgZone,
     public loadingCtrl: LoadingController, public events: Events) {
     //初始化
+    this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
+    events.unsubscribe('inboxPage:loadItems');
     events.subscribe('inboxPage:loadItems', () => {
       let load = this.loadingCtrl.create();
       load.present();

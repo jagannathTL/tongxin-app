@@ -28,7 +28,7 @@
       </div>
 
     </div>
-    <button *ngIf="isShow" clear style="float:right;width:5%;text-align:center;height:90%;margin-left:0;margin-right:0;" ion-button icon-only (click)="moreBuckets()"><ion-icon name="add" color="danger"></ion-icon></button>
+    <button *ngIf="isShow" clear style="float:right;width:10%;text-align:center;height:90%;margin-left:0;margin-right:0;" ion-button icon-only (click)="moreBuckets()"><ion-icon name="add" color="danger"></ion-icon></button>
     <!-- 清除浮动 -->
     <div style="clear:both">
     </div>
@@ -44,11 +44,11 @@
           <button (click)='gotoPriceDetail(m, s)' ion-item *ngFor="let m of s.markets">
             <ion-grid>
                 <ion-row>
-                  <ion-col width-80>
+                  <ion-col width-67>
                     {{m.name}}
                   </ion-col>
-                  <ion-col width-20 style="font-size: 80%" text-right class="dateColor">
-                    {{m.Date}}
+                  <ion-col width-33 style="font-size: 80%" text-right class="dateColor">
+                    {{m.displayDate}}
                   </ion-col>
                 </ion-row>
                 <ion-row style="font-size: 80%">
