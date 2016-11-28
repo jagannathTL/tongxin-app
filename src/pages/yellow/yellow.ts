@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 
 /*
   Generated class for the Yellow page.
@@ -13,10 +13,14 @@ import { NavController } from 'ionic-angular';
 })
 export class YellowPage {
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController) {}
 
   ionViewDidLoad() {
     console.log('Hello YellowPage Page');
+  }
+
+  ionViewWillEnter() {
+    this.viewCtrl.setBackButtonText('商圈');
   }
 
 }
