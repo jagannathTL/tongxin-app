@@ -92,4 +92,5 @@
     <icon src="resources/ios/icon/icon-small@3x.png" />
     <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.4" />
     <plugin name="cordova-plugin-badge" spec="~0.7.3" />
+    <plugin name="cordova-plugin-background-mode" spec="~0.6.5" />
 </widget>
