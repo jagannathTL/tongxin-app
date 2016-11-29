@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController, Events } from 'ionic-angular';
-import { StatusBar, SecureStorage, LocalNotifications} from 'ionic-native';
+import { StatusBar, SecureStorage, LocalNotifications, BackgroundMode, Badge} from 'ionic-native';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { Push } from 'ionic-native';
@@ -26,9 +26,9 @@ export class MyApp {
       } else {
         this.events.publish('tabsPage:setBadge', data.badge);
         let msg = data.msg;
-        if (data.badge > 1) {
-          msg = "您有" + data.badge + "条消息未读!";
-        }
+        // if (data.badge > 1) {
+        //   msg = "您有" + data.badge + "条消息未读!";
+        // }
         LocalNotifications.schedule({
           title: '同鑫资讯',
           text: msg,
@@ -54,6 +54,18 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
+
+      BackgroundMode.enable();
+
+      BackgroundMode.ondeactivate().subscribe(data => {
+        Badge.get().then(data => {
+          this.events.publish('tabsPage:setBadge', data);
+        }).catch(error => {
+          console.log(error);
+        })
+      }, error => {
+        console.log(error);
+      });
 
       if (this.platform.is('android')) {
         GeTuiSdkPlugin.callback_init((type, data) => {

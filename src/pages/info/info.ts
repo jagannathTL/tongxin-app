@@ -6,6 +6,7 @@ declare const notie: any;
 import { Global } from '../../providers/global';
 import { Errors } from '../../providers/errors';
 import { ProfilePage } from '../profile/profile';
+import { MyPubPage } from '../my-pub/my-pub';
 
 /*
   Generated class for the Info page.
@@ -25,6 +26,10 @@ export class InfoPage {
 
   gotoProfile(){
     this.navCtrl.push(ProfilePage);
+  }
+
+  gotoMyPub(){
+    this.navCtrl.push(MyPubPage);
   }
 
   logout() {

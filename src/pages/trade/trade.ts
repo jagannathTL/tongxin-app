@@ -27,4 +27,7 @@ export class TradePage {
     this.viewCtrl.setBackButtonText('商圈');
   }
 
+  addTrade(){
+    console.log('addTrade:'+this.title);
+  }
 }

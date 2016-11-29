@@ -16,15 +16,16 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-icon name="contact" item-left></ion-icon>
+      <ion-icon color='navbar' name="contact" item-left></ion-icon>
       <ion-label>我的帐号</ion-label>
-      <div item-content>{{mobile}}</div>
+      <ion-note item-right>{{mobile}}</ion-note>
     </ion-item>
     <ion-item>
-      <ion-icon name="cog" item-left></ion-icon>
+      <ion-icon color='navbar' name="cog" item-left></ion-icon>
       <ion-label>我的资料</ion-label>
       <button item-right ion-button outline (click)='gotoProfile()'>编辑</button>
     </ion-item>
+    <button ion-item (click)='gotoMyPub()'><ion-icon color='navbar' name="create" item-left></ion-icon>我的发布</button>
   </ion-list>
 
   <ion-list>
