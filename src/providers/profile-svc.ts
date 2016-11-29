@@ -5,6 +5,7 @@ import * as X2JS from 'x2js';
 import * as Promise from 'promise';
 import * as _ from 'lodash';
 import { Global } from './global';
+import { Transfer } from 'ionic-native';
 
 /*
   Generated class for the ProfileSvc provider.
@@ -16,6 +17,7 @@ import { Global } from './global';
 export class ProfileSvc {
 
   xmlPath = 'assets/areas.xml';
+  methodList: any = [];
 
   constructor(public http: Http, public global: Global) {
     console.log('Hello ProfileSvc Provider');
@@ -43,7 +45,6 @@ export class ProfileSvc {
       this.http.get(this.xmlPath).subscribe((data: any) => {
         var x2js = new X2JS();
         var jsonObj = x2js.xml2js(data._body);
-        // console.log(jsonObj.provinces.province);
         let list = _.find(jsonObj.provinces.province, o => {
           return o._name == province;
         })
@@ -76,7 +77,6 @@ export class ProfileSvc {
   updateUserInfo(mobile,obj)
   {
     return new Promise((resolve, reject) => {
-      debugger
       let body = this.jsonToURLEncoded({
         method: 'updateUserInfo',
         mobile:mobile,
@@ -103,6 +103,24 @@ export class ProfileSvc {
         console.log(err);
         throw new Error(err);
       })
+    })
+  }
+
+  uploadImg(results)
+  {
+    return new Promise((resolve, reject) => {
+      if(results != null && results != undefined)
+      {
+        const transfer = new Transfer();
+        transfer.upload(results[0], this.global.SERVER + "/Handlers/UserInfoHandler.ashx?method=uploadCmpPic").then((data: any) => {
+          resolve(JSON.parse(data.response));
+        },err => {
+          throw new Error(err);
+        })
+      }
+    }, err => {
+      console.log(err);
+      throw new Error(err);
     })
   }
 

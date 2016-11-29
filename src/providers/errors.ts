@@ -23,4 +23,5 @@ export class Errors {
   UNSUBSCRIBE_FAILED = '取消订阅失败，请重试！';
   OPTION_FAILED = '操作失败，请重试！';
   LOGIN_ON_OTHER_MACHINE = '该账号已在其他终端登录，请重新登录！';
+  UPLOADIMG_FAILED = '上传图片失败，请重试！';
 }
