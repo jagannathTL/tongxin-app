@@ -149,7 +149,7 @@ export class CommentPage {
       this.defaultSlide();//加载页面默认显示第一个 更改第一个样式
       this.isShow = true;
     }).catch(err => {
-      notie.alert('error', err, this.global.NOTIFICATION_DURATION);//err
+      notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
     }).done(() => {
       loading.dismiss();
     });
