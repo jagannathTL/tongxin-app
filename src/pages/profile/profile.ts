@@ -100,7 +100,8 @@ export class ProfilePage {
       this.zone.run(() => {
         this.profileSvc.uploadImg(results).then((data: any) => {
           if(data.result == "ok"){
-            this.allImgs.push({url: results[0], newName: data.newName});
+            var url = this.global.SERVER + "/upload/" + data.newName;
+            this.allImgs.push({url: url, newName: data.newName});
           }else{
             //error
             notie.alert('error', this.err.UPLOADIMG_FAILED,this.global.NOTIFICATION_DURATION);
@@ -115,6 +116,9 @@ export class ProfilePage {
             this.comPic =  new Swiper('.companyP', {
 
             });
+            if(this.allImgs != null && this.allImgs != undefined && this.allImgs.length > 0){
+              this.comPic.slideTo(this.allImgs.length - 1);
+            }
         },500)
           loading.dismiss();
         });
