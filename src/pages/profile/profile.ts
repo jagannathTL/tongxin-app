@@ -72,17 +72,17 @@ export class ProfilePage {
         });
         setTimeout(() => {
           if(this.comPic != null && this.comPic != undefined){
-            this.comPic.destroy(true,false);
+            this.comPic.destroy(true,true);
           }
           this.comPic =  new Swiper('.companyP', {
 
           });
           if(isLastIndex)
           {
-            this.comPic.slideTo(this.allImgs.length - 1);//如果删除的最后一张 跳转到删除后的最后一张
+              this.comPic.slideTo(this.allImgs.length - 1,0);//如果删除的最后一张 跳转到删除后的最后一张
           }
           else{
-            this.comPic.slideTo(index);//如果删除的不是最后一张 跳转到被删除后的集合index项
+            this.comPic.slideTo(index,0);//如果删除的不是最后一张 跳转到被删除后的集合index项
           }
       },500)
       }
