@@ -75,7 +75,8 @@ export class ProfilePage {
             this.comPic.destroy(true,true);
           }
           this.comPic =  new Swiper('.companyP', {
-
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev'
           });
           if(isLastIndex)
           {
@@ -96,6 +97,10 @@ export class ProfilePage {
     };
     ImagePicker.getPictures(options).then((results) => {
       this.zone.run(() => {
+        if(results != null && results != undefined && results.length > 0)
+        {
+          let loading = this.loading.create({});
+          loading.present();
         this.profileSvc.uploadImg(results).then((data: any) => {
           if(data.result == "ok"){
             var url = this.global.SERVER + "/upload/" + data.newName;
@@ -109,16 +114,19 @@ export class ProfilePage {
         }).done(() => {
           setTimeout(() => {
             if(this.comPic != null && this.comPic != undefined){
-              this.comPic.destroy(true,false);
+              this.comPic.destroy(true,true);
             }
             this.comPic =  new Swiper('.companyP', {
-
+              nextButton: '.swiper-button-next',
+              prevButton: '.swiper-button-prev'
             });
             if(this.allImgs != null && this.allImgs != undefined && this.allImgs.length > 0){
               this.comPic.slideTo(this.allImgs.length - 1);
             }
         },500)
+        loading.dismiss();
         });
+      }
       })
     },err => {
       console.log(err);
@@ -170,10 +178,11 @@ export class ProfilePage {
 
       setTimeout(() => {
         if(this.comPic != null && this.comPic != undefined){
-          this.comPic.destroy(true,false);
+          this.comPic.destroy(true,true);
         }
         this.comPic =  new Swiper('.companyP', {
-
+          nextButton: '.swiper-button-next',
+          prevButton: '.swiper-button-prev'
         });
     },500)
     }).catch((err) => {
