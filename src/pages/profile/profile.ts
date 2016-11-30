@@ -95,8 +95,6 @@ export class ProfilePage {
       maximumImagesCount:1
     };
     ImagePicker.getPictures(options).then((results) => {
-      let loading = this.loading.create({});
-        loading.present();
       this.zone.run(() => {
         this.profileSvc.uploadImg(results).then((data: any) => {
           if(data.result == "ok"){
@@ -120,7 +118,6 @@ export class ProfilePage {
               this.comPic.slideTo(this.allImgs.length - 1);
             }
         },500)
-          loading.dismiss();
         });
       })
     },err => {
