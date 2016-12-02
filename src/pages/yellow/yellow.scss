@@ -1,3 +1,8 @@
 page-yellow {
-
+  .button-clear-ios{
+    color:white;
+  }
+  .cityClass{
+    color:map-get($colors,navbar);
+  }
 }

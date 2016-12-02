@@ -1,0 +1,80 @@
+<!--
+  Generated template for the YellowDetail page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>黄页详情</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="swiper-container companyDetailPics" style="position:relative">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      <div class="swiper-slide" *ngFor="let img of allImgs">
+        <img [src]="img.url"/>
+      </div>
+    </div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+  <ion-list>
+    <ion-item>
+      <!-- <ion-label style="align:right"></ion-label> -->
+      <ion-row>
+        <ion-col width-25>公司名称：</ion-col>
+        <ion-col>{{open.companyName}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <!-- <ion-label style="align:right">联系人：</ion-label>{{open.contactName}} -->
+      <ion-row>
+        <ion-col width-25>联系人：</ion-col>
+        <ion-col>{{open.contactName}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <!-- <ion-label style="align:right">联系电话：</ion-label>{{open.contactTel}} -->
+      <ion-row>
+        <ion-col width-25>联系电话：</ion-col>
+        <ion-col>{{open.contactTel}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <!-- <ion-label style="align:right">主营业务：</ion-label>{{open.industry}} -->
+      <ion-row>
+        <ion-col width-25>主营业务：</ion-col>
+        <ion-col>{{open.industry}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <!-- <ion-label style="align:right">业务备注：</ion-label>{{open.industryDesc}} -->
+      <ion-row>
+        <ion-col width-25>业务备注：</ion-col>
+        <ion-col>{{open.industryDesc}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <!-- <ion-label style="align:right">公司地址：</ion-label>{{open.address}} -->
+      <ion-row>
+        <ion-col width-25>公司地址：</ion-col>
+        <ion-col>{{open.address}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <!-- <ion-label style="align:right">地址详情：</ion-label>{{open.addressDesc}} -->
+      <ion-row>
+        <ion-col width-25>地址详情：</ion-col>
+        <ion-col>{{open.addressDesc}}</ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+</ion-content>
