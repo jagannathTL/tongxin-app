@@ -9,10 +9,50 @@
   <ion-navbar color='navbar'>
     <ion-title>同鑫黄页</ion-title>
   </ion-navbar>
+  <ion-searchbar [(ngModel)]="searchKey" [showCancelButton]="true" [cancelButtonText]="'取消'" [placeholder]="'请输入查询内容'" (ionCancel)="onCancel($event)" (search)="onSearch($event)">
+  </ion-searchbar>
+  <!-- <ion-grid>
+    <ion-row>
+      <ion-col><button ion-button>分类 <ion-icon ios="ios-arrow-dropdown-circle" md="md-arrow-dropdown-circle"></ion-icon></button></ion-col>
+      <ion-col><button ion-button>地区 <ion-icon ios="ios-arrow-dropdown-circle" md="md-arrow-dropdown-circle"></ion-icon></button></ion-col>
+    </ion-row>
+  </ion-grid> -->
 
+  <ion-toolbar color='navbar'>
+  <ion-row>
+    <ion-col width-50 style="border-right:1px solid #ccc;margin:0px;padding:0px">
+      <button small style='margin:0px' (click)="showIndustry($event)" ion-button clear block>
+            {{selectedIndustry}}
+          <ion-icon ios="ios-arrow-dropdown-circle" md="md-arrow-dropdown-circle"></ion-icon>
+          </button>
+    </ion-col>
+    <ion-col width-50 style='margin:0px;padding:0px'>
+      <button style='margin:0px' small (click)="showArea($event)" ion-button clear block>
+            {{selectedArea}}
+        <ion-icon ios="ios-arrow-dropdown-circle" md="md-arrow-dropdown-circle"></ion-icon>
+          </button>
+    </ion-col>
+  </ion-row>
+</ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-
+  <ion-list>
+    <ion-item (click)="gotoComDetail(open)" *ngFor="let open of searchList">
+      <ion-grid>
+          <ion-row>
+            <ion-col>
+              {{open.companyName}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col width-75>主营业务：{{open.industry}}</ion-col>
+            <ion-col class="cityClass">{{open.city}}</ion-col>
+          </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
