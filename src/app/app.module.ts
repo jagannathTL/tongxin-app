@@ -29,7 +29,9 @@ import { ProfileSvc } from '../providers/profile-svc';
 import { YellowPage } from '../pages/yellow/yellow';
 import { TradePage } from '../pages/trade/trade';
 import { TradeDetailPage } from '../pages/trade-detail/trade-detail';
+// import { TradeSvc } from '../providers/trade-svc';
 import { MyPubPage } from '../pages/my-pub/my-pub';
+
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { MyPubPage } from '../pages/my-pub/my-pub';
     YellowPage,
     TradePage,
     TradeDetailPage,
+    // TradeSvc,
     MyPubPage
   ],
   imports: [
@@ -85,6 +88,7 @@ import { MyPubPage } from '../pages/my-pub/my-pub';
     YellowPage,
     TradePage,
     TradeDetailPage,
+    // TradeSvc,
     MyPubPage
   ],
   providers: [Global, RegisterSvc, PriceSvc, Errors,

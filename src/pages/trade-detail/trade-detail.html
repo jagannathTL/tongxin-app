@@ -6,13 +6,60 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>tradeDetail</ion-title>
+  <ion-navbar color='navbar'>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons end>
+      <button ion-button clear (click)="saveTrade()">完成</button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <div class="swiper-container tradePic" style="position:relative">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      <div class="swiper-slide" *ngFor="let img of imgs">
+        <img [src]="img"/>
+      </div>
+    </div>
+    <button clear ion-button icon-only color="negative" (click)="addPics()" style="position:absolute;right:5%;bottom:0;z-index:99999"><ion-icon name="add-circle"></ion-icon></button>
+  </div>
+  <ion-list>
+    <ion-item>
+      <ion-label color="dark">所属行业</ion-label>
+      <ion-select placeholder="所属行业" cancelText="取消" okText="确定" [(ngModel)]="industry" [(ngModel)]="industry">
+        <ion-option *ngFor="let industry of industryList">{{industry}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="product" placeholder="名称"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="quantity" placeholder="数量"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="price" placeholder="价格"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="mobile" placeholder="联系方式"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="contact" placeholder="联系人"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="dark">交货地址</ion-label>
+      <ion-select (ionChange)="selectChange()" placeholder="省份" [(ngModel)]="provinceName" cancelText="取消" okText="确定">
+        <ion-option *ngFor="let p of provinces">{{p}}</ion-option>
+      </ion-select>
+      <ion-select placeholder="城市" [(ngModel)]="cityName" cancelText="取消" okText="确定">
+        <ion-option *ngFor="let c of citys">{{c}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-textarea rows="6" [(ngModel)]="description" placeholder="详细描述"></ion-textarea>
+    </ion-item>
+  </ion-list>
 </ion-content>

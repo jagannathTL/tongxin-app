@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ViewController, NavParams } from 'ionic-angular';
+import { TradeDetailPage } from '../trade-detail/trade-detail';
 
 /*
   Generated class for the Trade page.
@@ -28,6 +29,8 @@ export class TradePage {
   }
 
   addTrade(){
-    console.log('addTrade:'+this.title);
+    this.navCtrl.push(TradeDetailPage, {
+      title: this.title
+    });
   }
 }
