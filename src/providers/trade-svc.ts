@@ -38,7 +38,7 @@ export class TradeSvc {
       let body = this.jsonToURLEncoded({
         method: 'addTrade',
         mobile: this.global.MOBILE,
-        imgs: obj.imgNameStr,
+        imgs: obj.pics,
         buissnes: obj.industry,
         product: obj.product,
         quantity: obj.quantity,

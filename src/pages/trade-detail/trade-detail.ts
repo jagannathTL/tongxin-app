@@ -39,7 +39,7 @@ export class TradeDetailPage {
   description='';//简介
   allTradeImgs: any = [];
   tradeDivPic: any;
-  imgNameStr: any;
+  imgNameStr = '';
 
   constructor(public tradeSvc: TradeSvc, public navCtrl: NavController, public viewCtrl: ViewController, public zone: NgZone, public params: NavParams, public profileSvc: ProfileSvc, public global: Global, public loading: LoadingController, public err: Errors) {
     this.backTitle = params.get('title');
@@ -218,7 +218,8 @@ export class TradeDetailPage {
       contact: this.contact,
       provinceName: this.provinceName,
       cityName: this.cityName,
-      description: this.description
+      description: this.description,
+      documentType:this.documentType
     }
     debugger
     this.tradeSvc.addTrade(obj).then((data: any) => {
