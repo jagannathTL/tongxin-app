@@ -21,16 +21,20 @@
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
       <!-- Slides -->
-      <div class="swiper-slide" *ngFor="let img of imgs">
-        <img [src]="img"/>
+      <div class="swiper-slide" *ngFor="let img of allTradeImgs">
+        <img [src]="img.url"/>
       </div>
     </div>
-    <button clear ion-button icon-only color="negative" (click)="addPics()" style="position:absolute;right:5%;bottom:0;z-index:99999"><ion-icon name="add-circle"></ion-icon></button>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <button clear ion-button icon-only color="danger" (click)="removeTradePics()" style="position:absolute;left:5%;bottom:0;z-index:99999"><ion-icon name="remove-circle"></ion-icon></button>
+    <button clear ion-button icon-only color="negative" (click)="addTradePics()" style="position:absolute;right:5%;bottom:0;z-index:99999"><ion-icon name="add-circle"></ion-icon></button>
   </div>
   <ion-list>
     <ion-item>
       <ion-label color="dark">所属行业</ion-label>
-      <ion-select placeholder="所属行业" cancelText="取消" okText="确定" [(ngModel)]="industry" [(ngModel)]="industry">
+      <ion-select placeholder="所属行业" cancelText="取消" okText="确定" [(ngModel)]="industry">
         <ion-option *ngFor="let industry of industryList">{{industry}}</ion-option>
       </ion-select>
     </ion-item>

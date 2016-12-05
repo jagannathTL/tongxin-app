@@ -38,7 +38,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item (click)="gotoComDetail(open)" *ngFor="let open of searchList">
+    <button ion-item (click)="gotoComDetail(open)" *ngFor="let open of searchList">
       <ion-grid>
           <ion-row>
             <ion-col>
@@ -50,7 +50,7 @@
             <ion-col class="cityClass">{{open.city}}</ion-col>
           </ion-row>
       </ion-grid>
-    </ion-item>
+    </button>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

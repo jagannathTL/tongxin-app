@@ -1,3 +1,21 @@
 page-trade {
-
+  .button-clear-ios{
+    color:white;
+  }
+  .cityClass{
+    color:map-get($colors,navbar);
+  }
+  .dateClass{
+    color:map-get($colors, dateColor);
+  }
+  ion-label{
+    white-space:normal;
+  }
+  ion-col{
+    padding: 0px;
+    font-size: 80%;
+  }
+  .colorClass{
+    color: #026800;
+  }
 }

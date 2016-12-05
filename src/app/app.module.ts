@@ -27,12 +27,13 @@ import { CommentSvc } from '../providers/comment-svc';
 import { ProfilePage } from '../pages/profile/profile';
 import { ProfileSvc } from '../providers/profile-svc';
 import { YellowPage, AreaPopoverPage, IndustryPage } from '../pages/yellow/yellow';
-import { TradePage } from '../pages/trade/trade';
+import { TradePage, IndustryTradePage } from '../pages/trade/trade';
 import { TradeDetailPage } from '../pages/trade-detail/trade-detail';
-// import { TradeSvc } from '../providers/trade-svc';
+import { TradeSvc } from '../providers/trade-svc';
 import { MyPubPage } from '../pages/my-pub/my-pub';
 import { YellowSvc } from '../providers/yellow-svc';
 import { YellowDetailPage } from '../pages/yellow-detail/yellow-detail';
+import { TradeViewPage } from '../pages/trade-view/trade-view';
 
 
 @NgModule({
@@ -60,7 +61,9 @@ import { YellowDetailPage } from '../pages/yellow-detail/yellow-detail';
     MyPubPage,
     AreaPopoverPage,
     IndustryPage,
-    YellowDetailPage
+    YellowDetailPage,
+    IndustryTradePage,
+    TradeViewPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -95,10 +98,12 @@ import { YellowDetailPage } from '../pages/yellow-detail/yellow-detail';
     MyPubPage,
     AreaPopoverPage,
     IndustryPage,
-    YellowDetailPage
+    YellowDetailPage,
+    IndustryTradePage,
+    TradeViewPage
   ],
   providers: [Global, RegisterSvc, PriceSvc, Errors,
     ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc,
-    ProfileSvc, YellowSvc]
+    ProfileSvc, YellowSvc, TradeSvc]
 })
 export class AppModule { }

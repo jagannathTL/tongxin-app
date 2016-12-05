@@ -12,10 +12,62 @@
       <button ion-button clear (click)="addTrade()">新增</button>
     </ion-buttons>
   </ion-navbar>
-
+  <ion-searchbar [(ngModel)]="searchKey" [showCancelButton]="true" [cancelButtonText]="'取消'" [placeholder]="'请输入查询内容'" (ionCancel)="onCancel($event)" (search)="onSearch($event)">
+  </ion-searchbar>
+  <ion-toolbar color='navbar'>
+  <ion-row>
+    <ion-col width-50 style="border-right:1px solid #ccc;margin:0px;padding:0px">
+      <button small style='margin:0px' (click)="showIndustry($event)" ion-button clear block>
+            {{selectedIndustry}}
+          <ion-icon ios="ios-arrow-dropdown-circle" md="md-arrow-dropdown-circle"></ion-icon>
+          </button>
+    </ion-col>
+    <ion-col width-50 style='margin:0px;padding:0px'>
+      <button style='margin:0px' small (click)="showArea($event)" ion-button clear block>
+            {{selectedArea}}
+        <ion-icon ios="ios-arrow-dropdown-circle" md="md-arrow-dropdown-circle"></ion-icon>
+          </button>
+    </ion-col>
+  </ion-row>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingText="加载中..."></ion-refresher-content>
+  </ion-refresher>
 
+  <ion-list>
+    <button ion-item *ngFor="let trade of searchList" (click)="gotoDetail(trade)">
+      <ion-grid>
+        <ion-row>
+          <ion-col width-25 style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+            <img [src]="trade.firstImg" style="width:60px"/>
+          </ion-col>
+          <ion-col>
+            <ion-grid>
+            <ion-row>
+              <ion-col width-33>供&nbsp;&nbsp;&nbsp; 应：</ion-col>
+              <ion-col>{{trade.product}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col width-33>交货地：</ion-col>
+              <ion-col>{{trade.province}}{{trade.city}}</ion-col>
+              <ion-col width-33 class="colorClass">已审核</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col width-33>联系人：</ion-col>
+              <ion-col>{{trade.contact}}</ion-col>
+              <ion-col width-33 class="dateClass">{{trade.date}}</ion-col>
+            </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </button>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

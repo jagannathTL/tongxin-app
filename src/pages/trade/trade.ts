@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController, NavParams } from 'ionic-angular';
+import { NavController, ViewController, PopoverController, NavParams, LoadingController  } from 'ionic-angular';
 import { TradeDetailPage } from '../trade-detail/trade-detail';
+import { AreaPopoverPage } from '../yellow/yellow';
+import { ProfileSvc } from '../../providers/profile-svc';
+import { Global } from '../../providers/global';
+import { Errors } from '../../providers/errors';
+import { TradeSvc } from '../../providers/trade-svc';
+import { TradeViewPage } from '../trade-view/trade-view';
+declare var notie: any;
 
 /*
   Generated class for the Trade page.
@@ -15,22 +22,267 @@ import { TradeDetailPage } from '../trade-detail/trade-detail';
 export class TradePage {
 
   title = '';
+  searchKey: any = "";
+  selectedArea: any = "地区";
+  selectedIndustry: any = "分类";
+  provinces: any = ["全部"];
+  documentType: any;
+  tradeList: any = [];
+  searchList: any = [];
+  tradeID: any = 0;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public params: NavParams) {
-    this.title = params.get('title');
+  constructor(public tradeSvc: TradeSvc, public err: Errors, public global: Global, public profileSvc: ProfileSvc, public navCtrl: NavController, public viewCtrl: ViewController, public params: NavParams, public popoverCtrl: PopoverController, public loading: LoadingController) {
+  }
+
+  gotoDetail(trade){
+    this.navCtrl.push(TradeViewPage,{
+      trade: trade,
+      title: this.title
+    })
+  }
+
+  getProvinces()
+  {
+    let loading = this.loading.create({});
+    loading.present();
+    this.profileSvc.getProvinceList().then((data: any) => {
+        data.forEach((p) => {
+          this.provinces.push(p);
+        })
+    }).catch(err => {
+      notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
+    }).done(() => {
+      loading.dismiss();
+    })
+  }
+
+  getTradeDataList(){
+    let loading = this.loading.create({});
+    loading.present();
+    this.tradeSvc.getTradeList(this.tradeID,this.documentType,this.searchKey,this.selectedArea,this.selectedIndustry,"DOWN").then((data: any) => {
+      data.forEach((trade) => {
+        var firstImg = '';
+        if(trade.pics1 != null && trade.pics1 != undefined && trade.pics1.length > 0)
+        {
+          firstImg = this.global.SERVER + '/upload/' + trade.pics1[0];
+        }
+        // this.tradeList.push({price:trade.price,quantity:trade.quantity,business: trade.buissnes, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg});
+        this.tradeList.push({price:trade.price,quantity:trade.quantity,business: trade.buissnes, product: trade.product, province: "上海市", city: "普陀区", contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg});
+      })
+      // console.log(this.tradeList);
+    }).catch(err => {
+      notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
+    }).done(() => {
+      this.searchTradeList();
+      loading.dismiss();
+    })
+  }
+
+  doRefresh(e){
+    if(this.tradeList != null && this.tradeList != undefined && this.tradeList.lenght > 0)
+    {
+      this.tradeID = this.tradeList[0];
+    }
+    this.tradeSvc.getTradeList(this.tradeID,this.documentType,this.searchKey,this.selectedArea,this.selectedIndustry,"DOWN").then((data: any) => {
+      data.forEach((trade) => {
+        var firstImg = '';
+        if(trade.pics1 != null && trade.pics1 != undefined && trade.pics1.length > 0)
+        {
+          firstImg = this.global.SERVER + '/upload/' + trade.pics1[0];
+        }
+        this.tradeList.push({price:trade.price,quantity:trade.quantity,business: trade.business, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg});
+      })
+    }).catch(err => {
+      notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
+    }).finally(() => {
+      e.complete();
+    })
+  }
+
+  doInfinite(e){
+    if(this.tradeList != null && this.tradeList != undefined && this.tradeList.lenght > 0)
+    {
+      this.tradeID = this.tradeList[this.tradeList.lenght - 1];
+    }
+    this.tradeSvc.getTradeList(this.tradeID,this.documentType,this.searchKey,this.selectedArea,this.selectedIndustry,"UP").then((data: any) => {
+      data.forEach((trade) => {
+        var firstImg = '';
+        if(trade.pics1 != null && trade.pics1 != undefined && trade.pics1.length > 0)
+        {
+          firstImg = this.global.SERVER + '/upload/' + trade.pics1[0];
+        }
+        this.tradeList.push({price:trade.price,quantity:trade.quantity,business: trade.business, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg});
+      })
+    }).catch(err => {
+      notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
+    }).finally(() => {
+      e.complete();
+    })
   }
 
   ionViewDidLoad() {
-    console.log('Hello TradePage Page');
+    this.documentType = this.params.get('documentType');
+    this.getTradeDataList();
   }
 
   ionViewWillEnter() {
+    this.title = this.params.get('title');
     this.viewCtrl.setBackButtonText('商圈');
+    this.getProvinces();
   }
 
   addTrade(){
     this.navCtrl.push(TradeDetailPage, {
       title: this.title
     });
+  }
+
+  searchTradeList(){
+    this.searchList = this.tradeList;
+    if(this.searchKey != "" && this.searchKey != undefined){
+      this.searchList = this.searchList.filter((open) => {
+        return open.product.indexOf(this.searchKey) > -1;
+      })
+    }
+
+    if(this.selectedIndustry != "分类" && this.selectedIndustry != undefined){
+      this.searchList = this.searchList.filter((open) => {
+        return open.business == this.selectedIndustry;
+      })
+    }
+
+    if(this.selectedArea != "地区" && this.selectedArea != undefined)
+    {
+      this.searchList = this.searchList.filter((open) => {
+        return open.province == this.selectedArea;
+      })
+    }
+  }
+
+  onSearch(e){
+    this.searchTradeList();
+  }
+
+  onCancel(e){
+    this.searchKey = "";
+    this.searchTradeList();
+  }
+
+  showIndustry(myEvent){
+    let popover = this.popoverCtrl.create(IndustryTradePage, {
+    selectedIndustry: this.selectedIndustry,
+    listPage: this,
+    documentType: this.documentType
+    });
+    popover.onDidDismiss(() => {
+        // document.getElementById('iconArea').removeAttribute('style');
+      });
+    popover.present({
+      ev: myEvent
+    });
+  }
+
+  showArea(myEvent) {
+    let popover = this.popoverCtrl.create(AreaPopoverPage, {
+    selectedArea: this.selectedArea,
+    tradePage: this,
+    provinces: this.provinces
+    });
+    popover.onDidDismiss(() => {
+
+      });
+    popover.present({
+      ev: myEvent
+    });
+  }
+
+  setArea(area) {
+    if (area == "全部") {
+      this.selectedArea = "地区";
+    }
+    else {
+      this.selectedArea = area;
+    }
+    this.searchTradeList();
+  }
+
+  setIndustry(industry){
+    if(industry == "全部"){
+      this.selectedIndustry = "分类";
+    }else
+    {
+      this.selectedIndustry = industry;
+    }
+    this.searchTradeList();
+  }
+}
+
+@Component({
+  template: `
+    <ion-list>
+      <button detail-none ion-item *ngFor="let industry of industryList" (click)="industrySelected(industry)">
+        <a>{{industry}}<ion-icon *ngIf="industry == selectedIndustry" style="float:right;" name="checkmark"></ion-icon></a>
+      </button>
+    </ion-list>
+  `
+})
+export class IndustryTradePage {
+  industryList: any = [];
+  listPage: TradePage;
+  selectedIndustry: any;
+  documentType: any;
+
+  constructor(public viewCtrl: ViewController, public navParams: NavParams) { }
+
+  ngOnInit() {
+    if (this.navParams.data) {
+      this.selectedIndustry = this.navParams.data.selectedIndustry;
+      this.listPage = this.navParams.data.listPage;
+      this.documentType = this.navParams.data.documentType;
+      this.setIndustryList();
+    }
+  }
+
+  close() {
+    this.viewCtrl.dismiss();
+  }
+
+  industrySelected(industry) {
+    this.selectedIndustry = industry;
+    this.listPage.setIndustry(industry);
+    this.close();
+  }
+
+  setIndustryList(){
+    if(this.documentType == 2)
+    {
+      this.industryList.push('全部');
+      this.industryList.push('抓刚机');
+      this.industryList.push('粉碎机');
+      this.industryList.push('打包机');
+      this.industryList.push('剪切机');
+      this.industryList.push('地磅');
+      this.industryList.push('航车');
+      this.industryList.push('铜米机');
+      this.industryList.push('剥线机');
+      this.industryList.push('锅炉');
+      this.industryList.push('吸盘');
+      this.industryList.push('车船');
+    }
+    else
+    {
+      this.industryList.push('全部');
+      this.industryList.push('基本金属');
+      this.industryList.push('废旧金属');
+      this.industryList.push('废旧钢铁');
+      this.industryList.push('建筑钢材');
+      this.industryList.push('贵金属');
+      this.industryList.push('小金属');
+      this.industryList.push('钢坯');
+      this.industryList.push('热轧板');
+      this.industryList.push('冷轧板');
+      this.industryList.push('再生塑料');
+      this.industryList.push('废纸');
+    }
   }
 }

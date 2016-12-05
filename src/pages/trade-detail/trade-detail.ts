@@ -1,12 +1,13 @@
-import { Component, NgZone,ViewChild } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { ImagePicker } from 'ionic-native';
 import { Global } from '../../providers/global';
 import { Errors } from '../../providers/errors';
 import { ProfileSvc } from '../../providers/profile-svc';
-// import { TradeSvc } from '../../providers/trade-svc';
+import { TradeSvc } from '../../providers/trade-svc';
 declare const Swiper: any;
 declare var notie: any;
+declare var $: any;
 
 /*s
   Generated class for the TradeDetail page.
@@ -36,8 +37,11 @@ export class TradeDetailPage {
   mobile='';//联系方式
   contact='';//联系人
   description='';//简介
+  allTradeImgs: any = [];
+  tradeDivPic: any;
+  imgNameStr: any;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public zone: NgZone, public params: NavParams, public profileSvc: ProfileSvc, public global: Global, public loading: LoadingController, public err: Errors) {
+  constructor(public tradeSvc: TradeSvc, public navCtrl: NavController, public viewCtrl: ViewController, public zone: NgZone, public params: NavParams, public profileSvc: ProfileSvc, public global: Global, public loading: LoadingController, public err: Errors) {
     this.backTitle = params.get('title');
     if(this.backTitle == '供应窗口')
     {
@@ -114,45 +118,123 @@ export class TradeDetailPage {
     this.getAddressData();
   }
 
-  addPics(){
-    let options = {
+  removeTradePics(){
+    var imgDiv = $(".swiper-slide-active img");
+    if(imgDiv != null && imgDiv != undefined && imgDiv.length > 0){
+      var src = imgDiv[0].src;
+      var index = src.lastIndexOf("/");
+      var name = src.substring(index + 1);
+      var imgs = this.allTradeImgs.filter((image) => {
+        return image.newName == name;
+      });
+      if(imgs != null && imgs != undefined)
+      {
+         var isLastIndex = false;
+         var index;
+        this.zone.run(() => {
+          index = this.allTradeImgs.indexOf(imgs[0]);
+          if((index + 1) == this.allTradeImgs.length){
+            //说明删除的是最后一张
+            isLastIndex = true;
+          }
+          this.allTradeImgs.splice(index,1);
+        });
+        setTimeout(() => {
+          if(this.tradeDivPic != null && this.tradeDivPic != undefined){
+            this.tradeDivPic.destroy(true,true);
+          }
+          this.tradeDivPic =  new Swiper('.companyP', {
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev'
+          });
+          if(isLastIndex)
+          {
+              this.tradeDivPic.slideTo(this.allTradeImgs.length - 1,0);//如果删除的最后一张 跳转到删除后的最后一张
+          }
+          else{
+            this.tradeDivPic.slideTo(index,0);//如果删除的不是最后一张 跳转到被删除后的集合index项
+          }
+      },500)
+      }
     }
+
+  }
+
+  addTradePics(){
+    let options = {
+      maximumImagesCount:1
+    };
     ImagePicker.getPictures(options).then((results) => {
       this.zone.run(() => {
-        for(var i = 0; i < results.length; i++){
-          this.imgs.push(results[i]);
-        }
-        this.convertImg();
-      })
-
-      setTimeout(() => {
-        if(this.tradePic != null && this.tradePic != undefined){
-          this.tradePic.destroy(true,false);
-        }
-        this.tradePic =  new Swiper('.tradePic', {
-
+        if(results != null && results != undefined && results.length > 0)
+        {
+          let loading = this.loading.create({});
+          loading.present();
+        this.profileSvc.uploadImg(results).then((data: any) => {
+          if(data.result == "ok"){
+            var url = this.global.SERVER + "/upload/" + data.newName;
+            this.allTradeImgs.push({url: url, newName: data.newName});
+          }else{
+            //error
+            notie.alert('error', this.err.UPLOADIMG_FAILED,this.global.NOTIFICATION_DURATION);
+          }
+        }).catch(err => {
+          notie.alert('error', this.err.UPLOADIMG_FAILED,this.global.NOTIFICATION_DURATION);
+        }).done(() => {
+          setTimeout(() => {
+            if(this.tradeDivPic != null && this.tradeDivPic != undefined){
+              this.tradeDivPic.destroy(true,true);
+            }
+            this.tradeDivPic =  new Swiper('.tradePic', {
+              nextButton: '.swiper-button-next',
+              prevButton: '.swiper-button-prev'
+            });
+            if(this.allTradeImgs != null && this.allTradeImgs != undefined && this.allTradeImgs.length > 0){
+              this.tradeDivPic.slideTo(this.allTradeImgs.length - 1);
+            }
+        },500)
+        loading.dismiss();
         });
-    },500)
-      console.log(results);
+      }
+      })
     },err => {
       console.log(err);
     })
   }
 
-  convertImg(){
-    this.imgs.forEach(img => {
-        var image = document.createElement("img");
-        image.src = img;
-        var canvas = document.createElement('canvas');
-        canvas.getContext('2d').drawImage(image, 0, 0);
-        var dataURL = canvas.toDataURL("image/png");
-        // this.base64Datas.push(dataURL);
-        //this.base64DataStr = this.base64DataStr + dataURL + "|||";
-    })
-  }
-
   saveTrade(){
-
+    let loading = this.loading.create({});
+    loading.present();
+    this.allTradeImgs.forEach((img) => {
+      this.imgNameStr = this.imgNameStr + img.newName + "|||";
+    })
+    let obj={
+      pics: this.imgNameStr,
+      industry: this.industry,
+      product: this.product,
+      quantity: this.quantity,
+      price: this.price,
+      mobile: this.mobile,
+      contact: this.contact,
+      provinceName: this.provinceName,
+      cityName: this.cityName,
+      description: this.description
+    }
+    debugger
+    this.tradeSvc.addTrade(obj).then((data: any) => {
+      debugger
+      if(data.result == "ok")
+      {
+        this.navCtrl.pop();
+      }else
+      {
+        notie.alert('error', this.err.OPTION_FAILED, this.global.NOTIFICATION_DURATION);//err
+      }
+    }).catch(err => {
+      notie.alert('error', this.err.OPTION_FAILED, this.global.NOTIFICATION_DURATION);//err
+    }).done(() => {
+      loading.dismiss();
+    })
   }
 
 }

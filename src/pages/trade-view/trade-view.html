@@ -1,0 +1,79 @@
+<!--
+  Generated template for the YellowDetail page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="swiper-container tradeDetailPics" style="position:relative">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      <div class="swiper-slide" *ngFor="let img of allImgs">
+        <img [src]="img.url"/>
+      </div>
+    </div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+  <ion-list>
+    <ion-item>
+      <ion-row>
+        <ion-col width-25>所属行业:</ion-col>
+        <ion-col>{{trade.business}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row>
+        <ion-col width-25>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:</ion-col>
+        <ion-col>{{trade.product}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row>
+        <ion-col width-25>数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量:</ion-col>
+        <ion-col>{{trade.quantity}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row>
+        <ion-col width-25>价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格:</ion-col>
+        <ion-col>{{trade.price}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row>
+        <ion-col width-25>联系方式:</ion-col>
+        <ion-col>{{trade.tel}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row>
+        <ion-col width-25>联&nbsp;&nbsp;系&nbsp;&nbsp;人:</ion-col>
+        <ion-col>{{trade.contact}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row>
+        <ion-col width-25>交货地址:</ion-col>
+        <ion-col>{{trade.province}}{{trade.city}}</ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row>
+        <ion-col width-25>详细描述:</ion-col>
+        <ion-col>{{trade.desc}}</ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+</ion-content>

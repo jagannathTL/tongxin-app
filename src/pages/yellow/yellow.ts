@@ -5,6 +5,7 @@ import { Global } from '../../providers/global';
 import { Errors } from '../../providers/errors';
 import { YellowSvc } from '../../providers/yellow-svc';
 import { YellowDetailPage } from '../yellow-detail/yellow-detail';
+import { TradePage } from '../trade/trade';
 declare var notie: any;
 /*
   Generated class for the Yellow page.
@@ -191,13 +192,16 @@ export class AreaPopoverPage {
   areaDatas: any = [];
   selectedArea: string;
   listPage: YellowPage;
+  listTradePage: TradePage;
   constructor(public viewCtrl: ViewController, public navParams: NavParams) { }
 
   ngOnInit() {
     if (this.navParams.data) {
+      debugger
       this.areaDatas = this.navParams.data.provinces;
       this.selectedArea = this.navParams.data.selectedArea;
       this.listPage = this.navParams.data.listPage;
+      this.listTradePage = this.navParams.data.tradePage;
     }
   }
 
@@ -206,8 +210,16 @@ export class AreaPopoverPage {
   }
 
   areaSelected(area) {
+    debugger
     this.selectedArea = area;
-    this.listPage.setArea(area);
+    if(this.listPage != null && this.listPage != undefined)
+    {
+      this.listPage.setArea(area);
+    }
+    if(this.listTradePage != null && this.listTradePage != undefined)
+    {
+      this.listTradePage.setArea(area);
+    }
     this.close();
   }
 }

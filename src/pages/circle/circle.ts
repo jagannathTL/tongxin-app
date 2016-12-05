@@ -26,9 +26,11 @@ export class CirclePage {
     this.navCtrl.push(YellowPage);
   }
 
-  gotoTrade(title) {
+  gotoTrade(title,documentType) {
+    debugger
     this.navCtrl.push(TradePage, {
-      title: title
+      title: title,
+      documentType: documentType
     });
   }
 
