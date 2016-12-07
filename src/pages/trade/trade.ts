@@ -67,7 +67,7 @@ export class TradePage {
           firstImg = this.global.SERVER + '/upload/' + trade.pics1[0];
         }
         // this.tradeList.push({price:trade.price,quantity:trade.quantity,business: trade.buissnes, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg});
-        this.tradeList.push({price:trade.price,quantity:trade.quantity,business: trade.buissnes, product: trade.product, province: "上海市", city: "普陀区", contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg});
+        this.tradeList.push({price:trade.price,quantity:trade.quantity,business: trade.buissnes, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg});
       })
       // console.log(this.tradeList);
     }).catch(err => {

@@ -43,23 +43,23 @@
       <ion-grid>
         <ion-row>
           <ion-col width-25 style="display:flex;flex-direction:column;justify-content:center;align-items:center">
-            <img [src]="trade.firstImg" style="width:60px"/>
+            <img [src]="trade.firstImg" style="width:100%"/>
           </ion-col>
           <ion-col>
             <ion-grid>
             <ion-row>
-              <ion-col width-33>供&nbsp;&nbsp;&nbsp; 应：</ion-col>
+              <ion-col width-30>供&nbsp;&nbsp;&nbsp; 应：</ion-col>
               <ion-col>{{trade.product}}</ion-col>
             </ion-row>
             <ion-row>
-              <ion-col width-33>交货地：</ion-col>
+              <ion-col width-30>交货地：</ion-col>
               <ion-col>{{trade.province}}{{trade.city}}</ion-col>
-              <ion-col width-33 class="colorClass">已审核</ion-col>
+              <ion-col width-25 class="colorClass">已审核</ion-col>
             </ion-row>
             <ion-row>
-              <ion-col width-33>联系人：</ion-col>
+              <ion-col width-30>联系人：</ion-col>
               <ion-col>{{trade.contact}}</ion-col>
-              <ion-col width-33 class="dateClass">{{trade.date}}</ion-col>
+              <ion-col width-25 class="dateClass">{{trade.date}}</ion-col>
             </ion-row>
             </ion-grid>
           </ion-col>
