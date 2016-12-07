@@ -1,14 +1,14 @@
 
 import { Component, NgZone } from '@angular/core';
 import { NavController, LoadingController, Events, Platform } from 'ionic-angular';
-import { CommentPage } from '../comment/comment';
-import { FuturesPage } from '../futures/futures';
 import { InboxPage } from '../inbox/inbox';
-import { PricePage } from '../price/price';
 import { CirclePage } from '../circle/circle';
+import { HomePage } from '../home/home';
+import { InfoPage } from '../info/info';
 import { InboxSvc } from '../../providers/inbox-svc';
 import { Global } from '../../providers/global';
 import { Splashscreen, Badge } from 'ionic-native';
+import { LoginPage } from '../login/login';
 
 /*
   Generated class for the Tabs page.
@@ -23,20 +23,26 @@ import { Splashscreen, Badge } from 'ionic-native';
 export class TabsPage {
 
   inbox: any;
-  price: any;
-  comment: any;
+  home: any;
+  info: any;
   circle: any;
-  futures: any;
   badge = 0;
 
   constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
     public global: Global, public loadingCtrl: LoadingController,
     public events: Events, public platform: Platform, public zone: NgZone) {
-    this.inbox = InboxPage;
-    this.price = PricePage;
-    this.comment = CommentPage;
-    this.circle = CirclePage;
-    this.futures = FuturesPage;
+    this.home = HomePage;
+
+    if (this.global.IS_LOGGEDIN == false) {
+      this.inbox = LoginPage;
+      this.circle = LoginPage;
+      this.info = LoginPage;
+    } else {
+      this.inbox = InboxPage;
+      this.circle = CirclePage;
+      this.info = InfoPage;
+    }
+
 
     platform.ready().then(() => {
       Splashscreen.hide();

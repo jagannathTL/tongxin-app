@@ -26,4 +26,6 @@ export class Global {
 
   PRICE_HISTORY_DURATION_DAYS = 90;
 
+  IS_LOGGEDIN = false;
+
 }

@@ -18,32 +18,35 @@ export class MyApp {
   rootPage: any = TabsPage;
 
   msgHanlder(data) {
-    if (this.platform.is('android')) {
-      data = JSON.parse(data);
-      if (data.exit == '退出') {
-        notie.alert('error', this.errors.LOGIN_ON_OTHER_MACHINE, this.global.NOTIFICATION_DURATION);
-        this.nav.setRoot(LoginPage);
-      } else {
-        this.events.publish('tabsPage:setBadge', data.badge);
-        let msg = data.msg;
-        // if (data.badge > 1) {
-        //   msg = "您有" + data.badge + "条消息未读!";
-        // }
-        LocalNotifications.schedule({
-          title: '同鑫资讯',
-          text: msg,
-          icon: 'assets/logo.png',
-          smallIcon: 'assets/logo.png',
-          sound: 'file://assets/jingle-bells-sms.mp3',
-        });
-      }
-    } else if (this.platform.is('ios')) {
-      if (data.additionalData.shyr == '1') {
-        this.nav.setRoot(LoginPage);
-        notie.alert('error', this.errors.LOGIN_ON_OTHER_MACHINE, this.global.NOTIFICATION_DURATION);
-      } else {
-        console.log(data);
-        this.events.publish('tabsPage:setBadge', data.count);
+    if (this.global.IS_LOGGEDIN == true) {
+      if (this.platform.is('android')) {
+        data = JSON.parse(data);
+        if (data.exit == '退出') {
+          notie.alert('error', this.errors.LOGIN_ON_OTHER_MACHINE, this.global.NOTIFICATION_DURATION);
+          this.global.IS_LOGGEDIN = false;
+          this.nav.setRoot(LoginPage);
+        } else {
+          this.events.publish('tabsPage:setBadge', data.badge);
+          let msg = data.msg;
+          // if (data.badge > 1) {
+          //   msg = "您有" + data.badge + "条消息未读!";
+          // }
+          LocalNotifications.schedule({
+            title: '同鑫资讯',
+            text: msg,
+            icon: 'assets/logo.png',
+            smallIcon: 'assets/logo.png',
+            sound: 'file://assets/jingle-bells-sms.mp3',
+          });
+        }
+      } else if (this.platform.is('ios')) {
+        if (data.additionalData.shyr == '1') {
+          this.nav.setRoot(LoginPage);
+          notie.alert('error', this.errors.LOGIN_ON_OTHER_MACHINE, this.global.NOTIFICATION_DURATION);
+        } else {
+          console.log(data);
+          this.events.publish('tabsPage:setBadge', data.count);
+        }
       }
     }
   }
@@ -163,31 +166,26 @@ export class MyApp {
                 }).map(res => res.json()).subscribe(data => {
                   if (data.result == "ok") {
                     this.global.MOBILE = mobile;
+                    this.global.IS_LOGGEDIN = true;
                     // LocalNotifications.on('click',(notification, state)=>{
                     //   console.log('你点击了notification!');
                     // });
-                    this.events.publish('inboxPage:loadItems');
-                  }
-                  else {
-                    this.nav.setRoot(LoginPage);
+                    //this.events.publish('inboxPage:loadItems');
                   }
                 }, error => {
-                  this.nav.setRoot(LoginPage);
                   console.log(error);
                 });
               },
               error => {
-                this.nav.setRoot(LoginPage);
                 console.log(error);
               });
           },
           error => {
-            this.nav.setRoot(LoginPage);
             console.log(error);
           });
       },
       error => {
-        this.nav.setRoot(LoginPage);
+        console.log(error);
       });
   }
 }

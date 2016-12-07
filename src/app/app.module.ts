@@ -34,6 +34,7 @@ import { MyPubPage } from '../pages/my-pub/my-pub';
 import { YellowSvc } from '../providers/yellow-svc';
 import { YellowDetailPage } from '../pages/yellow-detail/yellow-detail';
 import { TradeViewPage } from '../pages/trade-view/trade-view';
+import { HomePage } from '../pages/home/home';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { TradeViewPage } from '../pages/trade-view/trade-view';
     IndustryPage,
     YellowDetailPage,
     IndustryTradePage,
-    TradeViewPage
+    TradeViewPage,
+    HomePage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -100,7 +102,8 @@ import { TradeViewPage } from '../pages/trade-view/trade-view';
     IndustryPage,
     YellowDetailPage,
     IndustryTradePage,
-    TradeViewPage
+    TradeViewPage,
+    HomePage
   ],
   providers: [Global, RegisterSvc, PriceSvc, Errors,
     ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc,
