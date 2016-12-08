@@ -17,4 +17,8 @@ page-inbox {
       background: map-get($colors, negative);
   }
 
+  .item-ios .text-ios-danger{
+    font-size: 10px;
+  }
+
 }
