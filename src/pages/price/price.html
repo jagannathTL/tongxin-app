@@ -24,7 +24,7 @@
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper" id="mID">
         <!-- Slides -->
-        <div class="swiper-slide" *ngFor="let selection of inBuckets" (click)="slideToPro(selection)">{{selection.name}}</div>
+        <div class="swiper-slide" *ngFor="let selection of inBuckets" (click)="slideToPro(selection)" tappable>{{selection.name}}</div>
       </div>
 
     </div>
