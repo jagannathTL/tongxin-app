@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
-import { NavController, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController, ViewController } from 'ionic-angular';
 import { PriceSvc } from '../../providers/price-svc';
 import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
@@ -28,12 +28,19 @@ export class PricePage {
   index: any = 0;
   isShow: boolean = false;
 
-  constructor(public navCtrl: NavController, public err: Errors, public global: Global, public priceSvc: PriceSvc, public loading: LoadingController, public modalCtrl: ModalController, public ref: ChangeDetectorRef, public zone: NgZone) {
+  constructor(public navCtrl: NavController, public err: Errors,
+    public global: Global, public priceSvc: PriceSvc,
+    public loading: LoadingController, public modalCtrl: ModalController,
+    public ref: ChangeDetectorRef, public zone: NgZone, public viewCtrl: ViewController) {
 
   }
 
   refresh() {
     this.getMarketDatas();
+  }
+
+  ionViewWillEnter() {
+    this.viewCtrl.setBackButtonText('首页');
   }
 
   ionViewDidLoad() {

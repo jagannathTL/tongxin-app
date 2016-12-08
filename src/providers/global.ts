@@ -16,16 +16,18 @@ export class Global {
   }
 
   //SERVER = 'http://api.shtx.com.cn';
-  SERVER = 'http://172.20.67.133:83';
+  public SERVER = 'http://172.20.67.133:83';
 
-  DEVICE_ID = '';
+  public DEVICE_ID = '';
 
-  NOTIFICATION_DURATION = 2;
+  public NOTIFICATION_DURATION = 2;
 
-  MOBILE = '13524259846';
+  public MOBILE = '13524259846';
 
-  PRICE_HISTORY_DURATION_DAYS = 90;
+  public PRICE_HISTORY_DURATION_DAYS = 90;
 
-  IS_LOGGEDIN = false;
+  public IS_LOGGEDIN = false;
+
+  public AD_MAIN_RATIO: number = 25 / 10;
 
 }

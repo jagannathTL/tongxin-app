@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, App } from 'ionic-angular';
+import { NavController, App, ViewController } from 'ionic-angular';
 import { InfoPage } from '../info/info';
 import { YellowPage } from '../yellow/yellow';
 import { TradePage } from '../trade/trade';
@@ -18,10 +18,14 @@ import { LoginPage } from '../login/login';
 })
 export class CirclePage {
 
-  constructor(public navCtrl: NavController, public global: Global, public app: App) {
+  constructor(public navCtrl: NavController, public global: Global, public app: App, public viewCtrl: ViewController) {
     if (this.global.IS_LOGGEDIN == false) {
       this.app.getRootNav().setRoot(LoginPage);
     }
+  }
+
+  ionViewWillEnter() {
+    this.viewCtrl.setBackButtonText('首页');
   }
 
   gotoInfo() {
@@ -33,7 +37,6 @@ export class CirclePage {
   }
 
   gotoTrade(title, documentType) {
-    debugger
     this.navCtrl.push(TradePage, {
       title: title,
       documentType: documentType
