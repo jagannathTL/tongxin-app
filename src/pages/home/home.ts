@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { Global } from '../../providers/global';
 import { FuturesPage } from '../futures/futures';
 import { PricePage } from '../price/price';
 import { CommentPage } from '../comment/comment';
+import { SearchPage } from '../search/search';
 declare const Swiper: any;
 
 /*
@@ -24,8 +25,15 @@ export class HomePage {
 
   type = 'cast';
 
-  constructor(public navCtrl: NavController, public global: Global) {
+  constructor(public navCtrl: NavController, public global: Global, public modalCtrl: ModalController) {
 
+  }
+
+  onFocus() {
+    let modal = this.modalCtrl.create(SearchPage);
+    modal.present({
+      animate: false
+    });
   }
 
   gotoFutures() {
