@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Global } from '../../providers/global';
+import { FuturesPage } from '../futures/futures';
+import { PricePage } from '../price/price';
+import { CommentPage } from '../comment/comment';
+declare const Swiper: any;
 
 /*
   Generated class for the Home page.
@@ -13,6 +18,35 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {}
+  ad01 = this.global.SERVER + '/ad/ad03.jpg';
+  ad02 = this.global.SERVER + '/ad/ad02.jpg';
+  ad03 = this.global.SERVER + '/ad/ad03.jpg';
 
+  constructor(public navCtrl: NavController, public global: Global) {
+
+  }
+
+  gotoFutures() {
+    this.navCtrl.push(FuturesPage);
+  }
+
+  gotoComment() {
+    this.navCtrl.push(CommentPage);
+  }
+
+  gotoPrice() {
+    this.navCtrl.push(PricePage);
+  }
+
+  ionViewDidLoad() {
+    let adMain = document.getElementById('adMain');
+    adMain.style.width = document.body.clientWidth + 'px';
+    adMain.style.height = document.body.clientWidth / this.global.AD_MAIN_RATIO + 'px';
+    new Swiper('.swiper-container', {
+      pagination: '.swiper-pagination',
+      paginationClickable: true,
+      loop: true,
+      autoplay: 2 * 1000
+    });
+  }
 }

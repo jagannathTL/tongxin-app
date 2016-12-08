@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, App, Events } from 'ionic-angular';
+import { NavController, App, Events, ViewController } from 'ionic-angular';
 import { SecureStorage } from 'ionic-native';
 import { LoginPage } from '../login/login';
 declare const notie: any;
@@ -23,7 +23,8 @@ export class InfoPage {
   isSound = true;
 
   constructor(public navCtrl: NavController, public errors: Errors,
-    public global: Global, public app: App, public events: Events) {
+    public global: Global, public app: App, public events: Events,
+    public viewCtrl: ViewController) {
     if (this.global.IS_LOGGEDIN == false) {
       this.app.getRootNav().setRoot(LoginPage);
     }
@@ -31,6 +32,10 @@ export class InfoPage {
 
   gotoProfile() {
     this.navCtrl.push(ProfilePage);
+  }
+
+  ionViewWillEnter() {
+    this.viewCtrl.setBackButtonText('首页');
   }
 
   gotoMyPub() {

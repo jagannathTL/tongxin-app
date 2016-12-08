@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController, ViewController } from 'ionic-angular';
 import { CommentSvc } from '../../providers/comment-svc';
 import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
@@ -33,8 +33,14 @@ export class CommentPage {
   index: any = 0;
   isShow: boolean = false;
 
-  constructor(public navCtrl: NavController, public err: Errors, public global: Global, public commentSvc: CommentSvc, public loading: LoadingController, public modalCtrl: ModalController, public zone: NgZone) {
+  constructor(public navCtrl: NavController, public err: Errors,
+    public global: Global, public commentSvc: CommentSvc, public loading: LoadingController,
+    public modalCtrl: ModalController, public zone: NgZone, public viewCtrl: ViewController) {
 
+  }
+
+  ionViewWillEnter() {
+    this.viewCtrl.setBackButtonText('首页');
   }
 
   ionViewDidLoad() {
