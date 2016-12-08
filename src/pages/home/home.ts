@@ -57,7 +57,8 @@ export class HomePage {
       paginationClickable: true,
       loop: true,
       between: 0,
-      autoplay: 2 * 1000
+      autoplay: 2 * 1000,
+      autoplayDisableOnInteraction: false
     });
   }
 }
