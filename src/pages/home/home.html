@@ -35,7 +35,7 @@
       </button>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row style='border-bottom: solid 2px rgba(222, 222, 222, 0.5)'>
       <ion-col width-33>
         <button clear block style="padding:0; line-height:0">
         <img src='assets/images/audit.jpg' style='width:100%; height:100%' />
@@ -54,6 +54,16 @@
     </ion-row>
   </ion-grid>
   <div padding>
-  
+    <ion-segment color='navbar' [(ngModel)]="type">
+      <ion-segment-button value="cast">
+        资讯直播
+      </ion-segment-button>
+      <ion-segment-button value="audit">
+        项目招标
+      </ion-segment-button>
+      <ion-segment-button value="materials">
+        资产处置
+      </ion-segment-button>
+    </ion-segment>
   </div>
 </ion-content>

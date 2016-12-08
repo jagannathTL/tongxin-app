@@ -7,7 +7,6 @@ import { InfoPage } from '../info/info';
 import { InboxSvc } from '../../providers/inbox-svc';
 import { Global } from '../../providers/global';
 import { Splashscreen, Badge } from 'ionic-native';
-import { LoginPage } from '../login/login';
 
 /*
   Generated class for the Tabs page.

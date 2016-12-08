@@ -22,6 +22,8 @@ export class HomePage {
   ad02 = this.global.SERVER + '/ad/ad02.jpg';
   ad03 = this.global.SERVER + '/ad/ad03.jpg';
 
+  type = 'cast';
+
   constructor(public navCtrl: NavController, public global: Global) {
 
   }
@@ -46,6 +48,7 @@ export class HomePage {
       pagination: '.swiper-pagination',
       paginationClickable: true,
       loop: true,
+      between: 0,
       autoplay: 2 * 1000
     });
   }
