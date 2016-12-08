@@ -18,7 +18,7 @@ declare const Swiper: any;
 })
 export class HomePage {
 
-  ad01 = this.global.SERVER + '/ad/ad03.jpg';
+  ad01 = this.global.SERVER + '/ad/ad01.jpg';
   ad02 = this.global.SERVER + '/ad/ad02.jpg';
   ad03 = this.global.SERVER + '/ad/ad03.jpg';
 
