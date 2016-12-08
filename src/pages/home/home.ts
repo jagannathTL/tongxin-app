@@ -15,8 +15,4 @@ export class HomePage {
 
   constructor(public navCtrl: NavController) {}
 
-  ionViewDidLoad() {
-    console.log('Hello HomePage Page');
-  }
-
 }

@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, LoadingController, Events } from 'ionic-angular';
+import { NavController, LoadingController, Events, App } from 'ionic-angular';
 import { InboxSvc } from '../../providers/inbox-svc';
 import { Global } from '../../providers/global';
 import { Errors } from '../../providers/errors';
@@ -7,6 +7,7 @@ declare const notie: any;
 import * as _ from 'lodash';
 import { CommentDetailPage } from '../comment-detail/comment-detail';
 import moment from 'moment';
+import { LoginPage } from '../login/login';
 
 /*
   Generated class for the Inbox page.
@@ -26,7 +27,10 @@ export class InboxPage {
 
   constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
     public global: Global, public errors: Errors, public zone: NgZone,
-    public loadingCtrl: LoadingController, public events: Events) {
+    public loadingCtrl: LoadingController, public events: Events, public app: App) {
+    if (this.global.IS_LOGGEDIN == false) {
+      this.app.getRootNav().setRoot(LoginPage);
+    }
     //初始化
     this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
     events.unsubscribe('inboxPage:loadItems');

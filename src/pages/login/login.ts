@@ -51,6 +51,10 @@ export class LoginPage {
     });
   }
 
+  gotoHome(){
+    this.navCtrl.setRoot(TabsPage);
+  }
+
   login() {
     if (validator.isEmpty(this.mobile.trim())) {
       notie.alert('error', this.err.MOBILE_EMPTY, this.global.NOTIFICATION_DURATION);
@@ -107,6 +111,7 @@ export class LoginPage {
             notie.alert('error', this.err.LOGIN_FAILED, this.global.NOTIFICATION_DURATION);
           });
         this.global.MOBILE = this.mobile;
+        this.global.IS_LOGGEDIN = true;
         this.navCtrl.setRoot(TabsPage);
         this.isShowLoading = false;
         this.events.publish('inboxPage:loadItems');

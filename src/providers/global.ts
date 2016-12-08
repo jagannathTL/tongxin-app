@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 export class Global {
 
   constructor(public http: Http) {
-    console.log('Hello Global Provider');
+
   }
 
   //SERVER = 'http://api.shtx.com.cn';

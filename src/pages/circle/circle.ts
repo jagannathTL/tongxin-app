@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, App } from 'ionic-angular';
 import { InfoPage } from '../info/info';
 import { YellowPage } from '../yellow/yellow';
 import { TradePage } from '../trade/trade';
+import { Global } from '../../providers/global';
+import { LoginPage } from '../login/login';
 
 /*
   Generated class for the Circle page.
@@ -16,7 +18,11 @@ import { TradePage } from '../trade/trade';
 })
 export class CirclePage {
 
-  constructor(public navCtrl: NavController) { }
+  constructor(public navCtrl: NavController, public global: Global, public app: App) {
+    if (this.global.IS_LOGGEDIN == false) {
+      this.app.getRootNav().setRoot(LoginPage);
+    }
+  }
 
   gotoInfo() {
     this.navCtrl.push(InfoPage);
@@ -26,7 +32,7 @@ export class CirclePage {
     this.navCtrl.push(YellowPage);
   }
 
-  gotoTrade(title,documentType) {
+  gotoTrade(title, documentType) {
     debugger
     this.navCtrl.push(TradePage, {
       title: title,

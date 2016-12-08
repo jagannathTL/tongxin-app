@@ -1,4 +1,3 @@
-
 import { Component, NgZone } from '@angular/core';
 import { NavController, LoadingController, Events, Platform } from 'ionic-angular';
 import { InboxPage } from '../inbox/inbox';
@@ -31,18 +30,11 @@ export class TabsPage {
   constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
     public global: Global, public loadingCtrl: LoadingController,
     public events: Events, public platform: Platform, public zone: NgZone) {
+
     this.home = HomePage;
-
-    if (this.global.IS_LOGGEDIN == false) {
-      this.inbox = LoginPage;
-      this.circle = LoginPage;
-      this.info = LoginPage;
-    } else {
-      this.inbox = InboxPage;
-      this.circle = CirclePage;
-      this.info = InfoPage;
-    }
-
+    this.inbox = InboxPage;
+    this.circle = CirclePage;
+    this.info = InfoPage;
 
     platform.ready().then(() => {
       Splashscreen.hide();

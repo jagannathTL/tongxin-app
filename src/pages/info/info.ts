@@ -21,14 +21,19 @@ import { MyPubPage } from '../my-pub/my-pub';
 export class InfoPage {
   mobile = this.global.MOBILE;
   isSound = true;
-  constructor(public navCtrl: NavController, public errors: Errors,
-    public global: Global, public app: App, public events: Events) { }
 
-  gotoProfile(){
+  constructor(public navCtrl: NavController, public errors: Errors,
+    public global: Global, public app: App, public events: Events) {
+    if (this.global.IS_LOGGEDIN == false) {
+      this.app.getRootNav().setRoot(LoginPage);
+    }
+  }
+
+  gotoProfile() {
     this.navCtrl.push(ProfilePage);
   }
 
-  gotoMyPub(){
+  gotoMyPub() {
     this.navCtrl.push(MyPubPage);
   }
 
@@ -43,6 +48,7 @@ export class InfoPage {
         secureStorage.remove('password')
           .then(
           data => {
+            this.global.IS_LOGGEDIN = false;
             this.app.getRootNav().setRoot(LoginPage);
           },
           error => {
