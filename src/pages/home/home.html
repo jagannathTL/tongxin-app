@@ -6,7 +6,11 @@
 -->
 
 <ion-content no-bounce>
-  <div id='adMain'>
+  <div id='adMain' style="position: relative">
+    <div class="input-group" style="opacity: 0.8; width: 80%; left: 50%; transform: translate(-50%, 50%); position: absolute; z-index: 999">
+      <span class="input-group-addon" style="background: white"><i class="fa fa-search"></i></span>
+      <input class="form-control" style='radius: 20' type="text" placeholder="查询价格和资讯">
+    </div>
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide"><img src={{ad01}}/></div>
