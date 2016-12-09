@@ -5,6 +5,8 @@ import { Global } from '../../providers/global';
 import { CommentDetailPage } from '../comment-detail/comment-detail';
 import { Errors } from '../../providers/errors';
 declare const notie: any;
+import * as moment from 'moment';
+
 /*
   Generated class for the ComDetail page.
 
@@ -42,7 +44,7 @@ export class CommentListPage {
       loading.present();
     this.commentSvc.getCommentDetail(this.global.MOBILE, this.marketId).then((data: any) => {
         data.forEach((c: any) => {
-          this.comList.push({avatar:c.avatar, url:c.url, title:c.title, date:c.date, id:c.id, proName:c.productname, isOrder:c.isOrder});
+          this.comList.push({avatar:c.avatar, url:c.url, title:c.title, date: moment(c.date).format('MM-DD'), id:c.id, proName:c.productname, isOrder:c.isOrder});
         });
     }).catch((err) => {
 

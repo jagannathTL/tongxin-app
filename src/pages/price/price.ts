@@ -50,7 +50,7 @@ export class PricePage {
   slideToPro(obj) {
     this.index = this.inBuckets.indexOf(obj);
     var divs = $(".market .swiper-wrapper .swiper-slide");
-    divs.css("color", 'black').css("border-bottom-width", '0px');
+    divs.css("color", 'white').css("border-bottom-width", '0px');
     divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
     this.marketS.slideTo(this.index);
     this.productS.slideTo(this.index, 500, false);
@@ -65,7 +65,7 @@ export class PricePage {
     this.productS.slideTo(this.index, 0, true);
 
     var divs = $(".market .swiper-wrapper .swiper-slide");
-    divs.css("color", 'black').css("border-bottom-width", '0px');
+    divs.css("color", 'white').css("border-bottom-width", '0px');
     divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
@@ -90,7 +90,7 @@ export class PricePage {
             var index = swiper.activeIndex;
             this.index = index;
             var divs = $(".market .swiper-wrapper .swiper-slide");
-            divs.css("color", 'black').css("border-bottom-width", '0px');
+            divs.css("color", 'white').css("border-bottom-width", '0px');
             divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
           }
         });
@@ -135,7 +135,7 @@ export class PricePage {
           var index = swiper.activeIndex;
           this.index = index;
           var divs = $(".market .swiper-wrapper .swiper-slide");
-          divs.css("color", 'black').css("border-bottom-width", '0px');
+          divs.css("color", 'white').css("border-bottom-width", '0px');
           divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
         }
       });

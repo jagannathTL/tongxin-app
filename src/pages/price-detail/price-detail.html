@@ -16,7 +16,7 @@
 <ion-content>
 
   <ion-list *ngFor='let x of items'>
-    <ion-item-divider color="light">{{x[0].ParentName}}</ion-item-divider>
+    <ion-item-divider color="tabColor" style="font-weight: bold">{{x[0].ParentName}}</ion-item-divider>
     <ion-item-sliding *ngFor='let y of x' #slidingItem>
       <button ion-item (click)='gotoPriceHistory(y)'>
         <ion-row>
