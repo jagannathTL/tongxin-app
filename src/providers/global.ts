@@ -16,7 +16,7 @@ export class Global {
   }
 
   //SERVER = 'http://api.shtx.com.cn';
-  public SERVER = 'http://172.20.67.133:83';
+  public SERVER = 'http://172.20.67.95:83';
 
   public DEVICE_ID = '';
 
@@ -26,7 +26,7 @@ export class Global {
 
   public PRICE_HISTORY_DURATION_DAYS = 90;
 
-  public IS_LOGGEDIN = false;
+  public IS_LOGGEDIN = true;
 
   public AD_MAIN_RATIO: number = 20 / 10;
 
