@@ -35,6 +35,7 @@ import { YellowSvc } from '../providers/yellow-svc';
 import { YellowDetailPage } from '../pages/yellow-detail/yellow-detail';
 import { TradeViewPage } from '../pages/trade-view/trade-view';
 import { HomePage } from '../pages/home/home';
+import { Storage } from '@ionic/storage';
 import { SearchPage } from '../pages/search/search';
 
 
@@ -110,6 +111,6 @@ import { SearchPage } from '../pages/search/search';
   ],
   providers: [Global, RegisterSvc, PriceSvc, Errors,
     ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc,
-    ProfileSvc, YellowSvc, TradeSvc]
+    ProfileSvc, YellowSvc, TradeSvc, Storage]
 })
 export class AppModule { }

@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 import { CommentDetailPage } from '../comment-detail/comment-detail';
 import moment from 'moment';
 import { LoginPage } from '../login/login';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the Inbox page.
@@ -24,10 +25,11 @@ export class InboxPage {
   lastDate: string;
   items = [];
   showPage = false;
+  // readList: any = [];
 
   constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
     public global: Global, public errors: Errors, public zone: NgZone,
-    public loadingCtrl: LoadingController, public events: Events, public app: App) {
+    public loadingCtrl: LoadingController, public events: Events, public app: App, public storage: Storage) {
     if (this.global.IS_LOGGEDIN == false) {
       this.app.getRootNav().setRoot(LoginPage);
     }
@@ -38,12 +40,32 @@ export class InboxPage {
       let load = this.loadingCtrl.create();
       load.present();
       inboxSvc.loadItems(global.MOBILE).then(data => {
-        if (data.length > 0) {
-          for (let i = 0; i < data.length; i++) {
-            data[i].dateStr = data[i].date.substr(5, 14);
+      if (data.length > 0) {
+        this.storage.get('readList').then((reads: any) => {
+          if(reads == null || reads == undefined || reads.length <= 0)
+          {
+            for (let i = 0; i < data.length; i++) {
+              data[i].dateStr = data[i].date.substr(5, 14);
+              this.items.push({id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true})
+            }
           }
-          this.items = _.concat(this.items, data);
+          else{
+            for (let i = 0; i < data.length; i++) {
+              var isRead = true;
+              data[i].dateStr = data[i].date.substr(5, 14);
+
+              var read = reads.filter((r: any) => {
+                return r.id == data[i].id;
+              })
+              if(read != null && read != undefined && read.length > 0)
+              {
+                isRead = false;
+              }
+              this.items.push({id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: isRead})
+            }
         }
+        })
+      }
       }).catch(error => {
         notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
       }).done(() => {
@@ -59,8 +81,9 @@ export class InboxPage {
       if (data.length > 0) {
         for (let i = 0; i < data.length; i++) {
           data[i].dateStr = data[i].date.substr(5, 14);
+          this.items.push({id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true});
         }
-        this.items = _.concat(data, this.items);
+        // this.items = _.concat(data, this.items);
         this.inboxSvc.clearBadge(this.global.MOBILE).then(() => {
           this.events.publish('inbox:clearTabsBadge');
         }).catch((err) => console.log('clearBadge error!'));
@@ -79,11 +102,30 @@ export class InboxPage {
   doInfinite(infiniteScroll) {
     this.inboxSvc.loadMoreItems(this.global.MOBILE, _.last(this.items).date).then(data => {
       if (data.length > 0) {
-        for (let i = 0; i < data.length; i++) {
-          data[i].dateStr = data[i].date.substr(5, 14);
-          //this.items.push(data[i]);
+        this.storage.get('readList').then((reads: any) => {
+          if(reads == null || reads == undefined || reads.length <= 0)
+          {
+            for (let i = 0; i < data.length; i++) {
+              data[i].dateStr = data[i].date.substr(5, 14);
+              this.items.push({id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true})
+            }
+          }
+          else{
+            for (let i = 0; i < data.length; i++) {
+              var isRead = true;
+              data[i].dateStr = data[i].date.substr(5, 14);
+
+              var read = reads.filter((r: any) => {
+                return r.id == data[i].id;
+              })
+              if(read != null && read != undefined && read.length > 0)
+              {
+                isRead = false;
+              }
+              this.items.push({id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: isRead})
+            }
         }
-        this.items = _.concat(this.items, data);
+        })
       }
       else {
         notie.alert('warning', this.errors.NOMORE_DATA, this.global.NOTIFICATION_DURATION);
@@ -95,10 +137,37 @@ export class InboxPage {
     });
   }
 
-  gotoCommentDetail(url) {
+  gotoCommentDetail(item) {
+
+    var readList: any = [];
+    this.storage.keys().then((data: any) => {
+      var readKey = data.filter((key: any) => {
+        return key == 'readList';
+      })
+      if(readKey != null && readKey != undefined && readKey.length > 0){
+        this.storage.get('readList').then((data: any) => {
+          if(data != null && data != undefined){
+            readList = data;
+          }
+          var read = readList.filter((r: any) => {
+            return r.id == item.id;
+          })
+          if(read == null || read == undefined || read.length <= 0)
+          {
+            readList.push({id: item.id});
+          }
+          this.storage.set('readList', readList);
+        })
+      }
+      else{
+        readList.push({id: item.id});
+        this.storage.set('readList', readList);
+      }
+    })
+    var url = item.url;
     url += '&mobile=' + this.global.MOBILE;
-    console.log(url);
     this.showPage = true;
+    item.isRead = false;
     this.navCtrl.push(CommentDetailPage, {
       url: url
     });

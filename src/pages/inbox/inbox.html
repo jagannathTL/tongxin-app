@@ -24,10 +24,11 @@
     <ion-item color='light'>
       <button item-left ion-button round [ngClass]="{'negative': i.url, 'positive': !i.url}">{{i.url ? '评' : '价'}}</button>
       <h4>{{i.dateStr}}</h4>
-      <button ion-button clear *ngIf="i.url" item-right (click)='gotoCommentDetail(i.url)'>阅读全文&nbsp;<i class="fa fa-angle-right"></i></button>
+      <button ion-button clear *ngIf="i.url" item-right (click)='gotoCommentDetail(i)'>阅读全文&nbsp;<i class="fa fa-angle-right"></i></button>
     </ion-item>
     <ion-item>
-      {{i.msg}}
+        <i class="fa fa-circle" color="danger" aria-hidden="true" *ngIf="i.isRead"></i>
+        {{i.msg}}
     </ion-item>
   </ion-card>
 
