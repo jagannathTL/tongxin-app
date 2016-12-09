@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, ViewController } from 'ionic-angular';
 import { ImagePicker } from 'ionic-native';
 import { ProfileSvc } from '../../providers/profile-svc';
 import { Global } from '../../providers/global';
@@ -37,7 +37,8 @@ export class ProfilePage {
   imgNameStr: any = "";
   isOpenMsg: any;
 
-  constructor(public navCtrl: NavController, public zone: NgZone, public profileSvc: ProfileSvc, public global: Global, public loading: LoadingController, public err: Errors) {
+  constructor(public navCtrl: NavController, public zone: NgZone, public profileSvc: ProfileSvc,
+    public global: Global, public loading: LoadingController, public err: Errors, public viewCtrl: ViewController) {
 
   }
 
@@ -46,6 +47,7 @@ export class ProfilePage {
   }
 
   ionViewWillEnter(){
+    this.viewCtrl.setBackButtonText('我的');
     this.getAddressData();
   }
 

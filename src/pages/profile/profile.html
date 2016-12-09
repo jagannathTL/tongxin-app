@@ -9,7 +9,7 @@
   <ion-navbar color='navbar'>
     <ion-title>我的资料</ion-title>
     <ion-buttons end>
-      <button ion-button clear (click)="subClick()">完成</button>
+      <button ion-button clear (click)="subClick()">保存</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -22,7 +22,7 @@
     <div class="swiper-wrapper">
       <!-- Slides -->
       <div class="swiper-slide" *ngFor="let img of allImgs">
-        <img [src]="img.url"/>
+        <img [src]="img.url" />
       </div>
     </div>
     <!-- Add Arrows -->
@@ -34,7 +34,7 @@
   <ion-list>
     <ion-item>
       <ion-label color="dark">公司名称</ion-label>
-      <ion-input placeholder="个人/公司" [(ngModel)]="companyName"></ion-input>
+      <ion-input placeholder="上海同鑫信息技术咨询有限公司" text-right [(ngModel)]="companyName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="dark">联系人</ion-label>
@@ -77,7 +77,8 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-input [(ngModel)]="industryDesc" placeholder="行业备注"></ion-input>
+      <ion-label color="dark">产品备注</ion-label>
+      <ion-input [(ngModel)]="industryDesc" placeholder="光亮铜，钢筋头，螺纹钢"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="dark">公司地址</ion-label>
@@ -89,7 +90,8 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-input [(ngModel)]="addressDesc" placeholder="地址详情"></ion-input>
+      <ion-label color="dark">地址详情</ion-label>
+      <ion-input [(ngModel)]="addressDesc" placeholder="普陀区安远路128号"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="dark">是否公开</ion-label>
