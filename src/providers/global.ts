@@ -28,6 +28,6 @@ export class Global {
 
   public IS_LOGGEDIN = false;
 
-  public AD_MAIN_RATIO: number = 25 / 10;
+  public AD_MAIN_RATIO: number = 20 / 10;
 
 }

@@ -21,14 +21,14 @@
       <button ion-item (click)='gotoPriceHistory(y)'>
         <ion-row>
           <ion-col>
-            &nbsp;&nbsp;&nbsp;&nbsp;{{y.ProductName}}
+            &nbsp;&nbsp;&nbsp;{{y.ProductName}}
           </ion-col>
           <ion-col text-right class="dateColor">
             {{y.displayDate}}
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col width-25 style="font-size: 80%">
+        <ion-row style="font-size: 80%">
+          <ion-col width-25>
             &nbsp;&nbsp;&nbsp;&nbsp;{{y.Comment}}
           </ion-col>
           <ion-col text-right [ngClass]="{'negative': y.Change < 0, 'positive': y.Change > 0, 'zero': y.Change == 0}">
