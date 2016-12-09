@@ -52,7 +52,7 @@ export class CommentPage {
     this.marketC.slideTo(this.index);
     this.productC.slideTo(this.index, 500, false);
     var divs = $(".marketC .swiper-wrapper .swiper-slide");
-    divs.css("color", 'black').css("border-bottom-width", '0px');
+    divs.css("color", 'white').css("border-bottom-width", '0px');
     divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
@@ -65,7 +65,7 @@ export class CommentPage {
     this.marketC.slideTo(this.index);
     this.productC.slideTo(this.index, 0, false);
     var divs = $(".marketC .swiper-wrapper .swiper-slide");
-    divs.css("color", 'black').css("border-bottom-width", '0px');
+    divs.css("color", 'white').css("border-bottom-width", '0px');
     divs.eq(this.index).css("color", "red").css("border-bottom", "2px solid red");
   }
 
@@ -94,7 +94,7 @@ export class CommentPage {
             var index = swiper.activeIndex;
             this.index = index;
             var divs = $(".marketC .swiper-wrapper .swiper-slide");
-            divs.css("color", 'black').css("border-bottom-width", '0px');
+            divs.css("color", 'white').css("border-bottom-width", '0px');
             divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
           }
         });
@@ -146,7 +146,7 @@ export class CommentPage {
           var index = swiper.activeIndex;
           this.index = index;
           var divs = $(".marketC .swiper-wrapper .swiper-slide");
-          divs.css("color", 'black').css("border-bottom-width", '0px');
+          divs.css("color", 'white').css("border-bottom-width", '0px');
           divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
         }
       });

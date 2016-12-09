@@ -19,8 +19,8 @@
 
 
 <ion-content>
-  <div style="background-color:#f4f4f4">
-    <div class="swiper-container gallery-thumbs marketC" style="background-color: #f4f4f4;width:90%;float:left">
+  <div style="background-color:#7caeef">
+    <div class="swiper-container gallery-thumbs marketC" style="background-color: #7caeef;width:90%;float:left">
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
         <!-- Slides -->
@@ -41,14 +41,14 @@
         <!-- Slides -->
         <div class="swiper-slide pro" *ngFor="let s of inBuckets">
           <ion-list>
-            <ion-item *ngFor="let m of s.markets">
-              <button id="firstTitle" ion-item  (click)='gotoCommentDetail(s,m)'>
+            <ion-item *ngFor="let m of s.markets" style="padding-left: 0;">
+              <button id="firstTitle" color='light' ion-item (click)='gotoCommentDetail(s,m)'>
                 {{m.name}}
               </button>
               <button id="small" ion-item (click)="goDetail(p.url)" *ngFor="let p of m.pinglun">
-                <ion-row >
+                <ion-row style="font-size: 80%">
                   <ion-col width-67>{{p.title}}</ion-col>
-                  <ion-col class="dateColor" style="display:flex;flex-direction:column;justify-content:center;align-items:center">{{p.date}}</ion-col>
+                  <ion-col class="dateColor" text-right center>{{p.date}}</ion-col>
                 </ion-row>
               </button>
             </ion-item>

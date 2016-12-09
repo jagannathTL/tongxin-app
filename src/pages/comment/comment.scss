@@ -4,15 +4,19 @@ page-comment {
     width: 100%;
   }
 
-  .item-ios.item-block .item-inner{
-    padding-right: 0px;
+  .label-ios {
+    margin: 0;
   }
 
-  ion-label{
+  ion-item.item-ios.item-block>.item-inner {
+    padding-right: 0;
+  }
+
+  ion-label {
     white-space: normal;
   }
 
-  ion-list {
+  .item-ios {
     width: 100%;
   }
 
@@ -30,20 +34,20 @@ page-comment {
     background-color: map-get($colors, light);
   }
 
-  .swiper-slide{
+  .swiper-slide {
     font-size: inherit;
   }
 
-  .swiper-wrapper .pro{
-      overflow: scroll;
-      display: block;
+  .swiper-wrapper .pro {
+    overflow: scroll;
+    display: block;
   }
 
-  #small .item-inner{
-    border-bottom: 0px;
+  #small .item-inner {
+    border-bottom: 0;
   }
 
-  #firstTitle .item-inner{
-    border-bottom: 0px;
+  #firstTitle .item-inner {
+    border-bottom: 0;
   }
 }

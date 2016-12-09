@@ -12,7 +12,7 @@
     <ion-item-sliding *ngFor="let com of comList" #slidingComItem>
       <button ion-item (click)="goDetail(com.url)">
         <ion-row>
-        <ion-col width-25 style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+        <ion-col width-25 center>
           <!-- <div style="height:100%;position:relative"> -->
           <img [src]="com.avatar" style="width:60px" />
           <!-- </div> -->
@@ -27,7 +27,7 @@
               <ion-col class="smallColor">
                 {{com.proName}}
               </ion-col>
-              <ion-col class="dateColor">
+              <ion-col class="dateColor" text-right center>
                 {{com.date}}
               </ion-col>
             </ion-row>
