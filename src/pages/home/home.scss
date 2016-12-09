@@ -1,5 +1,13 @@
 page-home {
 
+  .positive {
+      background: map-get($colors, positive);
+  }
+
+  .negative {
+      background: map-get($colors, negative);
+  }
+  
   .text-input-ios {
     margin: 0;
   }

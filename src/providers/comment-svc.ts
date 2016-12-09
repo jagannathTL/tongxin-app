@@ -31,7 +31,7 @@ export class CommentSvc {
 
   getCommentTodayById(marketId) {
     return new Promise((resolve, reject) => {
-      this.http.get(this.global.SERVER + '/Handlers/PLHandler.ashx?method=getTodayComByProductId&marketId=' + marketId).map(res => res.json())
+      this.http.get(this.global.SERVER + '/Handlers/PLHandler.ashx?method=getTodayComByMarketId&marketId=' + marketId).map(res => res.json())
         .subscribe((data) => {
           resolve(data);
         }, err => {

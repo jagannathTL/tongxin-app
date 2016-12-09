@@ -73,6 +73,26 @@
   <div>
     <ion-list>
       <button ion-item *ngFor='let x of items'>
+        <!-- <ion-row color='light'>
+          <ion-col width-10>
+            <button item-left ion-button round [ngClass]="{'negative': x.url, 'positive': !x.url}">{{x.url ? '评' : '价'}}</button>
+          </ion-col>
+          <ion-col>
+            <h4>{{x.date}}</h4>
+          </ion-col>
+        </ion-row> -->
+        <ion-item no-detail color="light">
+          <button item-left ion-button round [ngClass]="{'negative': x.url, 'positive': !x.url}">{{x.url ? '评' : '价'}}</button>
+          <h4>{{x.date}}</h4>
+          <!-- <button ion-button clear *ngIf="i.url" item-right (click)='gotoCommentDetail(i)'>阅读全文&nbsp;<i class="fa fa-angle-right"></i></button> -->
+        </ion-item>
+        <ion-item>
+        <ion-row>
+          <ion-col>
+            {{x.title}}
+          </ion-col>
+        </ion-row>
+        </ion-item>
       </button>
     </ion-list>
   </div>

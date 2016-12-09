@@ -8,6 +8,7 @@ import { SearchPage } from '../search/search';
 declare const Swiper: any;
 import { CommentSvc } from '../../providers/comment-svc';
 import * as Promise from 'promise';
+import * as _ from 'lodash';
 
 /*
   Generated class for the Home page.
@@ -36,15 +37,50 @@ export class HomePage {
     public loadingCtrl: LoadingController) {
     let load = loadingCtrl.create();
     load.present();
-    Promise.all([commentSvc.getCommentTodayById('1272'),
-      commentSvc.getCommentTodayById('1276'),
-      commentSvc.getCommentTodayById('1277')]).then(data => {
+    Promise.all([this.getCastData(),this.getProjectsData(),this.getMaterialsData()]).then(data => {
+      console.log('total')
         console.log(data);
       }).catch(err => {
         console.log(err);
       }).done(() => {
         load.dismiss();
       });
+  }
+
+  getCastData(){
+    return this.commentSvc.getCommentTodayById(1272).then((data: any) => {
+      console.log('1');
+      console.log(data);
+      if(data != null && data != undefined && data.length > 0){
+        this.cast = _.concat(data);
+      }
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+  getProjectsData(){
+    return this.commentSvc.getCommentTodayById(1276).then((data: any) => {
+      console.log('2');
+      console.log(data);
+      if(data != null && data != undefined && data.length > 0){
+        this.projects = _.concat(data);
+      }
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+  getMaterialsData(){
+    return this.commentSvc.getCommentTodayById(1277).then((data: any) => {
+      console.log('3');
+      console.log(data);
+      if(data != null && data != undefined && data.length > 0){
+        this.materials = _.concat(data);
+      }
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   onFocus() {
@@ -67,7 +103,8 @@ export class HomePage {
   }
 
   ionChange() {
-    if (this.type = 'cast') {
+    debugger
+    if (this.type == 'cast') {
       this.items = this.cast;
     } else if (this.type == 'projects') {
       this.items = this.projects;
