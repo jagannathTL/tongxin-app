@@ -27,8 +27,14 @@
       <button ion-button clear *ngIf="i.url" item-right (click)='gotoCommentDetail(i)'>阅读全文&nbsp;<i class="fa fa-angle-right"></i></button>
     </ion-item>
     <ion-item>
-        <i class="fa fa-circle" color="danger" aria-hidden="true" *ngIf="i.isRead"></i>
-        {{i.msg}}
+      <ion-row>
+        <ion-col width-10 style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+          <i class="fa fa-circle" color="danger" aria-hidden="true" *ngIf="i.isRead"></i>
+        </ion-col>
+        <ion-col>
+          {{i.msg}}
+        </ion-col>
+      </ion-row>
     </ion-item>
   </ion-card>
 
