@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, LoadingController } from 'ionic-angular';
 import { Global } from '../../providers/global';
 import { FuturesPage } from '../futures/futures';
 import { PricePage } from '../price/price';
 import { CommentPage } from '../comment/comment';
 import { SearchPage } from '../search/search';
 declare const Swiper: any;
+import { CommentSvc } from '../../providers/comment-svc';
+import * as Promise from 'promise';
 
 /*
   Generated class for the Home page.
@@ -24,9 +26,25 @@ export class HomePage {
   ad03 = this.global.SERVER + '/ad/ad03.jpg';
 
   type = 'cast';
+  items = [];
+  cast = [];
+  projects = [];
+  materials = [];
 
-  constructor(public navCtrl: NavController, public global: Global, public modalCtrl: ModalController) {
-
+  constructor(public navCtrl: NavController, public global: Global,
+    public modalCtrl: ModalController, public commentSvc: CommentSvc,
+    public loadingCtrl: LoadingController) {
+    let load = loadingCtrl.create();
+    load.present();
+    Promise.all([commentSvc.getCommentTodayById('1272'),
+      commentSvc.getCommentTodayById('1276'),
+      commentSvc.getCommentTodayById('1277')]).then(data => {
+        console.log(data);
+      }).catch(err => {
+        console.log(err);
+      }).done(() => {
+        load.dismiss();
+      });
   }
 
   onFocus() {
@@ -46,6 +64,16 @@ export class HomePage {
 
   gotoPrice() {
     this.navCtrl.push(PricePage);
+  }
+
+  ionChange() {
+    if (this.type = 'cast') {
+      this.items = this.cast;
+    } else if (this.type == 'projects') {
+      this.items = this.projects;
+    } else if (this.type == 'materials') {
+      this.items = this.materials;
+    }
   }
 
   ionViewDidLoad() {

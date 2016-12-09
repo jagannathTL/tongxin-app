@@ -58,16 +58,22 @@
     </ion-row>
   </ion-grid>
   <div padding>
-    <ion-segment color='navbar' [(ngModel)]="type">
+    <ion-segment color='tabColor' [(ngModel)]="type" (ionChange)='ionChange()'>
       <ion-segment-button value="cast">
         资讯直播
       </ion-segment-button>
-      <ion-segment-button value="audit">
+      <ion-segment-button value="projects">
         项目招标
       </ion-segment-button>
       <ion-segment-button value="materials">
-        资产处置
+        物资处置
       </ion-segment-button>
     </ion-segment>
+  </div>
+  <div>
+    <ion-list>
+      <button ion-item *ngFor='let x of items'>
+      </button>
+    </ion-list>
   </div>
 </ion-content>
