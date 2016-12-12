@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, PopoverController } from 'ionic-angular';
 declare var $: any;
+import { SharePage } from '../share/share';
 
 /*
   Generated class for the CommentDetail page.
@@ -13,19 +14,24 @@ declare var $: any;
   templateUrl: 'comment-detail.html'
 })
 export class CommentDetailPage {
-  url= 'about:blank';
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
+  url = 'about:blank';
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public loadingCtrl: LoadingController, public popoverCtrl: PopoverController) {
     this.url = navParams.get('url');
   }
 
   ionViewDidEnter() {
     let load = this.loadingCtrl.create();
     load.present();
-    $("#inbox").attr('src',this.url).ready(function(){
+    $("#inbox").attr('src', this.url).ready(function() {
       load.dismiss();
     });
-
-    //$("#inbox").attr('src','http://172.20.70.209/StaticHtml/WeixinPingLun.html?method=getpl&id=65386&mobile=13524259846');
   }
 
+  presentPopover(event) {
+    let popover = this.popoverCtrl.create(SharePage);
+    popover.present({
+      ev: event
+    });
+  }
 }
