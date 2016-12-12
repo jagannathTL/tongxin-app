@@ -39,7 +39,6 @@ export class HomePage {
     let load = loadingCtrl.create();
     load.present();
     Promise.all([this.getCastData(),this.getProjectsData(),this.getMaterialsData()]).then(data => {
-      debugger
       }).catch(err => {
         console.log(err);
       }).done(() => {
@@ -130,7 +129,6 @@ export class HomePage {
   }
 
   ionChange() {
-    debugger
     if (this.type == 'cast') {
       this.items = this.cast;
     } else if (this.type == 'projects') {
