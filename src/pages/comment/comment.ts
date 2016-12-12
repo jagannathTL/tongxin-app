@@ -57,7 +57,6 @@ export class CommentPage {
   }
 
   defaultSlide() {
-
     if (this.inBuckets.length < (this.index + 1)) {
       this.index = (this.inBuckets.length - 1);
     }
@@ -122,11 +121,16 @@ export class CommentPage {
     this.commentSvc.getCommentMarkets(this.global.MOBILE).then((data: any) => {
       this.zone.run(() => {
         data.forEach((r: any) => {
+          if(r.markets != null && r.markets != undefined && r.markets.length > 0){
           r.markets.forEach(x => {
-            x.pinglun.forEach(y => {
-              y.date = moment(y.date).format('MM-DD');
-            });
+            if(x.pinglun != null && x.pinglun != undefined && x.pinglun.length > 0)
+            {
+              x.pinglun.forEach(y => {
+                y.date = moment(y.date).format('MM-DD');
+              });
+            }
           });
+        }
           if (r.inBucket == "true") {
             this.inBuckets.push(r);//已关注
           }

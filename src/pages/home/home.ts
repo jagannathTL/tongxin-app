@@ -7,6 +7,7 @@ import { CommentPage } from '../comment/comment';
 import { SearchPage } from '../search/search';
 declare const Swiper: any;
 import { CommentSvc } from '../../providers/comment-svc';
+import { CommentDetailPage } from '../comment-detail/comment-detail';
 import * as Promise from 'promise';
 import * as _ from 'lodash';
 
@@ -47,11 +48,19 @@ export class HomePage {
       });
   }
 
+  gotoUrlDetail(url){
+    url += '&mobile=' + this.global.MOBILE;
+    this.navCtrl.push(CommentDetailPage, {
+      url: url
+    });
+  }
+
   getCastData(){
     return this.commentSvc.getCommentTodayById(1272).then((data: any) => {
-      console.log('1');
-      console.log(data);
       if(data != null && data != undefined && data.length > 0){
+        for (let i = 0; i < data.length; i++) {
+          data[i].dateStr = data[i].date.substr(5, 14);
+        }
         this.cast = _.concat(data);
       }
     }).catch(err => {
@@ -61,9 +70,10 @@ export class HomePage {
 
   getProjectsData(){
     return this.commentSvc.getCommentTodayById(1276).then((data: any) => {
-      console.log('2');
-      console.log(data);
       if(data != null && data != undefined && data.length > 0){
+        for (let i = 0; i < data.length; i++) {
+          data[i].dateStr = data[i].date.substr(5, 14);
+        }
         this.projects = _.concat(data);
       }
     }).catch(err => {
@@ -73,9 +83,10 @@ export class HomePage {
 
   getMaterialsData(){
     return this.commentSvc.getCommentTodayById(1277).then((data: any) => {
-      console.log('3');
-      console.log(data);
       if(data != null && data != undefined && data.length > 0){
+        for (let i = 0; i < data.length; i++) {
+          data[i].dateStr = data[i].date.substr(5, 14);
+        }
         this.materials = _.concat(data);
       }
     }).catch(err => {
@@ -103,7 +114,6 @@ export class HomePage {
   }
 
   ionChange() {
-    debugger
     if (this.type == 'cast') {
       this.items = this.cast;
     } else if (this.type == 'projects') {
