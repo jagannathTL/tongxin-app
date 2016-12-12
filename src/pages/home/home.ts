@@ -63,7 +63,7 @@ export class HomePage {
   }
 
   getCastData(){
-    return this.commentSvc.getCommentTodayById(1272).then((data: any) => {
+    return this.commentSvc.getCommentTodayById(1271).then((data: any) => {
       if(data != null && data != undefined && data.length > 0){
         for (let i = 0; i < data.length; i++) {
           data[i].dateStr = data[i].date.substr(5, 14);

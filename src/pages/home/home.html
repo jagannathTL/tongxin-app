@@ -73,13 +73,11 @@
   <div>
     <ion-list>
       <button ion-item *ngFor='let x of items' (click)="gotoUrlDetail(x)">
-        <button id='btn2' ion-item>
         <ion-row>
           <ion-col>
             {{x.title}}
           </ion-col>
         </ion-row>
-      </button>
       </button>
     </ion-list>
   </div>
