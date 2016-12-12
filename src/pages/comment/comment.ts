@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, LoadingController, ModalController, ViewController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController, ViewController, App } from 'ionic-angular';
 import { CommentSvc } from '../../providers/comment-svc';
 import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
@@ -10,6 +10,7 @@ declare const Swiper: any;
 declare var notie: any;
 declare var $: any;
 import * as moment from 'moment';
+import { LoginPage } from '../login/login';
 
 /*
   Generated class for the Comment page.
@@ -35,8 +36,11 @@ export class CommentPage {
 
   constructor(public navCtrl: NavController, public err: Errors,
     public global: Global, public commentSvc: CommentSvc, public loading: LoadingController,
-    public modalCtrl: ModalController, public zone: NgZone, public viewCtrl: ViewController) {
-
+    public modalCtrl: ModalController, public zone: NgZone, public viewCtrl: ViewController,
+    public app: App) {
+    if (this.global.IS_LOGGEDIN == false) {
+      this.app.getRootNav().setRoot(LoginPage);
+    }
   }
 
   ionViewWillEnter() {
@@ -121,16 +125,15 @@ export class CommentPage {
     this.commentSvc.getCommentMarkets(this.global.MOBILE).then((data: any) => {
       this.zone.run(() => {
         data.forEach((r: any) => {
-          if(r.markets != null && r.markets != undefined && r.markets.length > 0){
-          r.markets.forEach(x => {
-            if(x.pinglun != null && x.pinglun != undefined && x.pinglun.length > 0)
-            {
-              x.pinglun.forEach(y => {
-                y.date = moment(y.date).format('MM-DD');
-              });
-            }
-          });
-        }
+          if (r.markets != null && r.markets != undefined && r.markets.length > 0) {
+            r.markets.forEach(x => {
+              if (x.pinglun != null && x.pinglun != undefined && x.pinglun.length > 0) {
+                x.pinglun.forEach(y => {
+                  y.date = moment(y.date).format('MM-DD');
+                });
+              }
+            });
+          }
           if (r.inBucket == "true") {
             this.inBuckets.push(r);//已关注
           }
