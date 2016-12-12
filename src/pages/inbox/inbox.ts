@@ -72,6 +72,7 @@ export class InboxPage {
         load.dismiss();
       });
     })
+    // events.publish('inboxPage:loadItems');
   }
 
   doRefresh(refresher) {

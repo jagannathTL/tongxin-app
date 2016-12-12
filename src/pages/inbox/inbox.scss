@@ -9,6 +9,11 @@ page-inbox {
     color: #737373;
   }
 
+  ion-label{
+    white-space: normal;
+    font-size: 80%;
+  }
+
   .positive {
       background: map-get($colors, positive);
   }

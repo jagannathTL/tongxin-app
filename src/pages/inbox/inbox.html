@@ -20,13 +20,8 @@
   </ion-refresher>
 
 
-  <ion-card *ngFor="let i of items">
-    <!-- <ion-item color='light'>
-      <button item-left ion-button round [ngClass]="{'negative': i.url, 'positive': !i.url}">{{i.url ? '评' : '价'}}</button>
-      <h4>{{i.dateStr}}</h4>
-      <button ion-button clear *ngIf="i.url" item-right (click)='gotoCommentDetail(i)'>阅读全文&nbsp;<i class="fa fa-angle-right"></i></button>
-    </ion-item> -->
-    <button ion-item (click)='gotoCommentDetail(i)'>
+  <ion-list>
+    <button  *ngFor="let i of items" ion-item (click)='gotoCommentDetail(i)'>
       <ion-row>
         <ion-col width-10 style="display:flex;flex-direction:column;justify-content:center;align-items:center">
           <i class="fa fa-circle" color="danger" aria-hidden="true" *ngIf="i.isRead"></i>
@@ -36,7 +31,7 @@
         </ion-col>
       </ion-row>
     </button>
-  </ion-card>
+  </ion-list>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
