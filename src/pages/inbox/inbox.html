@@ -20,13 +20,19 @@
   </ion-refresher>
 
   <ion-list>
-    <button *ngFor="let i of items" ion-item (click)='gotoCommentDetail(i)'>
+    <button text-wrap *ngFor="let i of items" ion-item (click)='gotoCommentDetail(i)'>
       <ion-row>
-          <i class="fa fa-circle" color="danger" aria-hidden="true" *ngIf="i.isRead"></i>
-          &nbsp;&nbsp;{{i.msg}}
-      </ion-row>
-      <ion-row style="font-size: 60%">
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{i.dateStr}}
+      <ion-col width-10>
+          <i class="fa fa-circle" ion-text color="danger" aria-hidden="true" *ngIf="i.isRead"></i>
+      </ion-col>
+      <ion-col>
+        <ion-row>
+          {{i.msg}}
+        </ion-row>
+        <ion-row style="font-size: 80%">
+        {{i.dateStr}}
+        </ion-row>
+      </ion-col>
       </ion-row>
     </button>
   </ion-list>
