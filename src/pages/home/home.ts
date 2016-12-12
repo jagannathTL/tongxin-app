@@ -39,8 +39,7 @@ export class HomePage {
     let load = loadingCtrl.create();
     load.present();
     Promise.all([this.getCastData(),this.getProjectsData(),this.getMaterialsData()]).then(data => {
-      console.log('total')
-        console.log(data);
+
       }).catch(err => {
         console.log(err);
       }).done(() => {
