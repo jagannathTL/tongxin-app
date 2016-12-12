@@ -167,10 +167,6 @@ export class MyApp {
                   if (data.result == "ok") {
                     this.global.MOBILE = mobile;
                     this.global.IS_LOGGEDIN = true;
-                    // LocalNotifications.on('click',(notification, state)=>{
-                    //   console.log('你点击了notification!');
-                    // });
-                    //this.events.publish('inboxPage:loadItems');
                   }
                 }, error => {
                   console.log(error);

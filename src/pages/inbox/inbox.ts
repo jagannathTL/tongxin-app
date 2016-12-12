@@ -35,21 +35,18 @@ export class InboxPage {
     }
     //初始化
     this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
-    events.unsubscribe('inboxPage:loadItems');
-    events.subscribe('inboxPage:loadItems', () => {
-      let load = this.loadingCtrl.create();
-      load.present();
-      inboxSvc.loadItems(global.MOBILE).then(data => {
+    let load = this.loadingCtrl.create();
+    load.present();
+    inboxSvc.loadItems(global.MOBILE).then(data => {
       if (data.length > 0) {
         this.storage.get('readList').then((reads: any) => {
-          if(reads == null || reads == undefined || reads.length <= 0)
-          {
+          if (reads == null || reads == undefined || reads.length <= 0) {
             for (let i = 0; i < data.length; i++) {
               data[i].dateStr = data[i].date.substr(5, 14);
-              this.items.push({id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true})
+              this.items.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true })
             }
           }
-          else{
+          else {
             for (let i = 0; i < data.length; i++) {
               var isRead = true;
               data[i].dateStr = data[i].date.substr(5, 14);
@@ -57,22 +54,19 @@ export class InboxPage {
               var read = reads.filter((r: any) => {
                 return r.id == data[i].id;
               })
-              if(read != null && read != undefined && read.length > 0)
-              {
+              if (read != null && read != undefined && read.length > 0) {
                 isRead = false;
               }
-              this.items.push({id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: isRead})
+              this.items.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: isRead })
             }
-        }
+          }
         })
       }
-      }).catch(error => {
-        notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
-      }).done(() => {
-        load.dismiss();
-      });
-    })
-    // events.publish('inboxPage:loadItems');
+    }).catch(error => {
+      notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
+    }).done(() => {
+      load.dismiss();
+    });
   }
 
   doRefresh(refresher) {
@@ -82,7 +76,7 @@ export class InboxPage {
       if (data.length > 0) {
         for (let i = 0; i < data.length; i++) {
           data[i].dateStr = data[i].date.substr(5, 14);
-          this.items.push({id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true});
+          this.items.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true });
         }
         // this.items = _.concat(data, this.items);
         this.inboxSvc.clearBadge(this.global.MOBILE).then(() => {
@@ -104,14 +98,13 @@ export class InboxPage {
     this.inboxSvc.loadMoreItems(this.global.MOBILE, _.last(this.items).date).then(data => {
       if (data.length > 0) {
         this.storage.get('readList').then((reads: any) => {
-          if(reads == null || reads == undefined || reads.length <= 0)
-          {
+          if (reads == null || reads == undefined || reads.length <= 0) {
             for (let i = 0; i < data.length; i++) {
               data[i].dateStr = data[i].date.substr(5, 14);
-              this.items.push({id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true})
+              this.items.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true })
             }
           }
-          else{
+          else {
             for (let i = 0; i < data.length; i++) {
               var isRead = true;
               data[i].dateStr = data[i].date.substr(5, 14);
@@ -119,13 +112,12 @@ export class InboxPage {
               var read = reads.filter((r: any) => {
                 return r.id == data[i].id;
               })
-              if(read != null && read != undefined && read.length > 0)
-              {
+              if (read != null && read != undefined && read.length > 0) {
                 isRead = false;
               }
-              this.items.push({id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: isRead})
+              this.items.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: isRead })
             }
-        }
+          }
         })
       }
       else {
@@ -145,32 +137,30 @@ export class InboxPage {
       var readKey = data.filter((key: any) => {
         return key == 'readList';
       })
-      if(readKey != null && readKey != undefined && readKey.length > 0){
+      if (readKey != null && readKey != undefined && readKey.length > 0) {
         this.storage.get('readList').then((data: any) => {
-          if(data != null && data != undefined){
+          if (data != null && data != undefined) {
             readList = data;
           }
           var read = readList.filter((r: any) => {
             return r.id == item.id;
           })
-          if(read == null || read == undefined || read.length <= 0)
-          {
-            readList.push({id: item.id});
+          if (read == null || read == undefined || read.length <= 0) {
+            readList.push({ id: item.id });
           }
           this.storage.set('readList', readList);
         })
       }
-      else{
-        readList.push({id: item.id});
+      else {
+        readList.push({ id: item.id });
         this.storage.set('readList', readList);
       }
     })
     var url = "";
-    if(item.url == null || item.url == undefined)
-    {
-      url = "http://app.shtx.com.cn/StaticHtml/WeixinPingLun.html?content=" +  item.msg;
+    if (item.url == null || item.url == undefined) {
+      url = "http://app.shtx.com.cn/StaticHtml/WeixinPingLun.html?content=" + item.msg;
     }
-    else{
+    else {
       url += item.url + '&mobile=' + this.global.MOBILE;
     }
 

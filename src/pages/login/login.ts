@@ -114,7 +114,7 @@ export class LoginPage {
         this.global.IS_LOGGEDIN = true;
         this.navCtrl.setRoot(TabsPage);
         this.isShowLoading = false;
-        this.events.publish('inboxPage:loadItems');
+        //this.events.publish('inboxPage:loadItems');
       }
       else {
         this.isShowLoading = false;
