@@ -32,41 +32,42 @@ export class InboxPage {
     public loadingCtrl: LoadingController, public events: Events, public app: App, public storage: Storage) {
     if (this.global.IS_LOGGEDIN == false) {
       this.app.getRootNav().setRoot(LoginPage);
-    }
-    //初始化
-    this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
-    let load = this.loadingCtrl.create();
-    load.present();
-    inboxSvc.loadItems(global.MOBILE).then(data => {
-      if (data.length > 0) {
-        this.storage.get('readList').then((reads: any) => {
-          if (reads == null || reads == undefined || reads.length <= 0) {
-            for (let i = 0; i < data.length; i++) {
-              data[i].dateStr = data[i].date.substr(5, 14);
-              this.items.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true })
-            }
-          }
-          else {
-            for (let i = 0; i < data.length; i++) {
-              var isRead = true;
-              data[i].dateStr = data[i].date.substr(5, 14);
-
-              var read = reads.filter((r: any) => {
-                return r.id == data[i].id;
-              })
-              if (read != null && read != undefined && read.length > 0) {
-                isRead = false;
+    } else {
+      //初始化
+      this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
+      let load = this.loadingCtrl.create();
+      load.present();
+      inboxSvc.loadItems(global.MOBILE).then(data => {
+        if (data.length > 0) {
+          this.storage.get('readList').then((reads: any) => {
+            if (reads == null || reads == undefined || reads.length <= 0) {
+              for (let i = 0; i < data.length; i++) {
+                data[i].dateStr = data[i].date.substr(5, 14);
+                this.items.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true })
               }
-              this.items.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: isRead })
             }
-          }
-        })
-      }
-    }).catch(error => {
-      notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
-    }).done(() => {
-      load.dismiss();
-    });
+            else {
+              for (let i = 0; i < data.length; i++) {
+                var isRead = true;
+                data[i].dateStr = data[i].date.substr(5, 14);
+
+                var read = reads.filter((r: any) => {
+                  return r.id == data[i].id;
+                })
+                if (read != null && read != undefined && read.length > 0) {
+                  isRead = false;
+                }
+                this.items.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: isRead })
+              }
+            }
+          })
+        }
+      }).catch(error => {
+        notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
+      }).done(() => {
+        load.dismiss();
+      });
+    }
   }
 
   doRefresh(refresher) {
@@ -93,6 +94,7 @@ export class InboxPage {
       });
     });
   }
+
 
   doInfinite(infiniteScroll) {
     this.inboxSvc.loadMoreItems(this.global.MOBILE, _.last(this.items).date).then(data => {
