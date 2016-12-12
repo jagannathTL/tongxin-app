@@ -22,7 +22,7 @@ export class Global {
 
   public NOTIFICATION_DURATION = 2;
 
-  public MOBILE = '13524259846';
+  public MOBILE = '15802161396';
 
   public PRICE_HISTORY_DURATION_DAYS = 90;
 

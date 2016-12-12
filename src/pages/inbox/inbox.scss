@@ -5,10 +5,6 @@ page-inbox {
     font-weight: 500;
   }
 
-  ion-col{
-    color: #737373;
-  }
-
   ion-label{
     white-space: normal;
     font-size: 80%;
@@ -20,10 +16,6 @@ page-inbox {
 
   .negative {
       background: map-get($colors, negative);
-  }
-
-  .item-ios .text-ios-danger{
-    font-size: 10px;
   }
 
 }

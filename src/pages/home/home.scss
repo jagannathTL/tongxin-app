@@ -1,21 +1,26 @@
 page-home {
-
-  ion-label{
+  ion-label {
     white-space: normal;
     font-size: 80%;
+  }
+
+  .label-ios {
+    margin: 0;
   }
 
   #btn1 .item-inner {
     border-bottom: 0;
   }
+
   #btn2 .item-inner {
     border-bottom: 0;
   }
+
   .positive {
-      background: map-get($colors, positive);
+    background: map-get($colors, positive);
   }
 
   .negative {
-      background: map-get($colors, negative);
+    background: map-get($colors, negative);
   }
 }
