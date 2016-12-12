@@ -30,9 +30,9 @@ export class InboxPage {
   constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
     public global: Global, public errors: Errors, public zone: NgZone,
     public loadingCtrl: LoadingController, public events: Events, public app: App, public storage: Storage) {
-    // if (this.global.IS_LOGGEDIN == false) {
-    //   this.app.getRootNav().setRoot(LoginPage);
-    // }
+    if (this.global.IS_LOGGEDIN == false) {
+      this.app.getRootNav().setRoot(LoginPage);
+    }
     //初始化
     this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
     events.unsubscribe('inboxPage:loadItems');
@@ -72,7 +72,6 @@ export class InboxPage {
         load.dismiss();
       });
     })
-    events.publish('inboxPage:loadItems');
   }
 
   doRefresh(refresher) {
