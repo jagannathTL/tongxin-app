@@ -30,9 +30,9 @@ export class InboxPage {
   constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
     public global: Global, public errors: Errors, public zone: NgZone,
     public loadingCtrl: LoadingController, public events: Events, public app: App, public storage: Storage) {
-    if (this.global.IS_LOGGEDIN == false) {
-      this.app.getRootNav().setRoot(LoginPage);
-    }
+    // if (this.global.IS_LOGGEDIN == false) {
+    //   this.app.getRootNav().setRoot(LoginPage);
+    // }
     //初始化
     this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
     events.unsubscribe('inboxPage:loadItems');
@@ -72,6 +72,7 @@ export class InboxPage {
         load.dismiss();
       });
     })
+    events.publish('inboxPage:loadItems');
   }
 
   doRefresh(refresher) {
@@ -164,8 +165,15 @@ export class InboxPage {
         this.storage.set('readList', readList);
       }
     })
-    var url = item.url;
-    url += '&mobile=' + this.global.MOBILE;
+    var url = "";
+    if(item.url == null || item.url == undefined)
+    {
+      url = "http://app.shtx.com.cn/StaticHtml/WeixinPingLun.html?content=" +  item.msg;
+    }
+    else{
+      url += item.url + '&mobile=' + this.global.MOBILE;
+    }
+
     this.showPage = true;
     item.isRead = false;
     this.navCtrl.push(CommentDetailPage, {

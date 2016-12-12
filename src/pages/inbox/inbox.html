@@ -21,12 +21,12 @@
 
 
   <ion-card *ngFor="let i of items">
-    <ion-item color='light'>
+    <!-- <ion-item color='light'>
       <button item-left ion-button round [ngClass]="{'negative': i.url, 'positive': !i.url}">{{i.url ? '评' : '价'}}</button>
       <h4>{{i.dateStr}}</h4>
       <button ion-button clear *ngIf="i.url" item-right (click)='gotoCommentDetail(i)'>阅读全文&nbsp;<i class="fa fa-angle-right"></i></button>
-    </ion-item>
-    <ion-item>
+    </ion-item> -->
+    <button ion-item (click)='gotoCommentDetail(i)'>
       <ion-row>
         <ion-col width-10 style="display:flex;flex-direction:column;justify-content:center;align-items:center">
           <i class="fa fa-circle" color="danger" aria-hidden="true" *ngIf="i.isRead"></i>
@@ -35,7 +35,7 @@
           {{i.msg}}
         </ion-col>
       </ion-row>
-    </ion-item>
+    </button>
   </ion-card>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
