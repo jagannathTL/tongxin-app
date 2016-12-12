@@ -39,7 +39,7 @@ export class HomePage {
     let load = loadingCtrl.create();
     load.present();
     Promise.all([this.getCastData(),this.getProjectsData(),this.getMaterialsData()]).then(data => {
-
+      debugger
       }).catch(err => {
         console.log(err);
       }).done(() => {
@@ -69,6 +69,9 @@ export class HomePage {
           data[i].dateStr = data[i].date.substr(5, 14);
         }
         this.cast = _.concat(data);
+        if (this.type == 'cast') {
+          this.items = this.cast;
+        }
       }
     }).catch(err => {
       console.log(err);
@@ -82,6 +85,9 @@ export class HomePage {
           data[i].dateStr = data[i].date.substr(5, 14);
         }
         this.projects = _.concat(data);
+        // if (this.type == 'projects') {
+        //   this.items = this.projects;
+        // }
       }
     }).catch(err => {
       console.log(err);
@@ -95,6 +101,9 @@ export class HomePage {
           data[i].dateStr = data[i].date.substr(5, 14);
         }
         this.materials = _.concat(data);
+        // if (this.type == 'materials') {
+        //   this.items = this.materials;
+        // }
       }
     }).catch(err => {
       console.log(err);
@@ -121,6 +130,7 @@ export class HomePage {
   }
 
   ionChange() {
+    debugger
     if (this.type == 'cast') {
       this.items = this.cast;
     } else if (this.type == 'projects') {
