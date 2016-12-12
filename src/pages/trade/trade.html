@@ -14,21 +14,21 @@
   </ion-navbar>
   <ion-searchbar [(ngModel)]="searchKey" [showCancelButton]="true" [cancelButtonText]="'取消'" [placeholder]="'请输入查询内容'" (ionCancel)="onCancel($event)" (search)="onSearch($event)">
   </ion-searchbar>
-  <ion-toolbar color='navbar'>
-  <ion-row>
-    <ion-col width-50 style="border-right:1px solid #ccc;margin:0px;padding:0px">
-      <button small style='margin:0px' (click)="showIndustry($event)" ion-button clear block>
+  <ion-toolbar color='tabColor'>
+    <ion-row>
+      <ion-col width-50 style="border-right:1px solid #ccc;margin:0px;padding:0px">
+        <button small (click)="showIndustry($event)" ion-button clear block>
             {{selectedIndustry}}
-          <ion-icon ios="ios-arrow-dropdown-circle" md="md-arrow-dropdown-circle"></ion-icon>
+          <ion-icon name='arrow-down'></ion-icon>
           </button>
-    </ion-col>
-    <ion-col width-50 style='margin:0px;padding:0px'>
-      <button style='margin:0px' small (click)="showArea($event)" ion-button clear block>
+      </ion-col>
+      <ion-col width-50 style='margin:0px;padding:0px'>
+        <button small (click)="showArea($event)" ion-button clear block>
             {{selectedArea}}
-        <ion-icon ios="ios-arrow-dropdown-circle" md="md-arrow-dropdown-circle"></ion-icon>
+        <ion-icon name='arrow-down'></ion-icon>
           </button>
-    </ion-col>
-  </ion-row>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
@@ -42,7 +42,7 @@
     <button ion-item *ngFor="let trade of searchList" (click)="gotoDetail(trade)">
       <ion-grid>
         <ion-row>
-          <ion-col width-25 style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+          <ion-col width-25 center>
             <img [src]="trade.firstImg" style="width:100%"/>
           </ion-col>
           <ion-col>
