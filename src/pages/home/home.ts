@@ -47,10 +47,18 @@ export class HomePage {
       });
   }
 
-  gotoUrlDetail(url){
-    url += '&mobile=' + this.global.MOBILE;
+  gotoUrlDetail(p){
+    var u = "";
+    if(p.url == null || p.url == undefined)
+    {
+      u = "http://app.shtx.com.cn/StaticHtml/WeixinPingLun.html?content=" + p.title;
+    }
+    else
+    {
+      u += p.url + '&mobile=' + this.global.MOBILE;
+    }
     this.navCtrl.push(CommentDetailPage, {
-      url: url
+      url: u
     });
   }
 
