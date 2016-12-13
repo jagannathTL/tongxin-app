@@ -71,13 +71,10 @@ import { PinglunSvc } from '../providers/pinglun-svc';
     IndustryTradePage,
     TradeViewPage,
     HomePage,
-<<<<<<< Updated upstream
     SearchResultPage,
-    SharePage
-=======
     SharePage,
     PinglunListPage
->>>>>>> Stashed changes
+
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -116,20 +113,12 @@ import { PinglunSvc } from '../providers/pinglun-svc';
     IndustryTradePage,
     TradeViewPage,
     HomePage,
-<<<<<<< Updated upstream
     SearchResultPage,
-    SharePage
-  ],
-  providers: [Global, RegisterSvc, PriceSvc, Errors,
-    ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc,
-    ProfileSvc, YellowSvc, TradeSvc, Storage, SearchSvc]
-=======
     SharePage,
     PinglunListPage
   ],
   providers: [Global, RegisterSvc, PriceSvc, Errors,
     ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc,
-    ProfileSvc, YellowSvc, TradeSvc,PinglunSvc, Storage]
->>>>>>> Stashed changes
+    ProfileSvc, YellowSvc, TradeSvc, Storage,PinglunSvc,Storage,SearchSvc]
 })
 export class AppModule { }
