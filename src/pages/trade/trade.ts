@@ -8,6 +8,7 @@ import { Errors } from '../../providers/errors';
 import { TradeSvc } from '../../providers/trade-svc';
 import { TradeViewPage } from '../trade-view/trade-view';
 declare var notie: any;
+import * as Promise from 'promise';
 
 /*
   Generated class for the Trade page.
@@ -32,6 +33,19 @@ export class TradePage {
   tradeID: any = 0;
 
   constructor(public tradeSvc: TradeSvc, public err: Errors, public global: Global, public profileSvc: ProfileSvc, public navCtrl: NavController, public viewCtrl: ViewController, public params: NavParams, public popoverCtrl: PopoverController, public loading: LoadingController) {
+    this.documentType = this.params.get('documentType');
+    this.getTradeDataList();
+    this.getProvinces();
+    let load = loading.create({});
+    load.present();
+    Promise.all([this.getProvinces(),this.getTradeDataList()]).then((data) => {
+
+    }).catch(err => {
+      notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
+    }).done(() => {
+      this.searchTradeList();
+      load.dismiss();
+    })
   }
 
   gotoDetail(trade){
@@ -43,39 +57,30 @@ export class TradePage {
 
   getProvinces()
   {
-    let loading = this.loading.create({});
-    loading.present();
-    this.profileSvc.getProvinceList().then((data: any) => {
+    return this.profileSvc.getProvinceList().then((data: any) => {
         data.forEach((p) => {
           this.provinces.push(p);
         })
-    }).catch(err => {
-      notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
-    }).done(() => {
-      loading.dismiss();
     })
   }
 
   getTradeDataList(){
-    let loading = this.loading.create({});
-    loading.present();
-    this.tradeSvc.getTradeList(this.tradeID,this.documentType,this.searchKey,this.selectedArea,this.selectedIndustry,"DOWN").then((data: any) => {
+    return this.tradeSvc.getTradeList(this.tradeID,this.documentType,this.searchKey,this.selectedArea,this.selectedIndustry,"DOWN").then((data: any) => {
       data.forEach((trade) => {
         var firstImg = '';
         if(trade.pics1 != null && trade.pics1 != undefined && trade.pics1.length > 0)
         {
           firstImg = this.global.SERVER + '/upload/' + trade.pics1[0];
         }
-        // this.tradeList.push({price:trade.price,quantity:trade.quantity,business: trade.buissnes, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg});
         this.tradeList.push({price:trade.price,quantity:trade.quantity,business: trade.buissnes, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg});
       })
-      // console.log(this.tradeList);
-    }).catch(err => {
-      notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
-    }).done(() => {
-      this.searchTradeList();
-      loading.dismiss();
     })
+    // .catch(err => {
+    //   notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
+    // }).done(() => {
+    //   this.searchTradeList();
+    //   loading.dismiss();
+    // })
   }
 
   doRefresh(e){
@@ -121,14 +126,12 @@ export class TradePage {
   }
 
   ionViewDidLoad() {
-    this.documentType = this.params.get('documentType');
-    this.getTradeDataList();
+
   }
 
   ionViewWillEnter() {
     this.title = this.params.get('title');
     this.viewCtrl.setBackButtonText('商圈');
-    this.getProvinces();
   }
 
   addTrade(){
