@@ -1,22 +1,13 @@
 page-search-result {
+  .positive {
+    color: map-get($colors, positive);
+  }
 
-    .positive {
-      color: map-get($colors, positive);
-    }
+  .negative {
+    color: map-get($colors, negative);
+  }
 
-    .negative {
-      color: map-get($colors, negative);
-    }
-
-    .zero {
-      color: map-get($colors, dark);
-    }
-
-    ion-item-sliding .label-ios {
-      margin: 0;
-    }
-
-    ion-label{
-      white-space: normal;
-    }
+  .zero {
+    color: map-get($colors, dark);
+  }
 }
