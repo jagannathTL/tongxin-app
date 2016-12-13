@@ -5,6 +5,7 @@ import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
 import { InOutBucketsPage } from '../in-out-buckets/in-out-buckets';
 import { PriceDetailPage } from '../price-detail/price-detail';
+import { SearchResultPage } from '../search-result/search-result';
 declare const Swiper: any;
 declare var notie: any;
 declare var $: any;
@@ -27,6 +28,7 @@ export class PricePage {
   productS: any;
   index: any = 0;
   isShow: boolean = false;
+  searchKey: any = "";
 
   constructor(public navCtrl: NavController, public err: Errors,
     public global: Global, public priceSvc: PriceSvc,
@@ -155,6 +157,13 @@ export class PricePage {
     this.navCtrl.push(PriceDetailPage, {
       market: market,
       type: s
+    });
+  }
+
+  onSearch(event){
+    this.navCtrl.push(SearchResultPage,{
+      searchKey: this.searchKey,
+      searchType: "1"//查询标识 1标识是价格查询
     });
   }
 

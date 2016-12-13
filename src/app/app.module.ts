@@ -37,6 +37,8 @@ import { TradeViewPage } from '../pages/trade-view/trade-view';
 import { HomePage } from '../pages/home/home';
 import { Storage } from '@ionic/storage';
 import { SearchPage } from '../pages/search/search';
+import { SearchResultPage } from '../pages/search-result/search-result';
+import { SearchSvc } from '../providers/search-svc';
 
 
 @NgModule({
@@ -68,7 +70,8 @@ import { SearchPage } from '../pages/search/search';
     IndustryTradePage,
     TradeViewPage,
     HomePage,
-    SearchPage
+    SearchPage,
+    SearchResultPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -107,10 +110,11 @@ import { SearchPage } from '../pages/search/search';
     IndustryTradePage,
     TradeViewPage,
     HomePage,
-    SearchPage
+    SearchPage,
+    SearchResultPage
   ],
   providers: [Global, RegisterSvc, PriceSvc, Errors,
     ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc,
-    ProfileSvc, YellowSvc, TradeSvc, Storage]
+    ProfileSvc, YellowSvc, TradeSvc, Storage, SearchSvc]
 })
 export class AppModule { }

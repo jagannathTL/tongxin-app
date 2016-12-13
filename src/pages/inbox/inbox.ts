@@ -168,7 +168,7 @@ export class InboxPage {
     var url = "";
     if(item.url == null || item.url == undefined)
     {
-      url = "http://app.shtx.com.cn/StaticHtml/WeixinPingLun.html?content=" +  item.msg;
+      url = "http://app.shtx.com.cn/StaticHtml/WeixinPingLun.html?content=" +  encodeURIComponent(item.msg);
     }
     else{
       url += item.url + '&mobile=' + this.global.MOBILE;
