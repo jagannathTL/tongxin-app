@@ -10,4 +10,8 @@ page-search-result {
   .zero {
     color: map-get($colors, dark);
   }
+
+  ion-item-sliding .label-ios {
+    margin: 0;
+  }
 }
