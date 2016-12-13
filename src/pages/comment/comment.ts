@@ -10,8 +10,8 @@ declare const Swiper: any;
 declare var notie: any;
 declare var $: any;
 import * as moment from 'moment';
+import { SearchResultPage } from '../search-result/search-result';
 import { LoginPage } from '../login/login';
-
 /*
   Generated class for the Comment page.
 
@@ -33,6 +33,7 @@ export class CommentPage {
   productC: any;
   index: any = 0;
   isShow: boolean = false;
+  searchKey: any = "";
 
   constructor(public navCtrl: NavController, public err: Errors,
     public global: Global, public commentSvc: CommentSvc, public loading: LoadingController,
@@ -188,6 +189,13 @@ export class CommentPage {
 
   refreshComment() {
     this.getMarketCDatas();
+  }
+
+  onSearch(event){
+    this.navCtrl.push(SearchResultPage,{
+      searchKey: this.searchKey,
+      searchType: "2"//2标识查询评论
+    });
   }
 
 }

@@ -49,7 +49,7 @@ export class HomePage {
     var u = "";
     if(p.url == null || p.url == undefined)
     {
-      u = "http://app.shtx.com.cn/StaticHtml/WeixinPingLun.html?content=" + p.title;
+      u = "http://app.shtx.com.cn/StaticHtml/WeixinPingLun.html?content=" + encodeURIComponent(p.title);
     }
     else
     {
