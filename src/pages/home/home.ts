@@ -9,6 +9,7 @@ import { CommentSvc } from '../../providers/comment-svc';
 import { CommentDetailPage } from '../comment-detail/comment-detail';
 import * as Promise from 'promise';
 import * as _ from 'lodash';
+import { CommentListPage } from '../comment-list/comment-list';
 
 /*
   Generated class for the Home page.
@@ -118,6 +119,15 @@ export class HomePage {
 
   gotoPrice() {
     this.navCtrl.push(PricePage);
+  }
+
+  gotoPinglun(marketId, sName, mName)
+  {
+    this.navCtrl.push(CommentListPage, {
+      mId: marketId,
+      sName: sName,
+      mName: mName
+    });
   }
 
   ionChange() {

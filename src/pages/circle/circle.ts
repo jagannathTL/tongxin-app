@@ -45,7 +45,7 @@ export class CirclePage {
     });
   }
 
-  gotoPinglun(marketId,sName,mName)
+  gotoPinglun(marketId, sName, mName)
   {
     this.navCtrl.push(CommentListPage, {
       mId: marketId,
