@@ -17,7 +17,7 @@ export class SharePage {
   url;
   date;
   msg;
-  thumb = '';
+  thumb = 'http://app.shtx.com.cn/UploadImage/logo.png';
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public viewCtrl: ViewController) {
     this.url = navParams.get('url');
