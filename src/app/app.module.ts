@@ -36,9 +36,9 @@ import { YellowDetailPage } from '../pages/yellow-detail/yellow-detail';
 import { TradeViewPage } from '../pages/trade-view/trade-view';
 import { HomePage } from '../pages/home/home';
 import { Storage } from '@ionic/storage';
-import { SearchPage } from '../pages/search/search';
 import { SearchResultPage } from '../pages/search-result/search-result';
 import { SearchSvc } from '../providers/search-svc';
+import { SharePage } from '../pages/share/share';
 
 
 @NgModule({
@@ -70,8 +70,8 @@ import { SearchSvc } from '../providers/search-svc';
     IndustryTradePage,
     TradeViewPage,
     HomePage,
-    SearchPage,
-    SearchResultPage
+    SearchResultPage,
+    SharePage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -110,8 +110,8 @@ import { SearchSvc } from '../providers/search-svc';
     IndustryTradePage,
     TradeViewPage,
     HomePage,
-    SearchPage,
-    SearchResultPage
+    SearchResultPage,
+    SharePage
   ],
   providers: [Global, RegisterSvc, PriceSvc, Errors,
     ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc,

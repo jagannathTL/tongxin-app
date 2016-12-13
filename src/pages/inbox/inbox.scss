@@ -1,29 +1,5 @@
 page-inbox {
-
-  .card-ios ion-card-content{
-    font-size: 1.5rem;
-    font-weight: 500;
+  .label-ios {
+    margin: 0;
   }
-
-  ion-col{
-    color: #737373;
-  }
-
-  ion-label{
-    white-space: normal;
-    font-size: 80%;
-  }
-
-  .positive {
-      background: map-get($colors, positive);
-  }
-
-  .negative {
-      background: map-get($colors, negative);
-  }
-
-  .item-ios .text-ios-danger{
-    font-size: 10px;
-  }
-
 }

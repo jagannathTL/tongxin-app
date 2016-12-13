@@ -1,11 +1,12 @@
 import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
-import { NavController, LoadingController, ModalController, ViewController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController, ViewController, App } from 'ionic-angular';
 import { PriceSvc } from '../../providers/price-svc';
 import { Errors } from '../../providers/errors';
 import { Global } from '../../providers/global';
 import { InOutBucketsPage } from '../in-out-buckets/in-out-buckets';
 import { PriceDetailPage } from '../price-detail/price-detail';
 import { SearchResultPage } from '../search-result/search-result';
+import { LoginPage } from '../login/login';
 declare const Swiper: any;
 declare var notie: any;
 declare var $: any;
@@ -33,8 +34,11 @@ export class PricePage {
   constructor(public navCtrl: NavController, public err: Errors,
     public global: Global, public priceSvc: PriceSvc,
     public loading: LoadingController, public modalCtrl: ModalController,
-    public ref: ChangeDetectorRef, public zone: NgZone, public viewCtrl: ViewController) {
-
+    public ref: ChangeDetectorRef, public zone: NgZone, public viewCtrl: ViewController,
+    public app: App) {
+      if (this.global.IS_LOGGEDIN == false) {
+        this.app.getRootNav().setRoot(LoginPage);
+      }
   }
 
   refresh() {

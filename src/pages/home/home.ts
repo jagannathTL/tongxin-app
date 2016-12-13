@@ -4,7 +4,6 @@ import { Global } from '../../providers/global';
 import { FuturesPage } from '../futures/futures';
 import { PricePage } from '../price/price';
 import { CommentPage } from '../comment/comment';
-import { SearchPage } from '../search/search';
 declare const Swiper: any;
 import { CommentSvc } from '../../providers/comment-svc';
 import { CommentDetailPage } from '../comment-detail/comment-detail';
@@ -107,13 +106,6 @@ export class HomePage {
     }).catch(err => {
       console.log(err);
     })
-  }
-
-  onFocus() {
-    let modal = this.modalCtrl.create(SearchPage);
-    modal.present({
-      animate: false
-    });
   }
 
   gotoFutures() {

@@ -27,7 +27,7 @@ export class YellowPage {
   searchList: any = [];
   searchID: any = 0;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public popoverCtrl: PopoverController, public profileSvc: ProfileSvc, public global: Global, public err: Errors, public loading: LoadingController, public yellowSvc: YellowSvc, public zone: NgZone) {}
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public popoverCtrl: PopoverController, public profileSvc: ProfileSvc, public global: Global, public err: Errors, public loading: LoadingController, public yellowSvc: YellowSvc, public zone: NgZone) { }
 
   ionViewDidLoad() {
     this.getProvinces();
@@ -40,14 +40,13 @@ export class YellowPage {
     this.viewCtrl.setBackButtonText('商圈');
   }
 
-  getProvinces()
-  {
+  getProvinces() {
     let loading = this.loading.create({});
     loading.present();
     this.profileSvc.getProvinceList().then((data: any) => {
-        data.forEach((p) => {
-          this.provinces.push(p);
-        })
+      data.forEach((p) => {
+        this.provinces.push(p);
+      })
     }).catch(err => {
       notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
     }).done(() => {
@@ -55,15 +54,14 @@ export class YellowPage {
     })
   }
 
-  getOpenList()
-  {
+  getOpenList() {
     let loading = this.loading.create({});
     loading.present();
     this.yellowSvc.getYellowList(this.searchID).then((data: any) => {
       data.forEach((open) => {
-        this.openList.push({id: open.id, companyName: open.companyName, contactTel: open.tel, contactName: open.customerName, industry: open.industry, product: open.product, industryDesc: open.businessDesc, province: open.province, city: open.city, addressDesc: open.addressDesc, companyPics: open.companyPics});
+        this.openList.push({ id: open.id, companyName: open.companyName, contactTel: open.tel, contactName: open.customerName, industry: open.industry, product: open.product, industryDesc: open.businessDesc, province: open.province, city: open.city, addressDesc: open.addressDesc, companyPics: open.companyPics });
       })
-      if(data != undefined && data != null && data.length > 0){
+      if (data != undefined && data != null && data.length > 0) {
         this.searchID = data[data.length - 1].id;
       }
 
@@ -77,9 +75,9 @@ export class YellowPage {
   doInfinite(infiniteScroll) {
     this.yellowSvc.getYellowList(this.searchID).then((data: any) => {
       data.forEach((open) => {
-        this.openList.push({id: open.id, companyName: open.companyName, contactTel: open.tel, contactName: open.customerName, industry: open.industry, product: open.product, industryDesc: open.businessDesc, province: open.province, city: open.city, addressDesc: open.addressDesc, companyPics: open.companyPics});
+        this.openList.push({ id: open.id, companyName: open.companyName, contactTel: open.tel, contactName: open.customerName, industry: open.industry, product: open.product, industryDesc: open.businessDesc, province: open.province, city: open.city, addressDesc: open.addressDesc, companyPics: open.companyPics });
       })
-      if(data != undefined && data != null && data > 0){
+      if (data != undefined && data != null && data > 0) {
         this.searchID = data[data.length - 1].id;
       }
     }).catch((err) => {
@@ -91,38 +89,36 @@ export class YellowPage {
     })
   }
 
-  onSearch(e){
+  onSearch(e) {
     this.searchDataList();
   }
 
-  onCancel(e){
+  onCancel(e) {
     this.searchKey = "";
     this.searchDataList();
   }
 
-  gotoComDetail(open){
-    this.navCtrl.push(YellowDetailPage,{
+  gotoComDetail(open) {
+    this.navCtrl.push(YellowDetailPage, {
       open: open
     })
   }
 
-  searchDataList()
-  {
+  searchDataList() {
     this.searchList = this.openList;
-    if(this.searchKey != "" && this.searchKey != undefined){
+    if (this.searchKey != "" && this.searchKey != undefined) {
       this.searchList = this.searchList.filter((open) => {
         return open.companyName.indexOf(this.searchKey) > -1;
       })
     }
 
-    if(this.selectedIndustry != "分类" && this.selectedIndustry != undefined){
+    if (this.selectedIndustry != "分类" && this.selectedIndustry != undefined) {
       this.searchList = this.searchList.filter((open) => {
         return open.industry == this.selectedIndustry;
       })
     }
 
-    if(this.selectedArea != "地区" && this.selectedArea != undefined)
-    {
+    if (this.selectedArea != "地区" && this.selectedArea != undefined) {
       this.searchList = this.searchList.filter((open) => {
         return open.province == this.selectedArea;
       })
@@ -139,24 +135,23 @@ export class YellowPage {
     this.searchDataList();
   }
 
-  setIndustry(industry){
-    if(industry == "全部"){
+  setIndustry(industry) {
+    if (industry == "全部") {
       this.selectedIndustry = "分类";
-    }else
-    {
+    } else {
       this.selectedIndustry = industry;
     }
     this.searchDataList();
   }
 
-  showIndustry(myEvent){
+  showIndustry(myEvent) {
     let popover = this.popoverCtrl.create(IndustryPage, {
-    selectedIndustry: this.selectedIndustry,
-    listPage: this
+      selectedIndustry: this.selectedIndustry,
+      listPage: this
     });
     popover.onDidDismiss(() => {
-        // document.getElementById('iconArea').removeAttribute('style');
-      });
+      // document.getElementById('iconArea').removeAttribute('style');
+    });
     popover.present({
       ev: myEvent
     });
@@ -165,17 +160,17 @@ export class YellowPage {
   showArea(myEvent) {
     console.log(this.provinces);
     let popover = this.popoverCtrl.create(AreaPopoverPage, {
-    selectedArea: this.selectedArea,
-    listPage: this,
-    provinces: this.provinces
+      selectedArea: this.selectedArea,
+      listPage: this,
+      provinces: this.provinces
     });
     popover.onDidDismiss(() => {
 
-      });
+    });
     popover.present({
       ev: myEvent
     });
-}
+  }
 
 }
 
@@ -212,12 +207,10 @@ export class AreaPopoverPage {
   areaSelected(area) {
     debugger
     this.selectedArea = area;
-    if(this.listPage != null && this.listPage != undefined)
-    {
+    if (this.listPage != null && this.listPage != undefined) {
       this.listPage.setArea(area);
     }
-    if(this.listTradePage != null && this.listTradePage != undefined)
-    {
+    if (this.listTradePage != null && this.listTradePage != undefined) {
       this.listTradePage.setArea(area);
     }
     this.close();

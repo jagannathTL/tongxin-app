@@ -1,52 +1,49 @@
 page-trade {
-  .button-clear-ios{
-    color:white;
+  .button-clear-ios {
+    color: white;
   }
-  .cityClass{
-    color:map-get($colors,navbar);
+
+  .cityClass {
+    color: map-get($colors,navbar);
   }
-  .dateClass{
-    color:map-get($colors, dateColor);
+
+  .dateClass {
+    color: map-get($colors, dateColor);
   }
-  ion-label{
-    white-space:normal;
+
+  ion-label {
+    white-space: normal;
   }
-  @media (max-width: 320px)
-  {
-    ion-col{
-      padding: 0px;
+  @media (max-width: 320px) {
+    ion-col {
+      padding: 0;
       font-size: 80%;
     }
   }
-
-  @media (min-width: 321px) and (max-width: 375px)
-  {
-    ion-col{
-      padding: 0px;
+  @media (min-width: 321px) and (max-width: 375px) {
+    ion-col {
+      padding: 0;
       font-size: 90%;
     }
   }
-
-  @media (min-width: 376px) and (max-width: 414px)
-  {
-    ion-col{
-      padding: 0px;
+  @media (min-width: 376px) and (max-width: 414px) {
+    ion-col {
+      padding: 0;
       // font-size: 80%;
     }
   }
-  @media (min-width: 415px)
-  {
-    ion-col{
-      padding: 0px;
+  @media (min-width: 415px) {
+    ion-col {
+      padding: 0;
       font-size: 110%;
     }
   }
 
-  .colorClass{
+  .colorClass {
     color: #026800;
   }
 
-  .label-ios{
+  .label-ios {
     margin: 0;
   }
 }

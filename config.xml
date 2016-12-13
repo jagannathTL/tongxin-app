@@ -28,6 +28,26 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
+        <config-file parent="LSApplicationQueriesSchemes" platform="ios" target="*-Info.plist">
+            <array>
+                <string>mqqOpensdkSSoLogin</string>
+                <string>mqzone</string>
+                <string>sinaweibo</string>
+                <string>alipayauth</string>
+                <string>alipay</string>
+                <string>safepay</string>
+                <string>mqq</string>
+                <string>mqqapi</string>
+                <string>mqqopensdkapiV3</string>
+                <string>mqqopensdkapiV2</string>
+                <string>mqqapiwallet</string>
+                <string>mqqwpa</string>
+                <string>mqqbrowser</string>
+                <string>wtloginmqq2</string>
+                <string>weixin</string>
+                <string>wechat</string>
+            </array>
+        </config-file>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -60,7 +80,7 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
     </platform>
     <preference name="AutoHideSplashScreen" value="false" />
-    <preference name="target-device" value="iPhone" />
+    <preference name="target-device" value="handset" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
@@ -100,5 +120,12 @@
     <plugin name="cordova-plugin-background-mode" spec="~0.6.5" />
     <plugin name="cordova-plugin-image-picker" spec="~1.1.1">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
+    </plugin>
+    <plugin name="cordova-plugin-tx-wechat" spec="~0.3.1">
+        <variable name="APP_ID" value="wx40beda133cdafe05" />
+    </plugin>
+    <plugin name="cordova-plugin-settings-hook" spec="~0.2.4" />
+    <plugin name="cordova-plugin-qqsdk" spec="~0.4.0">
+        <variable name="QQ_APP_ID" value="1105025168" />
     </plugin>
 </widget>

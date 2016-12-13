@@ -47,8 +47,8 @@ export class InfoPage {
     secureStorage.create('tongxin')
       .then(
       () => {
-        //退订tabs的事件
-        this.events.unsubscribe('inboxPage:loadItems');
+        // //退订tabs的事件
+        // this.events.unsubscribe('inboxPage:loadItems');
 
         secureStorage.remove('password')
           .then(

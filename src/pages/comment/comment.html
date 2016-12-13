@@ -46,7 +46,7 @@
               <button id="firstTitle" color='light' ion-item (click)='gotoCommentDetail(s,m)'>
                 {{m.name}}
               </button>
-              <button id="small" ion-item (click)="goDetail(p.url)" *ngFor="let p of m.pinglun">
+              <button id="small" ion-item (click)="goDetail(p)" *ngFor="let p of m.pinglun">
                 <ion-row style="font-size: 80%">
                   <ion-col width-67>{{p.title}}</ion-col>
                   <ion-col class="dateColor" text-right center>{{p.date}}</ion-col>
