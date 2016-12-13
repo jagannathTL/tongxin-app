@@ -15,9 +15,13 @@ import { SharePage } from '../share/share';
 })
 export class CommentDetailPage {
   url = 'about:blank';
+  date;
+  msg;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public loadingCtrl: LoadingController, public popoverCtrl: PopoverController) {
     this.url = navParams.get('url');
+    this.date = navParams.get('date');
+    this.msg = navParams.get('msg');
   }
 
   ionViewDidEnter() {
@@ -29,7 +33,11 @@ export class CommentDetailPage {
   }
 
   presentPopover(event) {
-    let popover = this.popoverCtrl.create(SharePage);
+    let popover = this.popoverCtrl.create(SharePage, {
+      url: this.url,
+      date: this.date,
+      msg: this.msg
+    });
     popover.present({
       ev: event
     });

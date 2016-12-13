@@ -177,9 +177,12 @@ export class CommentPage {
     })
   }
 
-  goDetail(url) {
+  goDetail(p) {
+    console.log(p);
     this.navCtrl.push(CommentDetailPage, {
-      url: url
+      url: p.url,
+      msg: p.title,
+      date: p.date
     });
   }
 

@@ -169,7 +169,9 @@ export class InboxPage {
     this.showPage = true;
     item.isRead = false;
     this.navCtrl.push(CommentDetailPage, {
-      url: url
+      url: url,
+      msg: item.msg,
+      date: item.dateStr
     });
   }
 }
