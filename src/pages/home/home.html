@@ -21,35 +21,38 @@
     <ion-row>
       <ion-col>
         <button (click)='gotoPrice()' clear block style="padding:0; line-height:0">
-        <img src='assets/images/price.png' style='width:100%; height:100%' />
+        <img src='assets/images/price.jpg' style='width:100%; height:100%' />
       </button>
       </ion-col>
       <ion-col width-33>
         <button (click)='gotoComment()' clear block style="padding:0; line-height:0">
-        <img src='assets/images/comment.png' style='width:100%; height:100%' />
+        <img src='assets/images/comment.jpg' style='width:100%; height:100%' />
       </button>
       </ion-col>
       <ion-col width-33>
         <button (click)='gotoFutures()' clear block style="padding:0; line-height:0">
-        <img src='assets/images/futures.png' style='width:100%; height:100%' />
+        <img src='assets/images/futures.jpg' style='width:100%; height:100%' />
       </button>
       </ion-col>
     </ion-row>
     <ion-row style='border-bottom: solid 2px rgba(222, 222, 222, 0.5)'>
       <ion-col width-33>
-        <button clear block style="padding:0; line-height:0">
-        <img src='assets/images/project.png' style='width:100%; height:100%' />
+        <button clear block style="padding:0; line-height:0" (click)="gotoPinglun(1276,'资讯直播','项目招标')">
+        <img src='assets/images/project.jpg' style='width:100%; height:100%' />
       </button>
       </ion-col>
       <ion-col width-33>
-        <button clear block style="padding:0; line-height:0">
-        <img src='assets/images/materials.png' style='width:100%; height:100%' />
-      </button>
+        <button clear block style="padding:0; line-height:0" (click)="gotoPinglun(1277,'资讯直播','物资处置')">
+        <img src='assets/images/materials.jpg' style='width:100%; height:100%' />
+        </button>
       </ion-col>
       <ion-col width-33>
         <button clear block style="padding:0; line-height:0" (click)="gotoOptions()">
         <img src='assets/images/suggestion.png' style='width:100%; height:100%' />
       </button>
+        <button clear block style="padding:0; line-height:0">
+        <img src='assets/images/suggestion.jpg' style='width:100%; height:100%' />
+        </button>
       </ion-col>
     </ion-row>
   </ion-grid>

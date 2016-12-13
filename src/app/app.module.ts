@@ -40,7 +40,6 @@ import { SearchResultPage } from '../pages/search-result/search-result';
 import { SearchSvc } from '../providers/search-svc';
 import { SharePage } from '../pages/share/share';
 
-
 @NgModule({
   declarations: [
     MyApp,
