@@ -54,7 +54,7 @@ export class CommentPage {
 
   onCancel(e)
   {
-    this.searchKey = ""；
+    this.searchKey = "";
   }
 
   slideToPro(obj) {

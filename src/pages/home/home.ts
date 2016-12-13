@@ -10,7 +10,6 @@ import { CommentDetailPage } from '../comment-detail/comment-detail';
 import { CommentListPage } from '../comment-list/comment-list';
 import * as Promise from 'promise';
 import * as _ from 'lodash';
-import { CommentListPage } from '../comment-list/comment-list';
 
 /*
   Generated class for the Home page.
