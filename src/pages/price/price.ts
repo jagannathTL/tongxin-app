@@ -171,4 +171,8 @@ export class PricePage {
     });
   }
 
+  onCancel(e){
+    this.searchKey = "";
+  }
+
 }

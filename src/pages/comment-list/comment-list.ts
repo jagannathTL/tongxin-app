@@ -6,6 +6,7 @@ import { CommentDetailPage } from '../comment-detail/comment-detail';
 import { Errors } from '../../providers/errors';
 declare const notie: any;
 import * as moment from 'moment';
+import * as Promise from 'promise';
 
 /*
   Generated class for the ComDetail page.
@@ -22,21 +23,92 @@ export class CommentListPage {
   titleStr: any;
   marketId: any;
   comList: any = [];
+  type: any = "qh";
+  from: any = false;
+  qhList: any = [];
+  xhList: any = [];
+
   constructor(public navCtrl: NavController, public param: NavParams, public commentSvc: CommentSvc, public global: Global, public loading: LoadingController, public errors: Errors) {
     var sName = param.get("sName");
     var mName = param.get("mName");
+    this.from = param.get("from");
     this.marketId = param.get("mId");
-    this.titleStr = sName + "-" + mName;
+
+    if(this.from){
+      this.titleStr = "操作指导";
+      this.comList = [];
+      let load = loading.create();
+      load.present();
+      Promise.all([this.getQH1Data(),this.getQH2Data(),this.getXH1Data(),this.getXH2Data()]).then((data: any) => {
+          if(this.type == "qh"){
+            this.comList = this.qhList;
+          }
+          else if(this.type == "xh"){
+            this.comList = this.xhList;
+          }
+      }).catch(err => {
+
+      }).done(() => {
+        load.dismiss();
+      })
+    }else{
+      this.titleStr = sName + "-" + mName;
+      this.getDetailData();
+    }
   }
 
   ionViewDidLoad() {
-    this.getDetailData();
+
+  }
+
+  getQH1Data(){
+    return this.commentSvc.getCommentDetail(this.global.MOBILE,1272).then((data: any) => {
+          data.forEach((c: any) => {
+            this.qhList.push({avatar:c.avatar, url:c.url, title:c.title, date: moment(c.date).format('MM-DD'), id:c.id, proName:c.productname, isOrder:c.isOrder});
+          });
+      })
+  }
+
+  getQH2Data(){
+    return this.commentSvc.getCommentDetail(this.global.MOBILE,1273).then((data: any) => {
+          data.forEach((c: any) => {
+            this.qhList.push({avatar:c.avatar, url:c.url, title:c.title, date: moment(c.date).format('MM-DD'), id:c.id, proName:c.productname, isOrder:c.isOrder});
+          });
+      })
+  }
+
+  getXH1Data(){
+    return this.commentSvc.getCommentDetail(this.global.MOBILE, 1274).then((data: any) => {
+      debugger
+          data.forEach((c: any) => {
+            this.xhList.push({avatar:c.avatar, url:c.url, title:c.title, date: moment(c.date).format('MM-DD'), id:c.id, proName:c.productname, isOrder:c.isOrder});
+          });
+      })
+  }
+
+  getXH2Data(){
+    return this.commentSvc.getCommentDetail(this.global.MOBILE, 1275).then((data: any) => {
+      debugger
+          data.forEach((c: any) => {
+            this.xhList.push({avatar:c.avatar, url:c.url, title:c.title, date: moment(c.date).format('MM-DD'), id:c.id, proName:c.productname, isOrder:c.isOrder});
+          });
+      })
   }
 
   goDetail(url){
     this.navCtrl.push(CommentDetailPage,{
       url:url
     });
+  }
+
+  onSegmentChanged(){
+    this.comList = [];
+    if(this.type == "qh"){
+      this.comList = this.qhList;
+    }
+    else if(this.type == "xh"){
+      this.comList = this.xhList;
+    }
   }
 
   getDetailData(){

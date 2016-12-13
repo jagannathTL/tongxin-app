@@ -7,6 +7,7 @@ import { CommentPage } from '../comment/comment';
 declare const Swiper: any;
 import { CommentSvc } from '../../providers/comment-svc';
 import { CommentDetailPage } from '../comment-detail/comment-detail';
+import { CommentListPage } from '../comment-list/comment-list';
 import * as Promise from 'promise';
 import * as _ from 'lodash';
 
@@ -45,6 +46,11 @@ export class HomePage {
       });
   }
 
+  gotoOptions(){
+    this.navCtrl.push(CommentListPage,{
+      from: true
+    })
+  }
   gotoUrlDetail(p){
     var u = "";
     if(p.url == null || p.url == undefined)

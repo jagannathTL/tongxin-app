@@ -14,7 +14,7 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <ion-searchbar [(ngModel)]="searchKey" [showCancelButton]="true" [cancelButtonText]="'取消'" [placeholder]="'请输入查询内容'" (ionCancel)="onCancel($event)" (search)="onSearch($event)">
+  <ion-searchbar [(ngModel)]="searchKey" [showCancelButton]="true" [cancelButtonText]="'取消'" [placeholder]="'请输入查询内容'" (search)="onSearch($event)">
   </ion-searchbar>
 </ion-header>
 

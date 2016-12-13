@@ -8,6 +8,14 @@
 
 
 <ion-content>
+  <ion-segment *ngIf="from" padding color='tabColor' [(ngModel)]="type" (ionChange)="onSegmentChanged()">
+    <ion-segment-button value="qh">
+        期货
+    </ion-segment-button>
+    <ion-segment-button value="xh">
+        现货
+    </ion-segment-button>
+</ion-segment>
   <ion-list>
     <ion-item-sliding *ngFor="let com of comList" #slidingComItem>
       <button ion-item (click)="goDetail(com.url)">

@@ -52,6 +52,11 @@ export class CommentPage {
     this.getMarketCDatas();
   }
 
+  onCancel(e)
+  {
+    this.searchKey = ""；
+  }
+
   slideToPro(obj) {
     this.index = this.inBuckets.indexOf(obj);
     this.marketC.slideTo(this.index);
