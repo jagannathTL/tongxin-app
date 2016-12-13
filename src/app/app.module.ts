@@ -39,8 +39,6 @@ import { Storage } from '@ionic/storage';
 import { SearchResultPage } from '../pages/search-result/search-result';
 import { SearchSvc } from '../providers/search-svc';
 import { SharePage } from '../pages/share/share';
-import { PinglunListPage } from '../pages/pinglun-list/pinglun-list';
-import { PinglunSvc } from '../providers/pinglun-svc';
 
 @NgModule({
   declarations: [
@@ -72,9 +70,7 @@ import { PinglunSvc } from '../providers/pinglun-svc';
     TradeViewPage,
     HomePage,
     SearchResultPage,
-    SharePage,
-    PinglunListPage
-
+    SharePage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -114,11 +110,10 @@ import { PinglunSvc } from '../providers/pinglun-svc';
     TradeViewPage,
     HomePage,
     SearchResultPage,
-    SharePage,
-    PinglunListPage
+    SharePage
   ],
   providers: [Global, RegisterSvc, PriceSvc, Errors,
     ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc,
-    ProfileSvc, YellowSvc, TradeSvc, Storage,PinglunSvc,Storage,SearchSvc]
+    ProfileSvc, YellowSvc, TradeSvc, Storage, SearchSvc]
 })
 export class AppModule { }
