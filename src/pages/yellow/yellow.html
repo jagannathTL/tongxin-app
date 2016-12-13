@@ -18,22 +18,22 @@
     </ion-row>
   </ion-grid> -->
 
-  <ion-toolbar color='navbar'>
-  <ion-row>
-    <ion-col width-50 style="border-right:1px solid #ccc;margin:0px;padding:0px">
-      <button small style='margin:0px' (click)="showIndustry($event)" ion-button clear block>
+  <ion-toolbar color='tabColor'>
+    <ion-row>
+      <ion-col width-50 style="border-right:1px solid #ccc;margin:0px;padding:0px">
+        <button small (click)="showIndustry($event)" ion-button clear block>
             {{selectedIndustry}}
-          <ion-icon ios="ios-arrow-dropdown-circle" md="md-arrow-dropdown-circle"></ion-icon>
+                  <ion-icon name='arrow-down'></ion-icon>
           </button>
-    </ion-col>
-    <ion-col width-50 style='margin:0px;padding:0px'>
-      <button style='margin:0px' small (click)="showArea($event)" ion-button clear block>
+      </ion-col>
+      <ion-col width-50 style='margin:0px;padding:0px'>
+        <button small (click)="showArea($event)" ion-button clear block>
             {{selectedArea}}
-        <ion-icon ios="ios-arrow-dropdown-circle" md="md-arrow-dropdown-circle"></ion-icon>
+        <ion-icon name='arrow-down'></ion-icon>
           </button>
-    </ion-col>
-  </ion-row>
-</ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>

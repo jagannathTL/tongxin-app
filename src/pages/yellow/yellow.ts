@@ -192,7 +192,6 @@ export class AreaPopoverPage {
 
   ngOnInit() {
     if (this.navParams.data) {
-      debugger
       this.areaDatas = this.navParams.data.provinces;
       this.selectedArea = this.navParams.data.selectedArea;
       this.listPage = this.navParams.data.listPage;
@@ -205,7 +204,6 @@ export class AreaPopoverPage {
   }
 
   areaSelected(area) {
-    debugger
     this.selectedArea = area;
     if (this.listPage != null && this.listPage != undefined) {
       this.listPage.setArea(area);

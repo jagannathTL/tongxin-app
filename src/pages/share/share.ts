@@ -32,13 +32,11 @@ export class SharePage {
     args.title = this.msg;
     args.description = '同鑫资讯 ' + this.date;
     args.appName = "同鑫资讯";
-    YCQQ.shareToQQ().then(data => {
-      console.log('success');
-    }).catch(err => {
-      console.log('fail');
-    }).done(() => {
-      this.viewCtrl.dismiss();
-    });
+    YCQQ.shareToQQ(function() {
+      console.log("success");
+    }, function(failReason) {
+      console.log(failReason);
+    }, args);
   }
 
   share2Wechat() {
@@ -57,8 +55,6 @@ export class SharePage {
       console.log('success');
     }).catch(err => {
       console.log('fail');
-    }).done(() => {
-      this.viewCtrl.dismiss();
     });
   }
 
@@ -78,8 +74,6 @@ export class SharePage {
       console.log('success');
     }).catch(err => {
       console.log('fail');
-    }).done(() => {
-      this.viewCtrl.dismiss();
     });
   }
 }
