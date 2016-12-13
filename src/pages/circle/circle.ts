@@ -5,6 +5,8 @@ import { YellowPage } from '../yellow/yellow';
 import { TradePage } from '../trade/trade';
 import { Global } from '../../providers/global';
 import { LoginPage } from '../login/login';
+// import { PinglunListPage } from '../pinglun-list/pinglun-list';
+import { CommentListPage } from '../comment-list/comment-list';
 
 /*
   Generated class for the Circle page.
@@ -40,6 +42,15 @@ export class CirclePage {
     this.navCtrl.push(TradePage, {
       title: title,
       documentType: documentType
+    });
+  }
+
+  gotoPinglun(marketId,sName,mName)
+  {
+    this.navCtrl.push(CommentListPage, {
+      mId: marketId,
+      sName: sName,
+      mName: mName
     });
   }
 
