@@ -42,13 +42,13 @@
         <!-- Slides -->
         <div class="swiper-slide pro" *ngFor="let s of inBuckets">
           <ion-list>
-            <ion-item *ngFor="let m of s.markets" style="padding-left: 0;">
+            <ion-item *ngFor="let m of s.markets" style="padding-left: 0;" text-wrap>
               <button id="firstTitle" color='light' ion-item (click)='gotoCommentDetail(s,m)'>
                 {{m.name}}
               </button>
               <button id="small" ion-item (click)="goDetail(p)" *ngFor="let p of m.pinglun">
                 <ion-row style="font-size: 80%">
-                  <ion-col width-67>{{p.title}}</ion-col>
+                  <ion-col width-80>{{p.title}}</ion-col>
                   <ion-col class="dateColor" text-right center>{{p.date}}</ion-col>
                 </ion-row>
               </button>
