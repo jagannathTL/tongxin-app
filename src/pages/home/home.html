@@ -69,10 +69,11 @@
   <div>
     <ion-list>
       <button text-wrap ion-item *ngFor='let x of items' (click)="gotoUrlDetail(x)">
-        <ion-row>
-          <ion-col>
+        <ion-row style="padding-bottom: 10px;">
             {{x.title}}
-          </ion-col>
+        </ion-row>
+        <ion-row class="dateColor">
+            {{x.dateStr}}
         </ion-row>
       </button>
     </ion-list>
