@@ -84,7 +84,7 @@ export class InboxPage {
           this.events.publish('inbox:clearTabsBadge');
         }).catch((err) => console.log('clearBadge error!'));
       } else {
-        notie.alert('error', this.errors.NOMORE_DATA, this.global.NOTIFICATION_DURATION);
+        notie.alert('warning', this.errors.NOMORE_DATA, this.global.NOTIFICATION_DURATION);
       }
     }).catch(error => {
       console.log(error);
@@ -127,8 +127,8 @@ export class InboxPage {
       }
     }).catch(error => {
       notie.alert('error', this.errors.GET_INBOX_FAILED, this.global.NOTIFICATION_DURATION);
-    }).finally(() => {
-      infiniteScroll.complete();
+    }).done(() => {
+      this.zone.run(() => { infiniteScroll.complete(); });
     });
   }
 
@@ -159,9 +159,8 @@ export class InboxPage {
       }
     })
     var url = "";
-    if(item.url == null || item.url == undefined)
-    {
-      url = "http://app.shtx.com.cn/StaticHtml/WeixinPingLun.html?content=" +  encodeURIComponent(item.msg);
+    if (item.url == null || item.url == undefined) {
+      url = "http://app.shtx.com.cn/StaticHtml/WeixinPingLun.html?content=" + encodeURIComponent(item.msg);
     }
     else {
       url += item.url + '&mobile=' + this.global.MOBILE;
