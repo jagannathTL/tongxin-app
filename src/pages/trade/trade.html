@@ -40,33 +40,23 @@
 
   <ion-list>
     <button ion-item *ngFor="let trade of searchList" (click)="gotoDetail(trade)">
-      <ion-grid>
-        <ion-row>
-          <ion-col width-25 center>
-             <ion-thumbnail item-left>
+            <ion-thumbnail item-left>
                <img [src]="trade.firstImg" style="width:100%"/>
             </ion-thumbnail>
-          </ion-col>
-          <ion-col>
-            <ion-grid>
-            <ion-row>
-              <ion-col width-30>供&nbsp;&nbsp;&nbsp;应：</ion-col>
+            <ion-row style="font-size: 80%">
+              <ion-col width-20>供应：</ion-col>
               <ion-col>{{trade.product}}</ion-col>
             </ion-row>
-            <ion-row>
-              <ion-col width-30>交货地：</ion-col>
+            <ion-row style="font-size: 80%">
+              <ion-col width-20>交货地：</ion-col>
               <ion-col>{{trade.province}}{{trade.city}}</ion-col>
-              <ion-col width-25 class="colorClass">已审核</ion-col>
+              <ion-col width-20 class="colorClass">已审核</ion-col>
             </ion-row>
-            <ion-row>
-              <ion-col width-30>联系人：</ion-col>
+            <ion-row style="font-size: 80%">
+              <ion-col width-20>联系人：</ion-col>
               <ion-col>{{trade.contact}}</ion-col>
-              <ion-col width-25 class="dateClass">{{trade.date}}</ion-col>
+              <ion-col width-20 class="dateClass">{{trade.date}}</ion-col>
             </ion-row>
-            </ion-grid>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
     </button>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
