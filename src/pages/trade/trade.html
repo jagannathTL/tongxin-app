@@ -40,8 +40,8 @@
 
   <ion-list>
     <button ion-item *ngFor="let trade of searchList" (click)="gotoDetail(trade)">
-            <ion-thumbnail item-left>
-               <img [src]="trade.firstImg" style="width:100%"/>
+            <ion-thumbnail item-left style='margin: 8px'>
+               <img [src]="trade.firstImg"/>
             </ion-thumbnail>
             <ion-row style="font-size: 80%">
               <ion-col width-20>{{productLabelName}}：</ion-col>
