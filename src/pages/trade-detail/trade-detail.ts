@@ -59,6 +59,7 @@ export class TradeDetailPage {
       this.documentType = 2;
     }
     this.setIndustryList();
+    this.getAddressData();
   }
 
   setIndustryList(){
@@ -115,7 +116,6 @@ export class TradeDetailPage {
 
   ionViewWillEnter() {
     this.viewCtrl.setBackButtonText(this.backTitle);
-    this.getAddressData();
   }
 
   removeTradePics(){
@@ -221,9 +221,7 @@ export class TradeDetailPage {
       description: this.description,
       documentType:this.documentType
     }
-    debugger
     this.tradeSvc.addTrade(obj).then((data: any) => {
-      debugger
       if(data.result == "ok")
       {
         this.navCtrl.pop();
