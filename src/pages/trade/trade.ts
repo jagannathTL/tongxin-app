@@ -31,9 +31,19 @@ export class TradePage {
   tradeList: any = [];
   searchList: any = [];
   tradeID: any = 0;
+  productLabelName = '';
 
   constructor(public tradeSvc: TradeSvc, public err: Errors, public global: Global, public profileSvc: ProfileSvc, public navCtrl: NavController, public viewCtrl: ViewController, public params: NavParams, public popoverCtrl: PopoverController, public loading: LoadingController) {
     this.documentType = this.params.get('documentType');
+
+    if(this.documentType == 1)
+    {
+      this.productLabelName = '采购';
+    }
+    else
+    {
+      this.productLabelName = '供应';
+    }
     this.getTradeDataList();
     this.getProvinces();
     let load = loading.create({});

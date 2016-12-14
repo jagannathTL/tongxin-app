@@ -40,6 +40,7 @@ export class TradeDetailPage {
   allTradeImgs: any = [];
   tradeDivPic: any;
   imgNameStr = '';
+  productLabelName = '';
 
   constructor(public tradeSvc: TradeSvc, public navCtrl: NavController, public viewCtrl: ViewController, public zone: NgZone, public params: NavParams, public profileSvc: ProfileSvc, public global: Global, public loading: LoadingController, public err: Errors) {
     this.backTitle = params.get('title');
@@ -47,16 +48,19 @@ export class TradeDetailPage {
     {
       this.title = '商圈 - 供应';
       this.documentType = 0;
+      this.productLabelName = '供应';
     }
     else if(this.backTitle == '采购窗口')
     {
       this.title = '商圈 - 采购';
       this.documentType = 1;
+      this.productLabelName = '采购';
     }
     else if(this.backTitle == '机械设备')
     {
       this.title = '商圈 - 设备';
       this.documentType = 2;
+      this.productLabelName = '供应';
     }
     this.setIndustryList();
     this.getAddressData();
