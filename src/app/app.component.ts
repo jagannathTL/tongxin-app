@@ -121,8 +121,7 @@ export class MyApp {
         push.on('registration', (data) => {
           //ios device id
           //console.log(data.registrationId);
-          let deviceId = data.registrationId;
-          this.global.DEVICE_ID = deviceId;
+          this.global.DEVICE_ID = data.registrationId;
           this.checkLogin();
         })
       }

@@ -10,22 +10,15 @@
 <ion-content>
   <ion-segment *ngIf="from" padding color='tabColor' [(ngModel)]="type" (ionChange)="onSegmentChanged()">
     <ion-segment-button value="qh">
-        期货
+      期货
     </ion-segment-button>
     <ion-segment-button value="xh">
-        现货
+      现货
     </ion-segment-button>
-</ion-segment>
+  </ion-segment>
   <ion-list>
     <ion-item-sliding *ngFor="let com of comList" #slidingComItem>
       <button ion-item (click)="goDetail(com.url)">
-        <ion-row>
-        <ion-col width-25 center>
-        <ion-thumbnail item-left>
-          <img [src]="com.avatar" style="width:60px" />
-        </ion-thumbnail>
-        </ion-col>
-        <ion-col>
             <ion-row>
               <ion-col>
                 {{com.title}}
@@ -38,9 +31,7 @@
               <ion-col class="dateColor" text-right center>
                 {{com.date}}
               </ion-col>
-            </ion-row>
-        </ion-col>
-        </ion-row>
+            </ion-row>]
       </button>
       <ion-item-options side="right">
         <button *ngIf="com.isOrder == 'NO'" ion-button (click)="subscribeOrC(com, 'YES' ,slidingComItem)">
