@@ -35,11 +35,6 @@ $colors: ( primary: #387ef5, secondary: #32db64, danger: #f53d3d, light: #f4f4f4
 @import "ionic.theme.default";
 $tabs-ios-tab-color-active: map-get($colors, tabColor);
 
-.dateColor {
-  font-size: 80%;
-  color: map-get($colors, dateColor);
-}
-
 // Ionicons
 // --------------------------------------------------
 // The premium icon font for Ionic. For more info, please see:

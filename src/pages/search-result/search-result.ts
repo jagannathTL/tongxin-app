@@ -43,14 +43,6 @@ export class SearchResultPage {
 
   }
 
-  ionViewDidLoad() {
-
-  }
-
-  ionViewWillEnter(){
-
-  }
-
   gotoComDetail(url){
     this.navCtrl.push(CommentDetailPage,{
       url:url

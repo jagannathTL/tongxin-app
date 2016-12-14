@@ -36,3 +36,8 @@ ion-col[width-70] {
 .label-ios {
   margin: 0;
 }
+
+.dateColor {
+  font-size: 80%;
+  color: map-get($colors, dateColor);
+}

@@ -25,13 +25,13 @@
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col class="smallColor">
+              <ion-col style="font-size: 80%">
                 {{com.proName}}
               </ion-col>
               <ion-col class="dateColor" text-right center>
                 {{com.date}}
               </ion-col>
-            </ion-row>]
+            </ion-row>
       </button>
       <ion-item-options side="right">
         <button *ngIf="com.isOrder == 'NO'" ion-button (click)="subscribeOrC(com, 'YES' ,slidingComItem)">
