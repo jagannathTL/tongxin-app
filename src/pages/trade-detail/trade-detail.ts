@@ -207,6 +207,28 @@ export class TradeDetailPage {
   }
 
   saveTrade(){
+    var errMsg = "";
+    if(this.industry == null || this.industry == "" || this.industry == undefined){
+      errMsg = "所属行业不能为空！";
+    }else if(this.product == null || this.product == "" || this.product == undefined){
+      errMsg = "名称不能为空！";
+    }else if(this.quantity == null || this.quantity == "" || this.quantity == undefined){
+      errMsg = "数量不能为空！";
+    }else if(this.price == null || this.price == "" || this.price == undefined){
+      errMsg = "价格不能为空！";
+    }else if(this.mobile == null || this.mobile == "" || this.mobile == undefined){
+      errMsg = "联系方式不能为空！";
+    }else if(this.contact == null || this.contact == "" || this.contact == undefined){
+      errMsg = "联系人不能为空！";
+    }else if(this.provinceName == null || this.provinceName == "" || this.provinceName == undefined || this.cityName == null || this.cityName == "" || this.cityName == undefined){
+      errMsg = "交货地不能为空！";
+    }
+
+    if(errMsg != ""){
+      notie.alert('error', errMsg, this.global.NOTIFICATION_DURATION);//err
+      return;
+    }
+
     let loading = this.loading.create({});
     loading.present();
     this.allTradeImgs.forEach((img) => {
