@@ -39,6 +39,10 @@ export class InboxPage {
       load.present();
       inboxSvc.loadItems(global.MOBILE).then(data => {
         if (data.length > 0) {
+
+          //保存最新一条的时间，刷新使用
+          this.lastDate = data[0].date;
+
           this.storage.get('readList').then((reads: any) => {
             if (reads == null || reads == undefined || reads.length <= 0) {
               for (let i = 0; i < data.length; i++) {
@@ -72,12 +76,16 @@ export class InboxPage {
 
   doRefresh(refresher) {
     //把加载的数据传到inbox的items参数里面
+    console.log(this.lastDate);
     this.inboxSvc.loadNewItems(this.global.MOBILE, this.lastDate).then(data => {
-      this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
+      // 下边注释的已经不用了，改为从第一条数据获取，要判断是否有最新数据。页面初始化的时候已经给该值赋值了。
+      //this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
       if (data.length > 0) {
+        this.lastDate = data[0].date;//数据返回时已经排过序，最新一条在最上边。
         for (let i = 0; i < data.length; i++) {
           data[i].dateStr = data[i].date.substr(5, 14);
-          this.items.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true });
+          // this.items.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true });
+          this.items = _.concat({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true }, this.items);
         }
         // this.items = _.concat(data, this.items);
         this.inboxSvc.clearBadge(this.global.MOBILE).then(() => {
@@ -97,6 +105,14 @@ export class InboxPage {
 
 
   doInfinite(infiniteScroll) {
+    if(this.items.length == 0)
+    {
+      //没有数据就不能再刷新。否则不知道下边的_.last(this.items).date会不会报错。
+      setTimeout(()=>{
+        this.zone.run(() => { infiniteScroll.complete(); });
+      },500)
+      return;
+    }
     this.inboxSvc.loadMoreItems(this.global.MOBILE, _.last(this.items).date).then(data => {
       if (data.length > 0) {
         this.storage.get('readList').then((reads: any) => {
