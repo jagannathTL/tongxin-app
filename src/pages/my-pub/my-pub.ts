@@ -5,9 +5,6 @@ import { Errors } from '../../providers/errors';
 import { TradeSvc } from '../../providers/trade-svc';
 import { TradeViewPage } from '../trade-view/trade-view';
 declare var notie: any;
-import * as Promise from 'promise';
-import * as _ from 'lodash';
-
 
 /*
   Generated class for the MyPub page.
@@ -27,25 +24,25 @@ export class MyPubPage {
   titleStr: any = "供应";
 
   constructor(public navCtrl: NavController, public global: Global, public errors: Errors, public tradeSvc: TradeSvc, public loading: LoadingController) {
-      this.getDatas();
+    this.getDatas();
   }
 
   ionViewDidLoad() {
     console.log('Hello MyPubPage Page');
   }
 
-  ionChange(){
-    if(this.type == "gy"){
+  ionChange() {
+    if (this.type == "gy") {
       this.items = this.allList.filter((item) => {
         return item.documentType == 0;
       })
       this.titleStr = "供应";
-    }else if(this.type == "cg"){
+    } else if (this.type == "cg") {
       this.items = this.allList.filter((item) => {
         return item.documentType == 1;
       })
       this.titleStr = "采购";
-    }else if(this.type == "jx"){
+    } else if (this.type == "jx") {
       this.items = this.allList.filter((item) => {
         return item.documentType == 2;
       })
@@ -53,26 +50,24 @@ export class MyPubPage {
     }
   }
 
-  getDatas(){
+  getDatas() {
     let loading = this.loading.create({});
     loading.present();
     this.tradeSvc.getMySupplys(this.global.MOBILE).then((data: any) => {
-      if(data != null && data != undefined && data.length > 0){
+      if (data != null && data != undefined && data.length > 0) {
         data.forEach((trade) => {
-          debugger
           var firstImg = '';
           var isChecked = '未审核';
-          if(trade.pic1 != null && trade.pic1 != undefined && trade.pic1.length > 0)
-          {
+          if (trade.pic1 != null && trade.pic1 != undefined && trade.pic1.length > 0) {
             firstImg = this.global.SERVER + '/upload/' + trade.pic1[0];
           }
-          if(trade.ischecked){
+          if (trade.ischecked) {
             isChecked = "已审核";
           }
 
-          this.allList.push({documentType: trade.type, price:trade.price,quantity:trade.quantity,business: trade.buissnes, product: trade.name, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pic, firstImg: firstImg, isChecked: isChecked});
+          this.allList.push({ documentType: trade.type, price: trade.price, quantity: trade.quantity, business: trade.buissnes, product: trade.name, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pic, firstImg: firstImg, isChecked: isChecked });
         })
-        if(this.type == "gy"){
+        if (this.type == "gy") {
           this.items = this.allList.filter((item) => {
             return item.documentType == 0;
           })
@@ -85,8 +80,8 @@ export class MyPubPage {
     })
   }
 
-  gotoTradeDetail(trade){
-    this.navCtrl.push(TradeViewPage,{
+  gotoTradeDetail(trade) {
+    this.navCtrl.push(TradeViewPage, {
       trade: trade,
       title: '发布详情'
     })

@@ -37,12 +37,12 @@
       <ion-row style="font-size: 80%">
         <ion-col width-20>交货地：</ion-col>
         <ion-col>{{trade.province}}{{trade.city}}</ion-col>
-        <ion-col width-20 class="colorClass">{{trade.isChecked}}</ion-col>
+        <ion-col width-20 [ngClass]="{'colorClass': trade.isChecked == '已审核'}">{{trade.isChecked}}</ion-col>
       </ion-row>
       <ion-row style="font-size: 80%">
         <ion-col width-20>联系人：</ion-col>
         <ion-col>{{trade.contact}}</ion-col>
-        <ion-col width-20 class="dateClass">{{trade.date}}</ion-col>
+        <ion-col width-20>{{trade.date}}</ion-col>
       </ion-row>
     </button>
   </ion-list>
