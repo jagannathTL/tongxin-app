@@ -28,10 +28,10 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col width-25 class="secondColor">
+          <ion-col class="secondColor">
             &nbsp;&nbsp;&nbsp;&nbsp;{{y.Comment}}
           </ion-col>
-          <ion-col text-right [ngClass]="{'negative': y.Change < 0, 'positive': y.Change > 0, 'zero': y.Change == 0}">
+          <ion-col width-33 text-right [ngClass]="{'negative': y.Change < 0, 'positive': y.Change > 0, 'zero': y.Change == 0}">
             {{y.priceString}}
           </ion-col>
           <ion-col width-25 text-right [ngClass]="{'negative': y.Change < 0, 'positive': y.Change > 0, 'zero': y.Change == 0}">
