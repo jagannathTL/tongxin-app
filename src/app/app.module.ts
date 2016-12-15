@@ -39,6 +39,7 @@ import { Storage } from '@ionic/storage';
 import { SearchResultPage } from '../pages/search-result/search-result';
 import { SearchSvc } from '../providers/search-svc';
 import { SharePage } from '../pages/share/share';
+import { BydesignPage } from '../pages/bydesign/bydesign';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { SharePage } from '../pages/share/share';
     TradeViewPage,
     HomePage,
     SearchResultPage,
-    SharePage
+    SharePage,
+    BydesignPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -110,7 +112,8 @@ import { SharePage } from '../pages/share/share';
     TradeViewPage,
     HomePage,
     SearchResultPage,
-    SharePage
+    SharePage,
+    BydesignPage
   ],
   providers: [Global, RegisterSvc, PriceSvc, Errors,
     ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc,

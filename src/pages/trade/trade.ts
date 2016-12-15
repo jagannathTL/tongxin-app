@@ -32,23 +32,23 @@ export class TradePage {
   searchList: any = [];
   tradeID: any = 0;
   productLabelName = '';
+  back = '商圈';
 
   constructor(public tradeSvc: TradeSvc, public err: Errors, public global: Global, public profileSvc: ProfileSvc, public navCtrl: NavController, public viewCtrl: ViewController, public params: NavParams, public popoverCtrl: PopoverController, public loading: LoadingController) {
     this.documentType = this.params.get('documentType');
-
-    if(this.documentType == 1)
-    {
+    this.back = this.params.get('back');
+    this.title = this.params.get('title');
+    if (this.documentType == 1) {
       this.productLabelName = '采购';
     }
-    else
-    {
+    else {
       this.productLabelName = '供应';
     }
     this.getTradeDataList();
     this.getProvinces();
     let load = loading.create({});
     load.present();
-    Promise.all([this.getProvinces(),this.getTradeDataList()]).then((data) => {
+    Promise.all([this.getProvinces(), this.getTradeDataList()]).then((data) => {
 
     }).catch(err => {
       notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
@@ -58,48 +58,44 @@ export class TradePage {
     })
   }
 
-  gotoDetail(trade){
-    this.navCtrl.push(TradeViewPage,{
+  gotoDetail(trade) {
+    this.navCtrl.push(TradeViewPage, {
       trade: trade,
       title: this.title
     })
   }
 
-  getProvinces()
-  {
+  getProvinces() {
     return this.profileSvc.getProvinceList().then((data: any) => {
-        data.forEach((p) => {
-          this.provinces.push(p);
-        })
-    })
-  }
-
-  getTradeDataList(){
-    return this.tradeSvc.getTradeList(this.tradeID,this.documentType,this.searchKey,this.selectedArea,this.selectedIndustry,"DOWN").then((data: any) => {
-      data.forEach((trade) => {
-        var firstImg = '';
-        if(trade.pics1 != null && trade.pics1 != undefined && trade.pics1.length > 0)
-        {
-          firstImg = this.global.SERVER + '/upload/' + trade.pics1[0];
-        }
-        this.tradeList.push({price:trade.price,quantity:trade.quantity,business: trade.buissnes, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg});
+      data.forEach((p) => {
+        this.provinces.push(p);
       })
     })
   }
 
-  doRefresh(e){
-    if(this.tradeList != null && this.tradeList != undefined && this.tradeList.lenght > 0)
-    {
-      this.tradeID = this.tradeList[0];
-    }
-    this.tradeSvc.getTradeList(this.tradeID,this.documentType,this.searchKey,this.selectedArea,this.selectedIndustry,"DOWN").then((data: any) => {
+  getTradeDataList() {
+    return this.tradeSvc.getTradeList(this.tradeID, this.documentType, this.searchKey, this.selectedArea, this.selectedIndustry, "DOWN").then((data: any) => {
       data.forEach((trade) => {
         var firstImg = '';
-        if(trade.pics1 != null && trade.pics1 != undefined && trade.pics1.length > 0)
-        {
+        if (trade.pics1 != null && trade.pics1 != undefined && trade.pics1.length > 0) {
           firstImg = this.global.SERVER + '/upload/' + trade.pics1[0];
         }
-        this.tradeList.push({price:trade.price,quantity:trade.quantity,business: trade.business, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg});
+        this.tradeList.push({ price: trade.price, quantity: trade.quantity, business: trade.buissnes, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg });
+      })
+    })
+  }
+
+  doRefresh(e) {
+    if (this.tradeList != null && this.tradeList != undefined && this.tradeList.lenght > 0) {
+      this.tradeID = this.tradeList[0];
+    }
+    this.tradeSvc.getTradeList(this.tradeID, this.documentType, this.searchKey, this.selectedArea, this.selectedIndustry, "DOWN").then((data: any) => {
+      data.forEach((trade) => {
+        var firstImg = '';
+        if (trade.pics1 != null && trade.pics1 != undefined && trade.pics1.length > 0) {
+          firstImg = this.global.SERVER + '/upload/' + trade.pics1[0];
+        }
+        this.tradeList.push({ price: trade.price, quantity: trade.quantity, business: trade.business, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg });
       })
     }).catch(err => {
       notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
@@ -108,19 +104,17 @@ export class TradePage {
     })
   }
 
-  doInfinite(e){
-    if(this.tradeList != null && this.tradeList != undefined && this.tradeList.lenght > 0)
-    {
+  doInfinite(e) {
+    if (this.tradeList != null && this.tradeList != undefined && this.tradeList.lenght > 0) {
       this.tradeID = this.tradeList[this.tradeList.lenght - 1];
     }
-    this.tradeSvc.getTradeList(this.tradeID,this.documentType,this.searchKey,this.selectedArea,this.selectedIndustry,"UP").then((data: any) => {
+    this.tradeSvc.getTradeList(this.tradeID, this.documentType, this.searchKey, this.selectedArea, this.selectedIndustry, "UP").then((data: any) => {
       data.forEach((trade) => {
         var firstImg = '';
-        if(trade.pics1 != null && trade.pics1 != undefined && trade.pics1.length > 0)
-        {
+        if (trade.pics1 != null && trade.pics1 != undefined && trade.pics1.length > 0) {
           firstImg = this.global.SERVER + '/upload/' + trade.pics1[0];
         }
-        this.tradeList.push({price:trade.price,quantity:trade.quantity,business: trade.business, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg});
+        this.tradeList.push({ price: trade.price, quantity: trade.quantity, business: trade.business, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg });
       })
     }).catch(err => {
       notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
@@ -134,56 +128,54 @@ export class TradePage {
   }
 
   ionViewWillEnter() {
-    this.title = this.params.get('title');
-    this.viewCtrl.setBackButtonText('商圈');
+    this.viewCtrl.setBackButtonText(this.back);
   }
 
-  addTrade(){
+  addTrade() {
     this.navCtrl.push(TradeDetailPage, {
       title: this.title
     });
   }
 
-  searchTradeList(){
+  searchTradeList() {
     this.searchList = this.tradeList;
-    if(this.searchKey != "" && this.searchKey != undefined){
+    if (this.searchKey != "" && this.searchKey != undefined) {
       this.searchList = this.searchList.filter((open) => {
         return open.product.indexOf(this.searchKey) > -1;
       })
     }
 
-    if(this.selectedIndustry != "分类" && this.selectedIndustry != undefined){
+    if (this.selectedIndustry != "分类" && this.selectedIndustry != undefined) {
       this.searchList = this.searchList.filter((open) => {
         return open.business == this.selectedIndustry;
       })
     }
 
-    if(this.selectedArea != "地区" && this.selectedArea != undefined)
-    {
+    if (this.selectedArea != "地区" && this.selectedArea != undefined) {
       this.searchList = this.searchList.filter((open) => {
         return open.province == this.selectedArea;
       })
     }
   }
 
-  onSearch(e){
+  onSearch(e) {
     this.searchTradeList();
   }
 
-  onCancel(e){
+  onCancel(e) {
     this.searchKey = "";
     this.searchTradeList();
   }
 
-  showIndustry(myEvent){
+  showIndustry(myEvent) {
     let popover = this.popoverCtrl.create(IndustryTradePage, {
-    selectedIndustry: this.selectedIndustry,
-    listPage: this,
-    documentType: this.documentType
+      selectedIndustry: this.selectedIndustry,
+      listPage: this,
+      documentType: this.documentType
     });
     popover.onDidDismiss(() => {
-        // document.getElementById('iconArea').removeAttribute('style');
-      });
+      // document.getElementById('iconArea').removeAttribute('style');
+    });
     popover.present({
       ev: myEvent
     });
@@ -191,13 +183,13 @@ export class TradePage {
 
   showArea(myEvent) {
     let popover = this.popoverCtrl.create(AreaPopoverPage, {
-    selectedArea: this.selectedArea,
-    tradePage: this,
-    provinces: this.provinces
+      selectedArea: this.selectedArea,
+      tradePage: this,
+      provinces: this.provinces
     });
     popover.onDidDismiss(() => {
 
-      });
+    });
     popover.present({
       ev: myEvent
     });
@@ -213,11 +205,10 @@ export class TradePage {
     this.searchTradeList();
   }
 
-  setIndustry(industry){
-    if(industry == "全部"){
+  setIndustry(industry) {
+    if (industry == "全部") {
       this.selectedIndustry = "分类";
-    }else
-    {
+    } else {
       this.selectedIndustry = industry;
     }
     this.searchTradeList();
@@ -260,9 +251,8 @@ export class IndustryTradePage {
     this.close();
   }
 
-  setIndustryList(){
-    if(this.documentType == 2)
-    {
+  setIndustryList() {
+    if (this.documentType == 2) {
       this.industryList.push('全部');
       this.industryList.push('抓刚机');
       this.industryList.push('粉碎机');
@@ -276,8 +266,7 @@ export class IndustryTradePage {
       this.industryList.push('吸盘');
       this.industryList.push('车船');
     }
-    else
-    {
+    else {
       this.industryList.push('全部');
       this.industryList.push('基本金属');
       this.industryList.push('废旧金属');

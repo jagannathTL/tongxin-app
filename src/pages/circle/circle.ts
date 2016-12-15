@@ -41,7 +41,8 @@ export class CirclePage {
   gotoTrade(title, documentType) {
     this.navCtrl.push(TradePage, {
       title: title,
-      documentType: documentType
+      documentType: documentType,
+      back: '商圈'
     });
   }
 
@@ -53,11 +54,4 @@ export class CirclePage {
       mName: mName
     });
   }
-
-  gotoOptions(){
-    this.navCtrl.push(CommentListPage,{
-      from: true
-    })
-  }
-
 }

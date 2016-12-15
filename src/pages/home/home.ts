@@ -10,7 +10,8 @@ import { CommentDetailPage } from '../comment-detail/comment-detail';
 import { CommentListPage } from '../comment-list/comment-list';
 import * as Promise from 'promise';
 import * as _ from 'lodash';
-
+import { TradePage } from '../trade/trade';
+import { BydesignPage } from '../bydesign/bydesign';
 /*
   Generated class for the Home page.
 
@@ -44,6 +45,14 @@ export class HomePage {
       }).done(() => {
         load.dismiss();
       });
+  }
+
+  gotoTrade(title, documentType) {
+    this.navCtrl.push(TradePage, {
+      title: title,
+      documentType: documentType,
+      back: '首页'
+    });
   }
 
   gotoOptions(){
@@ -81,6 +90,10 @@ export class HomePage {
     }).catch(err => {
       console.log(err);
     })
+  }
+
+  gotoByDesign(){
+    this.navCtrl.push(BydesignPage);
   }
 
   getProjectsData(){
