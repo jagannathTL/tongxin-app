@@ -14,5 +14,36 @@
 
 
 <ion-content>
-
+  <ion-segment padding color='tabColor' [(ngModel)]="type" (ionChange)='ionChange()'>
+    <ion-segment-button value="gy">
+      供应窗口
+    </ion-segment-button>
+    <ion-segment-button value="cg">
+      采购窗口
+    </ion-segment-button>
+    <ion-segment-button value="jx">
+      机械设备
+    </ion-segment-button>
+  </ion-segment>
+  <ion-list>
+    <button ion-item (click)="gotoTradeDetail(trade)" *ngFor="let trade of items">
+      <ion-thumbnail item-left style='margin: 8px'>
+         <img [src]="trade.firstImg"/>
+      </ion-thumbnail>
+      <ion-row style="font-size: 80%">
+        <ion-col width-20>{{titleStr}}：</ion-col>
+        <ion-col>{{trade.product}}</ion-col>
+      </ion-row>
+      <ion-row style="font-size: 80%">
+        <ion-col width-20>交货地：</ion-col>
+        <ion-col>{{trade.province}}{{trade.city}}</ion-col>
+        <ion-col width-20 class="colorClass">{{trade.isChecked}}</ion-col>
+      </ion-row>
+      <ion-row style="font-size: 80%">
+        <ion-col width-20>联系人：</ion-col>
+        <ion-col>{{trade.contact}}</ion-col>
+        <ion-col width-20 class="dateClass">{{trade.date}}</ion-col>
+      </ion-row>
+    </button>
+  </ion-list>
 </ion-content>

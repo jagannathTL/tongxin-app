@@ -85,12 +85,6 @@ export class TradePage {
         this.tradeList.push({price:trade.price,quantity:trade.quantity,business: trade.buissnes, product: trade.product, province: trade.province, city: trade.city, contact: trade.contact, date: trade.date, pics: trade.pics, firstImg: firstImg});
       })
     })
-    // .catch(err => {
-    //   notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
-    // }).done(() => {
-    //   this.searchTradeList();
-    //   loading.dismiss();
-    // })
   }
 
   doRefresh(e){

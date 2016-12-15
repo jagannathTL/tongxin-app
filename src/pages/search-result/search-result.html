@@ -65,6 +65,9 @@
           </ion-col>
         </ion-row>
         <ion-row style="font-size: 80%">
+          <ion-col width-25>
+            &nbsp;&nbsp;&nbsp;&nbsp;{{y.Comment}}
+          </ion-col>
           <ion-col text-right [ngClass]="{'negative': y.change < 0, 'positive': y.change > 0, 'zero': y.change == 0}">
             {{y.priceStr}}
           </ion-col>

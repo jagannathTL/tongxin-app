@@ -46,4 +46,8 @@ page-price {
   .zero {
     color: map-get($colors, dark);
   }
+
+  ion-label{
+    white-space: normal;
+  }
 }

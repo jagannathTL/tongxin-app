@@ -17,11 +17,12 @@ export class TradeViewPage {
   trade: any = {business: "", product: "", province: "", city: "", contact: "",quantity:"",price:"",tel:"",desc:""}
   allImgs: any = [];
   title: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public zone: NgZone, public global: Global) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public zone: NgZone, public global: Global) {
+    this.getData();
+  }
 
   ionViewDidLoad() {
     console.log('Hello TradeViewPage Page');
-    this.getData();
   }
 
   getData(){
@@ -37,10 +38,12 @@ export class TradeViewPage {
       this.trade.quantity = data.quantity;
       this.trade.price = data.price;
       this.trade.desc = data.description;
-      data.pics.forEach((img) => {
-        var url = this.global.SERVER + "/upload/" + img;
-        this.allImgs.push({url:url, newName:img});
-      });
+      if(data.pics != null && data.pics != undefined && data.pics.length > 0){
+        data.pics.forEach((img) => {
+          var url = this.global.SERVER + "/upload/" + img;
+          this.allImgs.push({url:url, newName:img});
+        });
+      }
     })
 
     setTimeout(() => {

@@ -71,7 +71,7 @@ export class SearchResultPage {
         data.forEach((d) => {
           var products = [];
           d.products.forEach((p) => {
-            products.push({change: p.Change, pName: p.ProductName, pId: p.ProductId, priceStr: p.LPrice + "-" + p.HPrice, date: p.Date});
+            products.push({change: p.Change, pName: p.ProductName, pId: p.ProductId, priceStr: p.LPrice + "-" + p.HPrice, date: p.Date, Comment: p.Comment});
           })
           this.prices.push({ name: d.name, id: d.id, products: products});
         })

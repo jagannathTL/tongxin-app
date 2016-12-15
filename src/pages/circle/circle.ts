@@ -54,4 +54,10 @@ export class CirclePage {
     });
   }
 
+  gotoOptions(){
+    this.navCtrl.push(CommentListPage,{
+      from: true
+    })
+  }
+
 }

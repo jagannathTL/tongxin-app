@@ -64,4 +64,15 @@ export class TradeSvc {
     })
   }
 
+  getMySupplys(mobile)
+  {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.global.SERVER + "/Handlers/SupplyHandler.ashx?method=mysupply&mobile=" + mobile).map(res => res.json()).subscribe((data) => {
+        resolve(data);
+      },err => {
+        throw new Error(err);
+      })
+    })
+  }
+
 }
