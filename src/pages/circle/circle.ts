@@ -5,7 +5,6 @@ import { YellowPage } from '../yellow/yellow';
 import { TradePage } from '../trade/trade';
 import { Global } from '../../providers/global';
 import { LoginPage } from '../login/login';
-// import { PinglunListPage } from '../pinglun-list/pinglun-list';
 import { CommentListPage } from '../comment-list/comment-list';
 
 /*
@@ -46,8 +45,13 @@ export class CirclePage {
     });
   }
 
-  gotoPinglun(marketId, sName, mName)
-  {
+  gotoOptions() {
+    this.navCtrl.push(CommentListPage, {
+      from: true
+    })
+  }
+
+  gotoPinglun(marketId, sName, mName) {
     this.navCtrl.push(CommentListPage, {
       mId: marketId,
       sName: sName,
