@@ -42,6 +42,7 @@ export class CommentPage {
     if (this.global.IS_LOGGEDIN == false) {
       this.app.getRootNav().setRoot(LoginPage);
     }
+    this.getMarketCDatas();
   }
 
   ionViewWillEnter() {
@@ -49,7 +50,7 @@ export class CommentPage {
   }
 
   ionViewDidLoad() {
-    this.getMarketCDatas();
+
   }
 
   onCancel(e)

@@ -39,6 +39,7 @@ export class PricePage {
       if (this.global.IS_LOGGEDIN == false) {
         this.app.getRootNav().setRoot(LoginPage);
       }
+      this.getMarketDatas();
   }
 
   refresh() {
@@ -50,7 +51,7 @@ export class PricePage {
   }
 
   ionViewDidLoad() {
-    this.getMarketDatas();
+
   }
 
   slideToPro(obj) {
@@ -118,6 +119,7 @@ export class PricePage {
     loading.present();
     this.priceSvc.getMarkets(this.global.MOBILE).then((data: any) => {
       this.zone.run(() => {
+        debugger
         data.forEach((x: any) => {
           x.markets.forEach((m) => {
             this.priceSvc.translate(m);
