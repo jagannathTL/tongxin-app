@@ -48,7 +48,8 @@ export class HomePage {
 
   gotoOptions(){
     this.navCtrl.push(CommentListPage,{
-      from: true
+      from: true,
+      sName: '返回'
     })
   }
   gotoUrlDetail(p){

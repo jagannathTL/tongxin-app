@@ -47,12 +47,12 @@
                   <ion-col width-67>
                     {{m.name}}
                   </ion-col>
-                  <ion-col width-33 style="font-size: 80%" text-right class="dateColor">
+                  <ion-col width-33 class="secondColor" text-right class="secondColor">
                     {{m.displayDate}}
                   </ion-col>
                 </ion-row>
-                <ion-row style="font-size: 80%">
-                  <ion-col width-50>
+                <ion-row>
+                  <ion-col width-50 class="secondColor">
                     {{m.ProductName}}
                   </ion-col>
                   <ion-col width-25 text-right [ngClass]="{'negative': m.Change < 0, 'positive': m.Change > 0, 'zero': m.Change == 0}">
