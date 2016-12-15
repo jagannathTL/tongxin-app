@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ViewController } from 'ionic-angular';
 import { CommentSvc } from '../../providers/comment-svc';
 import { Global } from '../../providers/global';
 import { CommentDetailPage } from '../comment-detail/comment-detail';
@@ -27,97 +27,100 @@ export class CommentListPage {
   from: any = false;
   qhList: any = [];
   xhList: any = [];
+  sName;
+  mName;
 
-  constructor(public navCtrl: NavController, public param: NavParams, public commentSvc: CommentSvc, public global: Global, public loading: LoadingController, public errors: Errors) {
-    var sName = param.get("sName");
-    var mName = param.get("mName");
+  constructor(public navCtrl: NavController, public param: NavParams,
+    public commentSvc: CommentSvc, public global: Global, public loading: LoadingController,
+    public errors: Errors, public viewCtrl: ViewController) {
+    this.sName = param.get("sName");
+    this.mName = param.get("mName");
     this.from = param.get("from");
     this.marketId = param.get("mId");
 
-    if(this.from){
+    if (this.from) {
       this.titleStr = "操作指导";
+      this.sName = '返回';
       this.comList = [];
       let load = loading.create();
       load.present();
-      Promise.all([this.getQH1Data(),this.getQH2Data(),this.getXH1Data(),this.getXH2Data()]).then((data: any) => {
-          if(this.type == "qh"){
-            this.comList = this.qhList;
-          }
-          else if(this.type == "xh"){
-            this.comList = this.xhList;
-          }
+      Promise.all([this.getQH1Data(), this.getQH2Data(), this.getXH1Data(), this.getXH2Data()]).then((data: any) => {
+        if (this.type == "qh") {
+          this.comList = this.qhList;
+        }
+        else if (this.type == "xh") {
+          this.comList = this.xhList;
+        }
       }).catch(err => {
 
       }).done(() => {
         load.dismiss();
       })
-    }else{
-      this.titleStr = sName + "-" + mName;
+    } else {
+      this.titleStr = this.mName;
       this.getDetailData();
     }
   }
 
-  ionViewDidLoad() {
-
+  ionViewWillEnter() {
+    this.viewCtrl.setBackButtonText(this.sName);
   }
 
-  getQH1Data(){
-    return this.commentSvc.getCommentDetail(this.global.MOBILE,1272).then((data: any) => {
-          data.forEach((c: any) => {
-            this.qhList.push({avatar:c.avatar, url:c.url, title:c.title, date: moment(c.date).format('MM-DD'), id:c.id, proName:c.productname, isOrder:c.isOrder});
-          });
-      })
+  getQH1Data() {
+    return this.commentSvc.getCommentDetail(this.global.MOBILE, 1272).then((data: any) => {
+      data.forEach((c: any) => {
+        this.qhList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder });
+      });
+    })
   }
 
-  getQH2Data(){
-    return this.commentSvc.getCommentDetail(this.global.MOBILE,1273).then((data: any) => {
-          data.forEach((c: any) => {
-            this.qhList.push({avatar:c.avatar, url:c.url, title:c.title, date: moment(c.date).format('MM-DD'), id:c.id, proName:c.productname, isOrder:c.isOrder});
-          });
-      })
+  getQH2Data() {
+    return this.commentSvc.getCommentDetail(this.global.MOBILE, 1273).then((data: any) => {
+      data.forEach((c: any) => {
+        this.qhList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder });
+      });
+    })
   }
 
-  getXH1Data(){
+  getXH1Data() {
     return this.commentSvc.getCommentDetail(this.global.MOBILE, 1274).then((data: any) => {
-      debugger
-          data.forEach((c: any) => {
-            this.xhList.push({avatar:c.avatar, url:c.url, title:c.title, date: moment(c.date).format('MM-DD'), id:c.id, proName:c.productname, isOrder:c.isOrder});
-          });
-      })
+      data.forEach((c: any) => {
+        this.xhList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder });
+      });
+    })
   }
 
-  getXH2Data(){
+  getXH2Data() {
     return this.commentSvc.getCommentDetail(this.global.MOBILE, 1275).then((data: any) => {
-      debugger
-          data.forEach((c: any) => {
-            this.xhList.push({avatar:c.avatar, url:c.url, title:c.title, date: moment(c.date).format('MM-DD'), id:c.id, proName:c.productname, isOrder:c.isOrder});
-          });
-      })
+      data.forEach((c: any) => {
+        this.xhList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder });
+      });
+    })
   }
 
-  goDetail(url){
-    this.navCtrl.push(CommentDetailPage,{
-      url:url
+  goDetail(url) {
+    this.navCtrl.push(CommentDetailPage, {
+      url: url
     });
   }
 
-  onSegmentChanged(){
+  onSegmentChanged() {
     this.comList = [];
-    if(this.type == "qh"){
+    if (this.type == "qh") {
       this.comList = this.qhList;
     }
-    else if(this.type == "xh"){
+    else if (this.type == "xh") {
       this.comList = this.xhList;
     }
   }
 
-  getDetailData(){
+  getDetailData() {
     let loading = this.loading.create({});
-      loading.present();
+    loading.present();
     this.commentSvc.getCommentDetail(this.global.MOBILE, this.marketId).then((data: any) => {
-        data.forEach((c: any) => {
-          this.comList.push({avatar:c.avatar, url:c.url, title:c.title, date: moment(c.date).format('MM-DD'), id:c.id, proName:c.productname, isOrder:c.isOrder});
-        });
+      data.forEach((c: any) => {
+        this.comList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder });
+      });
     }).catch((err) => {
 
     }).done(() => {
@@ -125,26 +128,21 @@ export class CommentListPage {
     });
   }
 
-  subscribeOrC(pro, isOrder, slide)
-  {
+  subscribeOrC(pro, isOrder, slide) {
     this.commentSvc.subscribeOrCancel(pro.id, isOrder, this.global.MOBILE).then((data: any) => {
-      if(data.result == "error")
-      {
-        if(pro.isOrder == "NO")
-        {
+      if (data.result == "error") {
+        if (pro.isOrder == "NO") {
           notie.alert('error', this.errors.SUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
         }
-        else
-        {
+        else {
           notie.alert('error', this.errors.UNSUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
         }
       }
-      else{
-        if(pro.isOrder == 'NO')
-        {
+      else {
+        if (pro.isOrder == 'NO') {
           pro.isOrder = 'YES';
         }
-        else{
+        else {
           pro.isOrder = 'NO';
         }
       }

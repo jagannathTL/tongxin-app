@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color='navbar'>
-    <ion-title>{{product.ProductName}}历史价格</ion-title>
+    <ion-title>{{product.ProductName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -41,7 +41,7 @@
         <ion-col width-25 text-right [ngClass]="{'negative': y.Change < 0, 'positive': y.Change > 0, 'zero': y.Change == 0}">
           {{y.absChange}}
         </ion-col>
-        <ion-col text-right class='dateColor'>
+        <ion-col text-right class='secondColor'>
           {{y.displayDate}}
         </ion-col>
       </ion-row>

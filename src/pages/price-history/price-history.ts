@@ -28,6 +28,7 @@ export class PriceHistoryPage {
     public viewCtrl: ViewController, public priceSvc: PriceSvc, public global: Global, public errors: Errors, public loadingCtrl: LoadingController) {
     this.product = navParams.get('product');
     this.backText = navParams.get('backText');
+    this.getHistoryPrices();
   }
 
   getHistoryPrices() {
@@ -69,7 +70,7 @@ export class PriceHistoryPage {
     axis = _.reverse(axis);
     lPrice = _.reverse(lPrice);
     hPrice = _.reverse(hPrice);
-    
+
     c3.generate({
       data: {
         x: 'x',

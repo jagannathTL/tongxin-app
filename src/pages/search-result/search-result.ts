@@ -28,32 +28,32 @@ export class SearchResultPage {
   searchType: any = "";
 
   constructor(public commentSvc: CommentSvc, public priceSvc: PriceSvc, public errors: Errors, public navCtrl: NavController, public navParams: NavParams, public searchSvc: SearchSvc, public global: Global, public loading: LoadingController) {
-        this.searchKey = navParams.get('searchKey');
-        this.searchType = navParams.get('searchType');
-        if(this.searchType == "1"){
-          this.comments = [];
-          this.searchTitle = "查询价格";
-          this.getData();
-        }
-        else{
-          this.prices = [];
-          this.searchTitle = "评论查询";
-          this.getPLData();
-        }
+    this.searchKey = navParams.get('searchKey');
+    this.searchType = navParams.get('searchType');
+    if (this.searchType == "1") {
+      this.comments = [];
+      this.searchTitle = "查询价格";
+      this.getData();
+    }
+    else {
+      this.prices = [];
+      this.searchTitle = "评论查询";
+      this.getPLData();
+    }
 
   }
 
-  gotoComDetail(url){
-    this.navCtrl.push(CommentDetailPage,{
-      url:url
+  gotoComDetail(url) {
+    this.navCtrl.push(CommentDetailPage, {
+      url: url
     });
   }
 
-  getPLData(){
+  getPLData() {
     let loading = this.loading.create({});
     loading.present();
     this.searchSvc.getPLSearchData(this.global.MOBILE, this.searchKey).then((data: any) => {
-      if(data != null && data != undefined && data.length > 0){
+      if (data != null && data != undefined && data.length > 0) {
         this.comments = _.concat(data);
       }
     }).catch((err) => {
@@ -63,17 +63,17 @@ export class SearchResultPage {
     })
   }
 
-  getData(){
+  getData() {
     let loading = this.loading.create({});
     loading.present();
     this.searchSvc.getSearchResult(this.global.MOBILE, this.searchKey).then((data: any) => {
-      if(data != null && data != undefined){
+      if (data != null && data != undefined) {
         data.forEach((d) => {
           var products = [];
           d.products.forEach((p) => {
             products.push({change: p.Change, pName: p.ProductName, pId: p.ProductId, priceStr: p.LPrice + "-" + p.HPrice, date: p.Date, Comment: p.Comment});
           })
-          this.prices.push({ name: d.name, id: d.id, products: products});
+          this.prices.push({ name: d.name, id: d.id, products: products });
         })
       }
     }).catch((err) => {
@@ -88,8 +88,8 @@ export class SearchResultPage {
     this.priceSvc.subscribe(product.ProductId, this.global.MOBILE).then(data => {
       if (data.result == 'error') {
         notie.alert('error', this.errors.SUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
-      }else{
-        product.isOrder='YES';
+      } else {
+        product.isOrder = 'YES';
       }
     }).catch(err => {
       console.log(err);
@@ -103,8 +103,8 @@ export class SearchResultPage {
     this.priceSvc.unsubscribe(product.ProductId, this.global.MOBILE).then(data => {
       if (data.result == 'error') {
         notie.alert('error', this.errors.UNSUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
-      }else{
-        product.isOrder='NO';
+      } else {
+        product.isOrder = 'NO';
       }
     }).catch(err => {
       console.log(err);
@@ -114,26 +114,21 @@ export class SearchResultPage {
     });
   }
 
-  subscribeOrC(pro, isOrder, slide)
-  {
+  subscribeOrC(pro, isOrder, slide) {
     this.commentSvc.subscribeOrCancel(pro.id, isOrder, this.global.MOBILE).then((data: any) => {
-      if(data.result == "error")
-      {
-        if(pro.isOrder == "NO")
-        {
+      if (data.result == "error") {
+        if (pro.isOrder == "NO") {
           notie.alert('error', this.errors.SUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
         }
-        else
-        {
+        else {
           notie.alert('error', this.errors.UNSUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
         }
       }
-      else{
-        if(pro.isOrder == 'NO')
-        {
+      else {
+        if (pro.isOrder == 'NO') {
           pro.isOrder = 'YES';
         }
-        else{
+        else {
           pro.isOrder = 'NO';
         }
       }
