@@ -23,7 +23,7 @@
     <button text-wrap *ngFor="let i of items" ion-item (click)='gotoCommentDetail(i)'>
       <ion-row>
       <ion-col width-10>
-          <i class="fa fa-circle" ion-text color="danger" aria-hidden="true" *ngIf="i.isRead"></i>
+          <i class="fa fa-circle" style='font-size: 80%' ion-text color="danger" aria-hidden="true" *ngIf="i.isRead"></i>
       </ion-col>
       <ion-col>
         <ion-row style="padding-bottom: 10px;">
