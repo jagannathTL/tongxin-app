@@ -18,6 +18,9 @@
 
 <ion-content>
   <div class="swiper-container companyP" style="position:relative">
+    <div *ngIf="allImgs.length == 0" style="position:absolute;top:50%;left:50%;text-align:center;transform:translate(-50%,-50%);font-size: 2rem;opacity: 0.2;">
+      点击按钮添加图片
+    </div>
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
       <!-- Slides -->
@@ -28,8 +31,8 @@
     <!-- Add Arrows -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
-    <button clear ion-button icon-only color="danger" (click)="removePics()" style="position:absolute;left:5%;bottom:0;z-index:99999"><ion-icon name="remove-circle"></ion-icon></button>
-    <button clear ion-button icon-only color="negative" (click)="addPics()" style="position:absolute;right:5%;bottom:0;z-index:99999"><ion-icon name="add-circle"></ion-icon></button>
+    <button clear ion-button icon-only color="danger" (click)="removePics()" *ngIf="allImgs.length > 0" style="position:absolute;left:2%;bottom:2%;z-index:99999;font-size:3rem;opacity:0.6;"><ion-icon name="remove-circle"></ion-icon></button>
+    <button clear ion-button icon-only color="negative" (click)="addPics()"  *ngIf="allImgs.length < 3" style="position:absolute;right:2%;bottom:2%;z-index:99999;font-size:3rem;opacity:0.6;"><ion-icon name="add-circle"></ion-icon></button>
   </div>
   <ion-list>
     <ion-item>
