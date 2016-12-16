@@ -42,7 +42,7 @@ export class CommentSvc {
   }
 
   getCommentDetail(mobile, marketId) {
-    debugger
+    //debugger
     return new Promise((resolve, reject) => {
       this.http.get(this.global.SERVER + "/Handlers/PLHandler.ashx?method=getproducts&mobile=" + mobile + "&marketId=" + marketId).map(res => res.json())
         .subscribe((data) => {
