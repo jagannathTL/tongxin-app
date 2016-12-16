@@ -82,11 +82,13 @@ export class InboxPage {
       //this.lastDate = moment().format('YYYY-MM-DD HH:mm:ss SSS');
       if (data.length > 0) {
         this.lastDate = data[0].date;//数据返回时已经排过序，最新一条在最上边。
+        let temp = [];
         for (let i = 0; i < data.length; i++) {
           data[i].dateStr = data[i].date.substr(5, 14);
           // this.items.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true });
-          this.items = _.concat({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true }, this.items);
+          temp.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true });
         }
+        this.items = _.concat(temp, this.items);//保持传过来的数据的顺序，确保最大日期的在最上边显示。
         // this.items = _.concat(data, this.items);
         this.inboxSvc.clearBadge(this.global.MOBILE).then(() => {
           this.events.publish('inbox:clearTabsBadge');
