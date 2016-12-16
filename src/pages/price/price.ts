@@ -119,7 +119,7 @@ export class PricePage {
     loading.present();
     this.priceSvc.getMarkets(this.global.MOBILE).then((data: any) => {
       this.zone.run(() => {
-        debugger
+        //debugger
         data.forEach((x: any) => {
           x.markets.forEach((m) => {
             this.priceSvc.translate(m);

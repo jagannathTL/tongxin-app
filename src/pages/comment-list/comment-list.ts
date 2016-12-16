@@ -7,6 +7,7 @@ import { Errors } from '../../providers/errors';
 declare const notie: any;
 import * as moment from 'moment';
 import * as Promise from 'promise';
+import * as _ from 'lodash';
 
 /*
   Generated class for the ComDetail page.
@@ -45,10 +46,14 @@ export class CommentListPage {
       let load = loading.create();
       load.present();
       Promise.all([this.getQH1Data(), this.getQH2Data(), this.getXH1Data(), this.getXH2Data()]).then((data: any) => {
+      this.qhList = _.orderBy(this.qhList, ['time'], ['desc']);
+      this.xhList = _.orderBy(this.xhList, ['time'], ['desc']);
         if (this.type == "qh") {
+          
           this.comList = this.qhList;
         }
         else if (this.type == "xh") {
+
           this.comList = this.xhList;
         }
       }).catch(err => {
@@ -69,7 +74,7 @@ export class CommentListPage {
   getQH1Data() {
     return this.commentSvc.getCommentDetail(this.global.MOBILE, 1272).then((data: any) => {
       data.forEach((c: any) => {
-        this.qhList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder });
+        this.qhList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder, time: c.date });
       });
     })
   }
@@ -77,7 +82,7 @@ export class CommentListPage {
   getQH2Data() {
     return this.commentSvc.getCommentDetail(this.global.MOBILE, 1273).then((data: any) => {
       data.forEach((c: any) => {
-        this.qhList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder });
+        this.qhList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder, time: c.date });
       });
     })
   }
@@ -85,7 +90,7 @@ export class CommentListPage {
   getXH1Data() {
     return this.commentSvc.getCommentDetail(this.global.MOBILE, 1274).then((data: any) => {
       data.forEach((c: any) => {
-        this.xhList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder });
+        this.xhList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder, time: c.date });
       });
     })
   }
@@ -93,7 +98,7 @@ export class CommentListPage {
   getXH2Data() {
     return this.commentSvc.getCommentDetail(this.global.MOBILE, 1275).then((data: any) => {
       data.forEach((c: any) => {
-        this.xhList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder });
+        this.xhList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder, time: c.date });
       });
     })
   }
@@ -119,7 +124,7 @@ export class CommentListPage {
     loading.present();
     this.commentSvc.getCommentDetail(this.global.MOBILE, this.marketId).then((data: any) => {
       data.forEach((c: any) => {
-        this.comList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder });
+        this.comList.push({ avatar: c.avatar, url: c.url, title: c.title, date: moment(c.date).format('MM-DD'), id: c.id, proName: c.productname, isOrder: c.isOrder, time: c.date });
       });
     }).catch((err) => {
 
