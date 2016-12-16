@@ -28,15 +28,15 @@ export class TradeDetailPage {
   industry = '';//所属行业
   tradePic: any;
   imgs = [];
-  provinceName= '';//省份
+  provinceName = '';//省份
   cityName = '';//城市
   documentType = 0;//0:供应,1:采购,2:机械设备
-  product='';//名称
-  quantity='';//数量
+  product = '';//名称
+  quantity = '';//数量
   price = '';//价格
-  mobile='';//联系方式
-  contact='';//联系人
-  description='';//简介
+  mobile = '';//联系方式
+  contact = '';//联系人
+  description = '';//简介
   allTradeImgs: any = [];
   tradeDivPic: any;
   imgNameStr = '';
@@ -44,20 +44,17 @@ export class TradeDetailPage {
 
   constructor(public tradeSvc: TradeSvc, public navCtrl: NavController, public viewCtrl: ViewController, public zone: NgZone, public params: NavParams, public profileSvc: ProfileSvc, public global: Global, public loading: LoadingController, public err: Errors) {
     this.backTitle = params.get('title');
-    if(this.backTitle == '供应窗口')
-    {
+    if (this.backTitle == '供应窗口') {
       this.title = '商圈 - 供应';
       this.documentType = 0;
       this.productLabelName = '供应';
     }
-    else if(this.backTitle == '采购窗口')
-    {
+    else if (this.backTitle == '采购窗口') {
       this.title = '商圈 - 采购';
       this.documentType = 1;
       this.productLabelName = '采购';
     }
-    else if(this.backTitle == '机械设备')
-    {
+    else if (this.backTitle == '机械设备') {
       this.title = '商圈 - 设备';
       this.documentType = 2;
       this.productLabelName = '供应';
@@ -66,9 +63,8 @@ export class TradeDetailPage {
     this.getAddressData();
   }
 
-  setIndustryList(){
-    if(this.documentType == 2)
-    {
+  setIndustryList() {
+    if (this.documentType == 2) {
       this.industryList.push('抓刚机');
       this.industryList.push('粉碎机');
       this.industryList.push('打包机');
@@ -81,8 +77,7 @@ export class TradeDetailPage {
       this.industryList.push('吸盘');
       this.industryList.push('车船');
     }
-    else
-    {
+    else {
       this.industryList.push('基本金属');
       this.industryList.push('废旧金属');
       this.industryList.push('废旧钢铁');
@@ -97,11 +92,11 @@ export class TradeDetailPage {
     }
   }
 
-  getAddressData(){
+  getAddressData() {
     this.profileSvc.getProvinceList().then((data: any) => {
-        data.forEach((p) => {
-          this.provinces.push(p);
-        })
+      data.forEach((p) => {
+        this.provinces.push(p);
+      })
     }).catch(err => {
       notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
     }).done(() => {
@@ -109,12 +104,12 @@ export class TradeDetailPage {
     })
   }
 
-  selectChange(){
+  selectChange() {
     this.citys = [];
     this.profileSvc.getCityByProvince(this.provinceName).then((data: any) => {
-       data.forEach((c) => {
-         this.citys.push(c);
-       });
+      data.forEach((c) => {
+        this.citys.push(c);
+      });
     })
   }
 
@@ -122,109 +117,106 @@ export class TradeDetailPage {
     this.viewCtrl.setBackButtonText(this.backTitle);
   }
 
-  removeTradePics(){
+  removeTradePics() {
     var imgDiv = $(".swiper-slide-active img");
-    if(imgDiv != null && imgDiv != undefined && imgDiv.length > 0){
+    if (imgDiv != null && imgDiv != undefined && imgDiv.length > 0) {
       var src = imgDiv[0].src;
       var index = src.lastIndexOf("/");
       var name = src.substring(index + 1);
       var imgs = this.allTradeImgs.filter((image) => {
         return image.newName == name;
       });
-      if(imgs != null && imgs != undefined)
-      {
-         var isLastIndex = false;
-         var index;
+      if (imgs != null && imgs != undefined) {
+        var isLastIndex = false;
+        var index;
         this.zone.run(() => {
           index = this.allTradeImgs.indexOf(imgs[0]);
-          if((index + 1) == this.allTradeImgs.length){
+          if ((index + 1) == this.allTradeImgs.length) {
             //说明删除的是最后一张
             isLastIndex = true;
           }
-          this.allTradeImgs.splice(index,1);
+          this.allTradeImgs.splice(index, 1);
         });
         setTimeout(() => {
-          if(this.tradeDivPic != null && this.tradeDivPic != undefined){
-            this.tradeDivPic.destroy(true,true);
+          if (this.tradeDivPic != null && this.tradeDivPic != undefined) {
+            this.tradeDivPic.destroy(true, true);
           }
-          this.tradeDivPic =  new Swiper('.companyP', {
+          this.tradeDivPic = new Swiper('.companyP', {
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev'
           });
-          if(isLastIndex)
-          {
-              this.tradeDivPic.slideTo(this.allTradeImgs.length - 1,0);//如果删除的最后一张 跳转到删除后的最后一张
+          if (isLastIndex) {
+            this.tradeDivPic.slideTo(this.allTradeImgs.length - 1, 0);//如果删除的最后一张 跳转到删除后的最后一张
           }
-          else{
-            this.tradeDivPic.slideTo(index,0);//如果删除的不是最后一张 跳转到被删除后的集合index项
+          else {
+            this.tradeDivPic.slideTo(index, 0);//如果删除的不是最后一张 跳转到被删除后的集合index项
           }
-      },500)
+        }, 500)
       }
     }
 
   }
 
-  addTradePics(){
+  addTradePics() {
     let options = {
-      maximumImagesCount:1
+      maximumImagesCount: 1
     };
     ImagePicker.getPictures(options).then((results) => {
       this.zone.run(() => {
-        if(results != null && results != undefined && results.length > 0)
-        {
+        if (results != null && results != undefined && results.length > 0) {
           let loading = this.loading.create({});
           loading.present();
-        this.profileSvc.uploadImg(results).then((data: any) => {
-          if(data.result == "ok"){
-            var url = this.global.SERVER + "/upload/" + data.newName;
-            this.allTradeImgs.push({url: url, newName: data.newName});
-          }else{
-            //error
-            notie.alert('error', this.err.UPLOADIMG_FAILED,this.global.NOTIFICATION_DURATION);
-          }
-        }).catch(err => {
-          notie.alert('error', this.err.UPLOADIMG_FAILED,this.global.NOTIFICATION_DURATION);
-        }).done(() => {
-          setTimeout(() => {
-            if(this.tradeDivPic != null && this.tradeDivPic != undefined){
-              this.tradeDivPic.destroy(true,true);
+          this.profileSvc.uploadImg(results).then((data: any) => {
+            if (data.result == "ok") {
+              var url = this.global.SERVER + "/upload/" + data.newName;
+              this.allTradeImgs.push({ url: url, newName: data.newName });
+            } else {
+              //error
+              notie.alert('error', this.err.UPLOADIMG_FAILED, this.global.NOTIFICATION_DURATION);
             }
-            this.tradeDivPic =  new Swiper('.tradePic', {
-              nextButton: '.swiper-button-next',
-              prevButton: '.swiper-button-prev'
-            });
-            if(this.allTradeImgs != null && this.allTradeImgs != undefined && this.allTradeImgs.length > 0){
-              this.tradeDivPic.slideTo(this.allTradeImgs.length - 1);
-            }
-        },500)
-        loading.dismiss();
-        });
-      }
+          }).catch(err => {
+            notie.alert('error', this.err.UPLOADIMG_FAILED, this.global.NOTIFICATION_DURATION);
+          }).done(() => {
+            setTimeout(() => {
+              if (this.tradeDivPic != null && this.tradeDivPic != undefined) {
+                this.tradeDivPic.destroy(true, true);
+              }
+              this.tradeDivPic = new Swiper('.tradePic', {
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev'
+              });
+              if (this.allTradeImgs != null && this.allTradeImgs != undefined && this.allTradeImgs.length > 0) {
+                this.tradeDivPic.slideTo(this.allTradeImgs.length - 1);
+              }
+            }, 500)
+            loading.dismiss();
+          });
+        }
       })
-    },err => {
+    }, err => {
       console.log(err);
     })
   }
 
-  saveTrade(){
+  saveTrade() {
     var errMsg = "";
-    if(this.industry == null || this.industry == "" || this.industry == undefined){
+    if (this.industry == null || this.industry == "" || this.industry == undefined) {
       errMsg = "所属行业不能为空！";
-    }else if(this.product == null || this.product == "" || this.product == undefined){
-      errMsg = "名称不能为空！";
-    }else if(this.quantity == null || this.quantity == "" || this.quantity == undefined){
+    } else if (this.product == null || this.product == "" || this.product == undefined) {
+      errMsg = this.productLabelName + "不能为空！";
+    } else if (this.quantity == null || this.quantity == "" || this.quantity == undefined) {
       errMsg = "数量不能为空！";
-    }else if(this.price == null || this.price == "" || this.price == undefined){
+    } else if (this.price == null || this.price == "" || this.price == undefined) {
       errMsg = "价格不能为空！";
-    }else if(this.mobile == null || this.mobile == "" || this.mobile == undefined){
+    } else if (this.mobile == null || this.mobile == "" || this.mobile == undefined) {
       errMsg = "联系方式不能为空！";
-    }else if(this.contact == null || this.contact == "" || this.contact == undefined){
+    } else if (this.contact == null || this.contact == "" || this.contact == undefined) {
       errMsg = "联系人不能为空！";
-    }else if(this.provinceName == null || this.provinceName == "" || this.provinceName == undefined || this.cityName == null || this.cityName == "" || this.cityName == undefined){
+    } else if (this.provinceName == null || this.provinceName == "" || this.provinceName == undefined || this.cityName == null || this.cityName == "" || this.cityName == undefined) {
       errMsg = "交货地不能为空！";
     }
 
-    if(errMsg != ""){
+    if (errMsg != "") {
       notie.alert('error', errMsg, this.global.NOTIFICATION_DURATION);//err
       return;
     }
@@ -234,7 +226,7 @@ export class TradeDetailPage {
     this.allTradeImgs.forEach((img) => {
       this.imgNameStr = this.imgNameStr + img.newName + "|||";
     })
-    let obj={
+    let obj = {
       pics: this.imgNameStr,
       industry: this.industry,
       product: this.product,
@@ -245,14 +237,12 @@ export class TradeDetailPage {
       provinceName: this.provinceName,
       cityName: this.cityName,
       description: this.description,
-      documentType:this.documentType
+      documentType: this.documentType
     }
     this.tradeSvc.addTrade(obj).then((data: any) => {
-      if(data.result == "ok")
-      {
+      if (data.result == "ok") {
         this.navCtrl.pop();
-      }else
-      {
+      } else {
         notie.alert('error', this.err.OPTION_FAILED, this.global.NOTIFICATION_DURATION);//err
       }
     }).catch(err => {
