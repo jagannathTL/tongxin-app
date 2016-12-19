@@ -24,9 +24,9 @@ import { BydesignPage } from '../bydesign/bydesign';
 })
 export class HomePage {
 
-  ad01 = this.global.SERVER + '/ad/home_ad01.jpg';
-  ad02 = this.global.SERVER + '/ad/home_ad02.jpg';
-  ad03 = this.global.SERVER + '/ad/home_ad03.jpg';
+  ad01 = this.global.SERVER + '/ad/home_ad01.png';
+  ad02 = this.global.SERVER + '/ad/home_ad02.png';
+  ad03 = this.global.SERVER + '/ad/home_ad03.png';
 
   type = 'cast';
   items = [];
