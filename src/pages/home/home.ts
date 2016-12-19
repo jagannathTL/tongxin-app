@@ -27,6 +27,7 @@ export class HomePage {
   ad01 = this.global.SERVER + '/ad/home_ad01.png';
   ad02 = this.global.SERVER + '/ad/home_ad02.png';
   ad03 = this.global.SERVER + '/ad/home_ad03.png';
+  ad04 = this.global.SERVER + '/ad/home_ad04.png';
 
   type = 'cast';
   items = [];
@@ -39,12 +40,12 @@ export class HomePage {
     public loadingCtrl: LoadingController) {
     let load = loadingCtrl.create();
     load.present();
-    Promise.all([this.getCastData(),this.getProjectsData(),this.getMaterialsData()]).then(data => {
-      }).catch(err => {
-        console.log(err);
-      }).done(() => {
-        load.dismiss();
-      });
+    Promise.all([this.getCastData(), this.getProjectsData(), this.getMaterialsData()]).then(data => {
+    }).catch(err => {
+      console.log(err);
+    }).done(() => {
+      load.dismiss();
+    });
   }
 
   gotoTrade(title, documentType) {
@@ -55,20 +56,18 @@ export class HomePage {
     });
   }
 
-  gotoOptions(){
-    this.navCtrl.push(CommentListPage,{
+  gotoOptions() {
+    this.navCtrl.push(CommentListPage, {
       from: true,
       sName: '返回'
     })
   }
-  gotoUrlDetail(p){
+  gotoUrlDetail(p) {
     var u = "";
-    if(p.url == null || p.url == undefined)
-    {
+    if (p.url == null || p.url == undefined) {
       u = "http://app.shtx.com.cn/StaticHtml/WeixinPingLun.html?content=" + encodeURIComponent(p.title);
     }
-    else
-    {
+    else {
       u += p.url + '&mobile=' + this.global.MOBILE;
     }
     this.navCtrl.push(CommentDetailPage, {
@@ -76,9 +75,9 @@ export class HomePage {
     });
   }
 
-  getCastData(){
+  getCastData() {
     return this.commentSvc.getCommentTodayById(1271).then((data: any) => {
-      if(data != null && data != undefined && data.length > 0){
+      if (data != null && data != undefined && data.length > 0) {
         for (let i = 0; i < data.length; i++) {
           data[i].dateStr = data[i].date.substr(5, 14);
         }
@@ -92,13 +91,13 @@ export class HomePage {
     })
   }
 
-  gotoByDesign(){
+  gotoByDesign() {
     this.navCtrl.push(BydesignPage);
   }
 
-  getProjectsData(){
+  getProjectsData() {
     return this.commentSvc.getCommentTodayById(1276).then((data: any) => {
-      if(data != null && data != undefined && data.length > 0){
+      if (data != null && data != undefined && data.length > 0) {
         for (let i = 0; i < data.length; i++) {
           data[i].dateStr = data[i].date.substr(5, 14);
         }
@@ -112,9 +111,9 @@ export class HomePage {
     })
   }
 
-  getMaterialsData(){
+  getMaterialsData() {
     return this.commentSvc.getCommentTodayById(1277).then((data: any) => {
-      if(data != null && data != undefined && data.length > 0){
+      if (data != null && data != undefined && data.length > 0) {
         for (let i = 0; i < data.length; i++) {
           data[i].dateStr = data[i].date.substr(5, 14);
         }
@@ -140,8 +139,7 @@ export class HomePage {
     this.navCtrl.push(PricePage);
   }
 
-  gotoPinglun(marketId, sName, mName)
-  {
+  gotoPinglun(marketId, sName, mName) {
     this.navCtrl.push(CommentListPage, {
       mId: marketId,
       sName: sName,
