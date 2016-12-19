@@ -80,11 +80,15 @@
   <div>
     <ion-list>
       <button text-wrap ion-item *ngFor='let x of items' (click)="gotoUrlDetail(x)">
-        <ion-row style="padding-bottom: 10px;">
+        <ion-row>
+          <ion-col>
             {{x.title}}
+          </ion-col>
         </ion-row>
         <ion-row class="secondColor">
+          <ion-col>
             {{x.dateStr}}
+          </ion-col>
         </ion-row>
       </button>
     </ion-list>
