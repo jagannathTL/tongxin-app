@@ -41,3 +41,15 @@ ion-col[width-70] {
   color: #7a7a7a;
   font-size: 80%;
 }
+
+.positive {
+  background: map-get($colors, positive);
+}
+
+.negative {
+  background: map-get($colors, negative);
+}
+
+.zero {
+  color: map-get($colors, dark);
+}

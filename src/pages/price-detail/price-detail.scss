@@ -1,12 +1,4 @@
 page-price-detail {
-  .positive {
-    color: map-get($colors, positive);
-  }
-
-  .negative {
-    color: map-get($colors, negative);
-  }
-
   .zero {
     color: map-get($colors, dark);
   }

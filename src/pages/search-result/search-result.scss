@@ -1,16 +1,4 @@
 page-search-result {
-  .positive {
-    color: map-get($colors, positive);
-  }
-
-  .negative {
-    color: map-get($colors, negative);
-  }
-
-  .zero {
-    color: map-get($colors, dark);
-  }
-
   ion-item-sliding .label-ios {
     margin: 0;
   }

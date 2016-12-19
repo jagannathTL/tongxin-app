@@ -6,12 +6,4 @@ page-home {
   #btn2 .item-inner {
     border-bottom: 0;
   }
-
-  .positive {
-    background: map-get($colors, positive);
-  }
-
-  .negative {
-    background: map-get($colors, negative);
-  }
 }
