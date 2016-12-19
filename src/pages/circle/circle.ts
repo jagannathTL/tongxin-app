@@ -6,6 +6,7 @@ import { TradePage } from '../trade/trade';
 import { Global } from '../../providers/global';
 import { LoginPage } from '../login/login';
 import { CommentListPage } from '../comment-list/comment-list';
+declare const Swiper: any;
 
 /*
   Generated class for the Circle page.
@@ -18,6 +19,10 @@ import { CommentListPage } from '../comment-list/comment-list';
   templateUrl: 'circle.html'
 })
 export class CirclePage {
+
+  ad01 = this.global.SERVER + '/ad/circle_ad01.png';
+  ad02 = this.global.SERVER + '/ad/circle_ad02.png';
+  ad03 = this.global.SERVER + '/ad/circle_ad03.png';
 
   constructor(public navCtrl: NavController, public global: Global, public app: App, public viewCtrl: ViewController) {
     if (this.global.IS_LOGGEDIN == false) {
@@ -49,6 +54,20 @@ export class CirclePage {
     this.navCtrl.push(CommentListPage, {
       from: true
     })
+  }
+
+  ionViewDidLoad() {
+    let adMain = document.getElementById('adMain');
+    adMain.style.width = document.body.clientWidth + 'px';
+    adMain.style.height = document.body.clientWidth / this.global.AD_MAIN_RATIO + 'px';
+    new Swiper('.swiper-container', {
+      pagination: '.swiper-pagination',
+      paginationClickable: true,
+      loop: true,
+      between: 0,
+      autoplay: 2 * 1000,
+      autoplayDisableOnInteraction: false
+    });
   }
 
   gotoPinglun(marketId, sName, mName) {
