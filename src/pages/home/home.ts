@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, ModalController, LoadingController } from 'ionic-angular';
 import { Global } from '../../providers/global';
 import { FuturesPage } from '../futures/futures';
@@ -34,10 +34,11 @@ export class HomePage {
   cast = [];
   projects = [];
   materials = [];
+  swiper : any;
 
   constructor(public navCtrl: NavController, public global: Global,
     public modalCtrl: ModalController, public commentSvc: CommentSvc,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController, public zone: NgZone) {
     let load = loadingCtrl.create();
     load.present();
     Promise.all([this.getCastData(), this.getProjectsData(), this.getMaterialsData()]).then(data => {
@@ -161,8 +162,8 @@ export class HomePage {
     let adMain = document.getElementById('adMain');
     adMain.style.width = document.body.clientWidth + 'px';
     adMain.style.height = document.body.clientWidth / this.global.AD_MAIN_RATIO + 'px';
-    new Swiper('.swiper-container', {
-      pagination: '.swiper-pagination',
+    this.swiper = new Swiper('.home-swiper', {
+      pagination: '.home-pagination',
       paginationClickable: true,
       loop: true,
       between: 0,
@@ -170,4 +171,15 @@ export class HomePage {
       autoplayDisableOnInteraction: false
     });
   }
+
+
+  ionViewDidEnter(){
+      this.swiper.startAutoplay();
+  }
+
+  ionViewWillLeave(){
+    this.swiper.stopAutoplay();
+  }
+
+
 }

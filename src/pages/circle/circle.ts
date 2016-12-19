@@ -20,6 +20,7 @@ declare const Swiper: any;
 })
 export class CirclePage {
 
+  swiper:any;
   ad01 = this.global.SERVER + '/ad/circle_ad01.png';
   ad02 = this.global.SERVER + '/ad/circle_ad02.png';
   ad03 = this.global.SERVER + '/ad/circle_ad03.png';
@@ -60,14 +61,15 @@ export class CirclePage {
     let adMain = document.getElementById('adMain');
     adMain.style.width = document.body.clientWidth + 'px';
     adMain.style.height = document.body.clientWidth / this.global.AD_MAIN_RATIO + 'px';
-    new Swiper('.swiper-container', {
-      pagination: '.swiper-pagination',
+    this.swiper = new Swiper('.circle-swiper', {
+      pagination: '.circle-pagination',
       paginationClickable: true,
       loop: true,
       between: 0,
       autoplay: 2 * 1000,
       autoplayDisableOnInteraction: false
     });
+    //debugger;
   }
 
   gotoPinglun(marketId, sName, mName) {
@@ -76,5 +78,13 @@ export class CirclePage {
       sName: sName,
       mName: mName
     });
+  }
+
+  ionViewDidEnter(){
+      this.swiper.startAutoplay();
+  }
+
+  ionViewWillLeave(){
+    this.swiper.stopAutoplay();
   }
 }
