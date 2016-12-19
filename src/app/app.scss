@@ -43,11 +43,11 @@ ion-col[width-70] {
 }
 
 .positive {
-  background: map-get($colors, positive);
+  color: map-get($colors, positive);
 }
 
 .negative {
-  background: map-get($colors, negative);
+  color: map-get($colors, negative);
 }
 
 .zero {

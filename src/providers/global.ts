@@ -26,7 +26,7 @@ export class Global {
 
   public PRICE_HISTORY_DURATION_DAYS = 90;
 
-  public IS_LOGGEDIN = false;
+  public IS_LOGGEDIN = true;
 
   public AD_MAIN_RATIO: number = 20 / 10;
 
