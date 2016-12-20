@@ -53,8 +53,7 @@ export class CommentPage {
 
   }
 
-  onCancel(e)
-  {
+  onCancel(e) {
     this.searchKey = "";
   }
 
@@ -197,11 +196,15 @@ export class CommentPage {
     this.getMarketCDatas();
   }
 
-  onSearch(event){
-    this.navCtrl.push(SearchResultPage,{
-      searchKey: this.searchKey,
-      searchType: "2"//2标识查询评论
-    });
+  onSearch(event) {
+    if (this.searchKey.length <= 1) {
+      notie.alert('error', this.err.QUERY_KEY_LENGTH_GREAT_2, this.global.NOTIFICATION_DURATION);//err
+    } else {
+      this.navCtrl.push(SearchResultPage, {
+        searchKey: this.searchKey,
+        searchType: "2"//2标识查询评论
+      });
+    }
   }
 
 }

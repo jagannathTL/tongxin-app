@@ -24,4 +24,5 @@ export class Errors {
   OPTION_FAILED = '操作失败，请重试！';
   LOGIN_ON_OTHER_MACHINE = '该账号已在其他终端登录，请重新登录！';
   UPLOADIMG_FAILED = '上传图片失败，请重试！';
+  QUERY_KEY_LENGTH_GREAT_2 = '查询关键字不能少于两个字！';
 }
