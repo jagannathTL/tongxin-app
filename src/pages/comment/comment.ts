@@ -89,6 +89,7 @@ export class CommentPage {
       });
     modal.onDidDismiss((data: any) => {
       this.inBuckets = data.list;
+      this.inBuckets.splice(0,0,data.defaultObj);
       setTimeout(() => {
         this.marketC.destroy(true, false);
         this.productC.destroy(true, false);

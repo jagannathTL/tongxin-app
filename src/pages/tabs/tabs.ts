@@ -29,7 +29,7 @@ export class TabsPage {
   constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
     public global: Global, public loadingCtrl: LoadingController,
     public events: Events, public platform: Platform, public zone: NgZone) {
-
+      debugger
     this.home = HomePage;
     this.inbox = InboxPage;
     this.circle = CirclePage;

@@ -83,6 +83,7 @@ export class PricePage {
     });
     modal.onDidDismiss((data: any) => {
       this.inBuckets = data.list;
+      this.inBuckets.splice(0,0,data.defaultObj);
       setTimeout(() => {
         this.marketS.destroy(true, false);
         this.productS.destroy(true, false);

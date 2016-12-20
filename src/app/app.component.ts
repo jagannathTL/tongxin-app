@@ -3,9 +3,12 @@ import { Platform, NavController, Events } from 'ionic-angular';
 import { StatusBar, SecureStorage, LocalNotifications, BackgroundMode, Badge} from 'ionic-native';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { OnboardPage } from '../pages/onboard/onboard';
+import { Storage } from '@ionic/storage';
 import { Push } from 'ionic-native';
 import { Global } from '../providers/global';
 import { Errors } from '../providers/errors';
+import { YellowSvc } from '../providers/yellow-svc';
 import { Http, URLSearchParams } from '@angular/http';
 declare const GeTuiSdkPlugin: any;
 declare const notie: any;
@@ -15,7 +18,9 @@ declare const notie: any;
 })
 export class MyApp {
   @ViewChild('myNav') nav: NavController
-  rootPage: any = TabsPage;
+  // rootPage: any = TabsPage;
+  rootPage: any = OnboardPage;
+  // rootPage: any;
 
   msgHanlder(data) {
     if (this.global.IS_LOGGEDIN == true) {
@@ -52,14 +57,17 @@ export class MyApp {
   }
 
   constructor(public platform: Platform, public global: Global,
-    public events: Events, public http: Http, public errors: Errors) {
+    public events: Events, public http: Http, public errors: Errors, public storage: Storage, public yellowSvc: YellowSvc) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
 
       BackgroundMode.enable();
-
+      // this.events.subscribe('onBoard:checkLogin',() => {
+      //   // this.nav.setRoot(TabsPage);
+      //   this.checkLogin();
+      // });
       BackgroundMode.ondeactivate().subscribe(data => {
         Badge.get().then(data => {
           this.events.publish('tabsPage:setBadge', data);
@@ -73,10 +81,9 @@ export class MyApp {
       if (this.platform.is('android')) {
         GeTuiSdkPlugin.callback_init((type, data) => {
           if (type == 'cid') {
-            console.log(data);
             if (this.global.DEVICE_ID == "") {
               this.global.DEVICE_ID = data;
-              this.checkLogin();
+              this.yellowSvc.checkLogin();
             }
           } else if (type == 'pid') {
             //TODO data = 进程pid
@@ -122,65 +129,75 @@ export class MyApp {
           //ios device id
           //console.log(data.registrationId);
           this.global.DEVICE_ID = data.registrationId;
-          this.checkLogin();
+          this.yellowSvc.checkLogin();
         })
       }
     });
   }
 
-  checkLogin() {
-    //自动登陆，读取用户名和密码
-    let secureStorage: SecureStorage = new SecureStorage();
-    secureStorage.create('tongxin')
-      .then(
-      () => {
-        secureStorage.get('mobile')
-          .then(
-          data => {
-            let mobile = data;
-            secureStorage.get('password')
-              .then(
-              data => {
-                let password = data;
-                //自动登录，如果成功setroot到tabs页面
-                let deviceId = this.global.DEVICE_ID;
-                let phoneType = '1';//ios=0;android=1;
-                if (this.platform.is('ios')) {
-                  phoneType = '0';
-                }
-                else if (this.platform.is('android')) {
-                  phoneType = '1';
-                }
-                else {
-                  phoneType = '-1';
-                }
-                let params: URLSearchParams = new URLSearchParams();
-                params.set('method', 'signin');
-                params.set('mobile', mobile);
-                params.set('password', password);
-                params.set('token', deviceId);
-                params.set('phoneType', phoneType);
-                this.http.get(this.global.SERVER + '/Handlers/LoginHandler.ashx', {
-                  search: params
-                }).map(res => res.json()).subscribe(data => {
-                  if (data.result == "ok") {
-                    this.global.MOBILE = mobile;
-                    this.global.IS_LOGGEDIN = true;
-                  }
-                }, error => {
-                  console.log(error);
-                });
-              },
-              error => {
-                console.log(error);
-              });
-          },
-          error => {
-            console.log(error);
-          });
-      },
-      error => {
-        console.log(error);
-      });
-  }
+  // checkLogin() {
+  //   //用来判断是否第一次下载或者更新 显示onBoardPage
+  //   this.storage.get('isFirst').then((first: any) => {
+  //     if(first == null || first == undefined){
+  //       this.storage.set('isFirst', false);
+  //     }
+  //     else{
+  //       //自动登陆，读取用户名和密码
+  //       let secureStorage: SecureStorage = new SecureStorage();
+  //       secureStorage.create('tongxin')
+  //         .then(
+  //         () => {
+  //           secureStorage.get('mobile')
+  //             .then(
+  //             data => {
+  //               let mobile = data;
+  //               secureStorage.get('password')
+  //                 .then(
+  //                 data => {
+  //                   let password = data;
+  //                   //自动登录，如果成功setroot到tabs页面
+  //                   let deviceId = this.global.DEVICE_ID;
+  //                   let phoneType = '1';//ios=0;android=1;
+  //                   if (this.platform.is('ios')) {
+  //                     phoneType = '0';
+  //                   }
+  //                   else if (this.platform.is('android')) {
+  //                     phoneType = '1';
+  //                   }
+  //                   else {
+  //                     phoneType = '-1';
+  //                   }
+  //                   let params: URLSearchParams = new URLSearchParams();
+  //                   params.set('method', 'signin');
+  //                   params.set('mobile', mobile);
+  //                   params.set('password', password);
+  //                   params.set('token', deviceId);
+  //                   params.set('phoneType', phoneType);
+  //                   this.http.get(this.global.SERVER + '/Handlers/LoginHandler.ashx', {
+  //                     search: params
+  //                   }).map(res => res.json()).subscribe(data => {
+  //                     if (data.result == "ok") {
+  //                       this.nav.setRoot(TabsPage);
+  //                       this.global.MOBILE = mobile;
+  //                       this.global.IS_LOGGEDIN = true;
+  //                     }
+  //                   }, error => {
+  //                     console.log(error);
+  //                   });
+  //                 },
+  //                 error => {
+  //                   console.log(error);
+  //                 });
+  //             },
+  //             error => {
+  //               console.log(error);
+  //             });
+  //         },
+  //         error => {
+  //           console.log(error);
+  //         });
+  //     }
+  //   });
+  // }
+
 }

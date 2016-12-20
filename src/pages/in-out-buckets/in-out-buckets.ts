@@ -112,8 +112,8 @@ export class InOutBucketsPage {
 
   closeModal()
   {
-    this.inBuckets.splice(0,0,this.defaultObj);
-    this.viewCtrl.dismiss({list:this.inBuckets});
+    // this.inBuckets.splice(0,0,this.defaultObj);
+    this.viewCtrl.dismiss({list:this.inBuckets, defaultObj:this.defaultObj});
   }
 
   ionViewWillLeave()

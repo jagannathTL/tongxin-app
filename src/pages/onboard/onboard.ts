@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Events, Platform } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { Splashscreen } from 'ionic-native';
+import { YellowSvc } from '../../providers/yellow-svc';
+declare const Swiper: any;
 
 /*
   Generated class for the Onboard page.
@@ -13,10 +17,22 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class OnboardPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public events: Events, public yellowSvc: YellowSvc) {
+    platform.ready().then(() => {
+      Splashscreen.hide();
+    });
+  }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad OnboardPage');
+    new Swiper(".swiper-container", {
+      pagination: ".swiper-pagination",
+      paginationClickable: true
+    });
+  }
+
+  gotoApp(){
+    // this.ye.publish('onBoard:checkLogin');
+    this.yellowSvc.checkLogin();
   }
 
 }
