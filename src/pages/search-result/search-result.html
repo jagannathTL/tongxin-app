@@ -19,36 +19,31 @@
     <ion-item-sliding *ngFor='let com of c.pinglun' #slidingComItem>
       <button ion-item (click)='gotoComDetail(com.url)'>
         <ion-row>
-        <ion-col width-25 center>
-        <ion-thumbnail item-left>
-          <img [src]="com.avatar" style="width:60px" />
-        </ion-thumbnail>
-        </ion-col>
         <ion-col>
             <ion-row>
               <ion-col>
                 {{com.title}}
               </ion-col>
             </ion-row>
-            <ion-row>
-              <ion-col style="font-size: 80%">
+            <ion-row class="secondColor">
+              <ion-col>
                 {{com.productname}}
               </ion-col>
-              <ion-col class="secondColor" text-right center>
+              <ion-col text-right center>
                 {{com.date}}
               </ion-col>
             </ion-row>
         </ion-col>
         </ion-row>
     </button>
-    <ion-item-options side="right">
-      <button *ngIf="com.isOrder == 'NO'" ion-button (click)="subscribeOrC(com, 'YES' ,slidingComItem)">
+      <ion-item-options side="right">
+        <button *ngIf="com.isOrder == 'NO'" ion-button (click)="subscribeOrC(com, 'YES' ,slidingComItem)">
         添加关注
       </button>
-      <button *ngIf="com.isOrder != 'NO'" ion-button color='danger' (click)="subscribeOrC(com, 'NO', slidingComItem)">
+        <button *ngIf="com.isOrder != 'NO'" ion-button color='danger' (click)="subscribeOrC(com, 'NO', slidingComItem)">
         取消关注
       </button>
-    </ion-item-options>
+      </ion-item-options>
     </ion-item-sliding>
   </ion-list>
 
