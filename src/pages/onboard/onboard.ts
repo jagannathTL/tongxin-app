@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, Events, Platform } from 'ionic-angular';
+import { Component, NgZone } from '@angular/core';
+import { NavController, NavParams, Events, Platform, App } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Splashscreen } from 'ionic-native';
 import { YellowSvc } from '../../providers/yellow-svc';
+import { TabsPage } from '../tabs/tabs';
 declare const Swiper: any;
 
 /*
@@ -17,8 +18,12 @@ declare const Swiper: any;
 })
 export class OnboardPage {
 
-  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public events: Events, public yellowSvc: YellowSvc) {
-    platform.ready().then(() => {
+  constructor(public zone:NgZone, public app:App, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public events: Events, public yellowSvc: YellowSvc) {
+
+  }
+
+  ionViewDidEnter(){
+    this.platform.ready().then(() => {
       Splashscreen.hide();
     });
   }
@@ -31,8 +36,12 @@ export class OnboardPage {
   }
 
   gotoApp(){
-    // this.ye.publish('onBoard:checkLogin');
-    this.yellowSvc.checkLogin();
+      this.storage.set('isFirst', false).then(() => {
+        this.yellowSvc.checkLogin();
+        this.zone.run(() => {
+          this.app.getRootNav().setRoot(TabsPage);
+      });
+      });
   }
 
 }
