@@ -35,10 +35,10 @@
       </button>
       <ion-item-options side="right">
         <button *ngIf="com.isOrder == 'NO'" ion-button (click)="subscribeOrC(com, 'YES' ,slidingComItem)">
-          添加关注
+          关注
         </button>
         <button *ngIf="com.isOrder != 'NO'" ion-button color='danger' (click)="subscribeOrC(com, 'NO', slidingComItem)">
-          取消关注
+          取消
         </button>
       </ion-item-options>
     </ion-item-sliding>
