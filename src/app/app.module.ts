@@ -40,6 +40,7 @@ import { SearchResultPage } from '../pages/search-result/search-result';
 import { SearchSvc } from '../providers/search-svc';
 import { SharePage } from '../pages/share/share';
 import { BydesignPage } from '../pages/bydesign/bydesign';
+import { OnboardPage } from '../pages/onboard/onboard';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { BydesignPage } from '../pages/bydesign/bydesign';
     HomePage,
     SearchResultPage,
     SharePage,
-    BydesignPage
+    BydesignPage,
+    OnboardPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -113,7 +115,8 @@ import { BydesignPage } from '../pages/bydesign/bydesign';
     HomePage,
     SearchResultPage,
     SharePage,
-    BydesignPage
+    BydesignPage,
+    OnboardPage
   ],
   providers: [Global, RegisterSvc, PriceSvc, Errors,
     ForgetPasswordSvc, InboxSvc, BucketSvc, CommentSvc,
