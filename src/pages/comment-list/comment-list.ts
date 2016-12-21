@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams, LoadingController, ViewController } from 'ionic-angular';
 import { CommentSvc } from '../../providers/comment-svc';
 import { Global } from '../../providers/global';
@@ -31,7 +31,7 @@ export class CommentListPage {
   sName;
   mName;
 
-  constructor(public navCtrl: NavController, public param: NavParams,
+  constructor(public zone: NgZone, public navCtrl: NavController, public param: NavParams,
     public commentSvc: CommentSvc, public global: Global, public loading: LoadingController,
     public errors: Errors, public viewCtrl: ViewController) {
     this.sName = param.get("sName");
@@ -49,7 +49,7 @@ export class CommentListPage {
       this.qhList = _.orderBy(this.qhList, ['time'], ['desc']);
       this.xhList = _.orderBy(this.xhList, ['time'], ['desc']);
         if (this.type == "qh") {
-          
+
           this.comList = this.qhList;
         }
         else if (this.type == "xh") {
@@ -144,12 +144,14 @@ export class CommentListPage {
         }
       }
       else {
-        if (pro.isOrder == 'NO') {
-          pro.isOrder = 'YES';
-        }
-        else {
-          pro.isOrder = 'NO';
-        }
+        this.zone.run(() => {
+          if (pro.isOrder == 'NO') {
+            pro.isOrder = 'YES';
+          }
+          else {
+            pro.isOrder = 'NO';
+          }
+        });
       }
     }).catch((err) => {
       notie.alert('error', this.errors.OPTION_FAILED, this.global.NOTIFICATION_DURATION);
