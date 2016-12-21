@@ -33,7 +33,7 @@
     <ion-row>
       <ion-col>
         <div id="inBucketC" style="padding-bottom:50px">
-          <button padding ion-button color="dark">{{defaultObj.name}}</button><button color='light' (click)="appendOut(inB.name)" padding ion-button class="moveClass shake" *ngFor="let inB of inBuckets">{{inB.name}}</button>
+          <button padding ion-button color="dark">{{defaultObj.name}}</button><button color='light' (click)="appendOut(inB.name)" padding ion-button class="moveClass" *ngFor="let inB of inBuckets">{{inB.name}}</button>
         </div>
       </ion-col>
     </ion-row>
@@ -52,7 +52,7 @@
     <ion-row>
       <ion-col>
         <div id="outBucketC">
-          <button color='light' (click)="appendIn(outB.name)" padding ion-button class="shake" *ngFor="let outB of outBuckets">{{outB.name}}</button>
+          <button color='light' (click)="appendIn(outB.name)" padding ion-button *ngFor="let outB of outBuckets">{{outB.name}}</button>
         </div>
       </ion-col>
     </ion-row>
