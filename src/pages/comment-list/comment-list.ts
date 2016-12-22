@@ -39,11 +39,19 @@ export class CommentListPage {
     this.from = param.get("from");
     this.marketId = param.get("mId");
 
+
+  }
+
+  ionViewWillEnter() {
+    this.viewCtrl.setBackButtonText(this.sName);
+  }
+
+  ionViewDidEnter() {
     if (this.from) {
       this.titleStr = "操作指导";
       this.sName = '返回';
       this.comList = [];
-      let load = loading.create();
+      let load = this.loading.create();
       load.present();
       Promise.all([this.getQH1Data(), this.getQH2Data(), this.getXH1Data(), this.getXH2Data()]).then((data: any) => {
       this.qhList = _.orderBy(this.qhList, ['time'], ['desc']);
@@ -65,10 +73,6 @@ export class CommentListPage {
       this.titleStr = this.mName;
       this.getDetailData();
     }
-  }
-
-  ionViewWillEnter() {
-    this.viewCtrl.setBackButtonText(this.sName);
   }
 
   getQH1Data() {
