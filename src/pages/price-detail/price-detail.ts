@@ -27,15 +27,18 @@ export class PriceDetailPage {
     public global: Global, public errors: Errors, public loadingCtrl: LoadingController) {
     this.market = navParams.get('market');
     this.type = navParams.get('type');
-    let loading = loadingCtrl.create();
-    loading.present();
-    priceSvc.getPriceDetail(this.global.MOBILE, this.market.id, 1, this.type.id).then(data => {
-      this.items = data;
-    }).catch(err => {
-      notie.alert('error', this.errors.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);
-    }).done(() => {
-      loading.dismiss();
-    });
+
+    setTimeout(() => {
+      let loading = loadingCtrl.create();
+      loading.present();
+      priceSvc.getPriceDetail(this.global.MOBILE, this.market.id, 1, this.type.id).then(data => {
+        this.items = data;
+      }).catch(err => {
+        notie.alert('error', this.errors.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);
+      }).done(() => {
+        loading.dismiss();
+      });
+    }, 500);
   }
 
   ionViewWillEnter() {
@@ -54,8 +57,8 @@ export class PriceDetailPage {
     this.priceSvc.subscribe(product.ProductId, this.global.MOBILE).then(data => {
       if (data.result == 'error') {
         notie.alert('error', this.errors.SUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
-      }else{
-        product.isOrder='YES';
+      } else {
+        product.isOrder = 'YES';
       }
     }).catch(err => {
       console.log(err);
@@ -69,8 +72,8 @@ export class PriceDetailPage {
     this.priceSvc.unsubscribe(product.ProductId, this.global.MOBILE).then(data => {
       if (data.result == 'error') {
         notie.alert('error', this.errors.UNSUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
-      }else{
-        product.isOrder='NO';
+      } else {
+        product.isOrder = 'NO';
       }
     }).catch(err => {
       console.log(err);

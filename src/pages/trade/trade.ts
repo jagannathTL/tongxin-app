@@ -44,18 +44,19 @@ export class TradePage {
     else {
       this.productLabelName = '供应';
     }
-    this.getTradeDataList();
-    this.getProvinces();
-    let load = loading.create({});
-    load.present();
-    Promise.all([this.getProvinces(), this.getTradeDataList()]).then((data) => {
-
-    }).catch(err => {
-      notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
-    }).done(() => {
-      this.searchTradeList();
-      load.dismiss();
-    })
+    setTimeout(() => {
+      let load = loading.create({});
+      load.present();
+      this.getTradeDataList();
+      this.getProvinces();
+      Promise.all([this.getProvinces(), this.getTradeDataList()]).then((data) => {
+      }).catch(err => {
+        notie.alert('error', this.err.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);//err
+      }).done(() => {
+        this.searchTradeList();
+        load.dismiss();
+      })
+    }, 500);
   }
 
   gotoDetail(trade) {

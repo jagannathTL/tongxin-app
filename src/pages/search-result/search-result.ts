@@ -30,17 +30,19 @@ export class SearchResultPage {
   constructor(public commentSvc: CommentSvc, public priceSvc: PriceSvc, public errors: Errors, public navCtrl: NavController, public navParams: NavParams, public searchSvc: SearchSvc, public global: Global, public loading: LoadingController) {
     this.searchKey = navParams.get('searchKey');
     this.searchType = navParams.get('searchType');
-    if (this.searchType == "1") {
-      this.comments = [];
-      this.searchTitle = "查询价格";
-      this.getData();
-    }
-    else {
-      this.prices = [];
-      this.searchTitle = "评论查询";
-      this.getPLData();
-    }
 
+    setTimeout(() => {
+      if (this.searchType == "1") {
+        this.comments = [];
+        this.searchTitle = "查询价格";
+        this.getData();
+      }
+      else {
+        this.prices = [];
+        this.searchTitle = "评论查询";
+        this.getPLData();
+      }
+    }, 500);
   }
 
   gotoComDetail(url) {
@@ -71,7 +73,7 @@ export class SearchResultPage {
         data.forEach((d) => {
           var products = [];
           d.products.forEach((p) => {
-            products.push({change: p.Change, pName: p.ProductName, pId: p.ProductId, priceStr: p.LPrice + "-" + p.HPrice, date: p.Date, Comment: p.Comment});
+            products.push({ change: p.Change, pName: p.ProductName, pId: p.ProductId, priceStr: p.LPrice + "-" + p.HPrice, date: p.Date, Comment: p.Comment });
           })
           this.prices.push({ name: d.name, id: d.id, products: products });
         })

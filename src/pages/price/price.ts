@@ -36,10 +36,12 @@ export class PricePage {
     public loading: LoadingController, public modalCtrl: ModalController,
     public ref: ChangeDetectorRef, public zone: NgZone, public viewCtrl: ViewController,
     public app: App) {
-      if (this.global.IS_LOGGEDIN == false) {
-        this.app.getRootNav().setRoot(LoginPage);
-      }
+    if (this.global.IS_LOGGEDIN == false) {
+      this.app.getRootNav().setRoot(LoginPage);
+    }
+    setTimeout(() => {
       this.getMarketDatas();
+    }, 500);
   }
 
   refresh() {
@@ -66,8 +68,8 @@ export class PricePage {
   defaultSlide() {
 
     if (this.inBuckets.length < (this.index + 1)) {
-     this.index = (this.inBuckets.length - 1);
-   }
+      this.index = (this.inBuckets.length - 1);
+    }
     this.marketS.slideTo(this.index);
     this.productS.slideTo(this.index, 0, true);
 
@@ -83,7 +85,7 @@ export class PricePage {
     });
     modal.onDidDismiss((data: any) => {
       this.inBuckets = data.list;
-      this.inBuckets.splice(0,0,data.defaultObj);
+      this.inBuckets.splice(0, 0, data.defaultObj);
       setTimeout(() => {
         this.marketS.destroy(true, false);
         this.productS.destroy(true, false);
@@ -102,9 +104,9 @@ export class PricePage {
             divs.eq(index).css("color", "red").css("border-bottom", "2px solid red");
           }
         });
-      this.productS.params.control = this.marketS;
-      this.defaultSlide();
-    },500)
+        this.productS.params.control = this.marketS;
+        this.defaultSlide();
+      }, 500)
     });
     modal.present();
   }
@@ -167,14 +169,14 @@ export class PricePage {
     });
   }
 
-  onSearch(event){
-    this.navCtrl.push(SearchResultPage,{
+  onSearch(event) {
+    this.navCtrl.push(SearchResultPage, {
       searchKey: this.searchKey,
       searchType: "1"//查询标识 1标识是价格查询
     });
   }
 
-  onCancel(e){
+  onCancel(e) {
     this.searchKey = "";
   }
 

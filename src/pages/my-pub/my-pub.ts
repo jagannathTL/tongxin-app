@@ -24,11 +24,9 @@ export class MyPubPage {
   titleStr: any = "供应";
 
   constructor(public navCtrl: NavController, public global: Global, public errors: Errors, public tradeSvc: TradeSvc, public loading: LoadingController) {
-    this.getDatas();
-  }
-
-  ionViewDidLoad() {
-    console.log('Hello MyPubPage Page');
+    setTimeout(() => {
+      this.getDatas();
+    }, 500);
   }
 
   ionChange() {
