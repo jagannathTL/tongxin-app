@@ -28,7 +28,9 @@ export class PriceHistoryPage {
     public viewCtrl: ViewController, public priceSvc: PriceSvc, public global: Global, public errors: Errors, public loadingCtrl: LoadingController) {
     this.product = navParams.get('product');
     this.backText = navParams.get('backText');
-    this.getHistoryPrices();
+    setTimeout(()=>{
+      this.getHistoryPrices();
+    },500);
   }
 
   getHistoryPrices() {

@@ -48,7 +48,9 @@ export class ProfilePage {
 
   ionViewWillEnter(){
     this.viewCtrl.setBackButtonText('我的');
-    this.getAddressData();
+    setTimeout(()=>{
+          this.getAddressData();
+    },500);
   }
 
   removePics(){

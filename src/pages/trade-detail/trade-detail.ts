@@ -59,8 +59,10 @@ export class TradeDetailPage {
       this.documentType = 2;
       this.productLabelName = '供应';
     }
-    this.setIndustryList();
-    this.getAddressData();
+    setTimeout(()=>{
+      this.setIndustryList();
+      this.getAddressData();
+    },500);
   }
 
   setIndustryList() {

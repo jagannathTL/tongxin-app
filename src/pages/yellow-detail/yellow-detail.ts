@@ -30,8 +30,9 @@ export class YellowDetailPage {
   constructor(public navCtrl: NavController, public yellowSvc: YellowSvc, public navParms: NavParams, public loading: LoadingController, public global: Global, public zone: NgZone) {}
 
   ionViewDidLoad() {
-    console.log('Hello YellowDetailPage Page');
-    this.getCompanyData();
+    setTimeout(()=>{
+      this.getCompanyData();
+    },500);
   }
 
   getCompanyData()
@@ -66,13 +67,13 @@ export class YellowDetailPage {
         this.allImgs.push({url:url, newName:img});
       });
       }
-    })
+    });
+    
     setTimeout(() => {
       new Swiper(".companyDetailPics",{
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev'
       })
-    }, 500)
+    }, 500);
   }
-
 }

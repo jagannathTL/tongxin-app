@@ -42,9 +42,12 @@ export class CommentPage {
     if (this.global.IS_LOGGEDIN == false) {
       this.app.getRootNav().setRoot(LoginPage);
     }
-    setTimeout(()=>{
-      this.getMarketCDatas();
-    },500);
+    else
+    {
+      setTimeout(()=>{
+        this.getMarketCDatas();
+      },500);
+    }
   }
 
   ionViewWillEnter() {

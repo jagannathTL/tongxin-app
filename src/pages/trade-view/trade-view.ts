@@ -18,11 +18,9 @@ export class TradeViewPage {
   allImgs: any = [];
   title: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public zone: NgZone, public global: Global) {
-    this.getData();
-  }
-
-  ionViewDidLoad() {
-    console.log('Hello TradeViewPage Page');
+    setTimeout(()=>{
+      this.getData();
+    },500);
   }
 
   getData(){

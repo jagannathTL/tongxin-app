@@ -39,9 +39,12 @@ export class PricePage {
     if (this.global.IS_LOGGEDIN == false) {
       this.app.getRootNav().setRoot(LoginPage);
     }
-    setTimeout(() => {
-      this.getMarketDatas();
-    }, 500);
+    else
+    {
+      setTimeout(() => {
+        this.getMarketDatas();
+      }, 500);
+    }
   }
 
   refresh() {
