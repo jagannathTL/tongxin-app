@@ -29,9 +29,8 @@ export class YellowPage {
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, public popoverCtrl: PopoverController, public profileSvc: ProfileSvc, public global: Global, public err: Errors, public loading: LoadingController, public yellowSvc: YellowSvc, public zone: NgZone) { }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     this.getProvinces();
-    console.log('Hello YellowPage Page');
     this.getOpenList();
     this.searchDataList();
   }
