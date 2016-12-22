@@ -32,7 +32,19 @@ export class OnboardPage {
   ionViewDidLoad() {
     new Swiper(".swiper-container", {
       pagination: ".swiper-pagination",
-      paginationClickable: true
+      paginationClickable: true,
+      onTransitionStart: (swiper) => {
+        if (swiper.isBeginning == true){
+          swiper.lockSwipeToPrev();
+        }else{
+          swiper.unlockSwipeToPrev();
+        }
+        if (swiper.isEnd == true){
+          swiper.lockSwipeToNext();
+        }else{
+          swiper.unlockSwipeToNext();
+        }
+      }
     });
   }
 
