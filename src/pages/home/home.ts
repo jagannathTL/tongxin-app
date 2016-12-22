@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, ModalController, LoadingController } from 'ionic-angular';
+import { NavController, ModalController, LoadingController, Platform } from 'ionic-angular';
 import { Global } from '../../providers/global';
 import { FuturesPage } from '../futures/futures';
 import { PricePage } from '../price/price';
@@ -12,6 +12,9 @@ import * as Promise from 'promise';
 import * as _ from 'lodash';
 import { TradePage } from '../trade/trade';
 import { BydesignPage } from '../bydesign/bydesign';
+import { Storage } from '@ionic/storage';
+import {Splashscreen} from 'ionic-native';
+
 /*
   Generated class for the Home page.
 
@@ -34,18 +37,31 @@ export class HomePage {
   cast = [];
   projects = [];
   materials = [];
-  swiper : any;
+  swiper: any;
 
   constructor(public navCtrl: NavController, public global: Global,
     public modalCtrl: ModalController, public commentSvc: CommentSvc,
-    public loadingCtrl: LoadingController, public zone: NgZone) {
-    let load = loadingCtrl.create();
-    load.present();
-    Promise.all([this.getCastData(), this.getProjectsData(), this.getMaterialsData()]).then(data => {
-    }).catch(err => {
-      console.log(err);
-    }).done(() => {
-      load.dismiss();
+    public loadingCtrl: LoadingController, public zone: NgZone, public storage: Storage,
+    public platform: Platform) {
+
+    this.storage.get('isFirst').then((first: any) => {
+      if (first != null && first != undefined) {
+        this.zone.run(() => {
+          platform.ready().then(() => {
+            setTimeout(() => {
+              Splashscreen.hide();
+            }, 500);
+          });
+        })
+        let load = loadingCtrl.create();
+        load.present();
+        Promise.all([this.getCastData(), this.getProjectsData(), this.getMaterialsData()]).then(data => {
+        }).catch(err => {
+          console.log(err);
+        }).done(() => {
+          load.dismiss();
+        });
+      }
     });
   }
 
@@ -173,11 +189,11 @@ export class HomePage {
   }
 
 
-  ionViewDidEnter(){
-      this.swiper.startAutoplay();
+  ionViewDidEnter() {
+    this.swiper.startAutoplay();
   }
 
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     this.swiper.stopAutoplay();
   }
 

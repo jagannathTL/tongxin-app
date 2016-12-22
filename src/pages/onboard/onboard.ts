@@ -24,8 +24,9 @@ export class OnboardPage {
 
   ionViewDidEnter() {
     this.platform.ready().then(() => {
-      Splashscreen.hide();
-      // this.app.getRootNav().push(TabsPage);
+      setTimeout(() => {
+        Splashscreen.hide();
+      }, 500);
     });
   }
 
@@ -54,8 +55,8 @@ export class OnboardPage {
   gotoApp() {
     this.storage.set('isFirst', false).then(() => {
       this.yellowSvc.checkLogin();
-        this.zone.run(() => {
-          this.app.getRootNav().setRoot(TabsPage);
+      this.zone.run(() => {
+        this.app.getRootNav().setRoot(TabsPage);
       });
     });
   }

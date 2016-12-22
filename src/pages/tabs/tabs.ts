@@ -35,18 +35,6 @@ export class TabsPage {
     this.circle = CirclePage;
     this.info = InfoPage;
 
-    this.storage.get('isFirst').then((first: any) => {
-      if (first != null && first != undefined) {
-        this.zone.run(() => {
-          platform.ready().then(() => {
-            setTimeout(() => {
-              Splashscreen.hide();
-            }, 500);
-          });
-        })
-      }
-    });
-
     events.unsubscribe('inbox:clearTabsBadge');
     events.subscribe('inbox:clearTabsBadge', () => {
       this.zone.run(() => {
