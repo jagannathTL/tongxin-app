@@ -4,7 +4,7 @@ page-comment {
     width: 100%;
   }
 
-  ion-item.item-ios.item-block>.item-inner {
+  ion-item.item-ios.item-block > .item-inner {
     padding-right: 0;
   }
 
@@ -32,6 +32,7 @@ page-comment {
 
   .swiper-wrapper .pro {
     overflow: scroll;
+    overflow-x: hidden;
     display: block;
   }
 
@@ -43,7 +44,7 @@ page-comment {
     border-bottom: 0;
   }
 
-  ion-label{
+  ion-label {
     white-space: normal;
   }
 }
