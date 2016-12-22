@@ -29,7 +29,8 @@ export class YellowDetailPage {
 
   constructor(public navCtrl: NavController, public yellowSvc: YellowSvc, public navParms: NavParams, public loading: LoadingController, public global: Global, public zone: NgZone) {}
 
-  ionViewDidEnter() {
+  ionViewDidLoad() {
+    console.log('Hello YellowDetailPage Page');
     this.getCompanyData();
   }
 

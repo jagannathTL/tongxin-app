@@ -27,12 +27,9 @@ export class PriceDetailPage {
     public global: Global, public errors: Errors, public loadingCtrl: LoadingController) {
     this.market = navParams.get('market');
     this.type = navParams.get('type');
-  }
-
-  ionViewDidEnter(){
-    let loading = this.loadingCtrl.create();
+    let loading = loadingCtrl.create();
     loading.present();
-    this.priceSvc.getPriceDetail(this.global.MOBILE, this.market.id, 1, this.type.id).then(data => {
+    priceSvc.getPriceDetail(this.global.MOBILE, this.market.id, 1, this.type.id).then(data => {
       this.items = data;
     }).catch(err => {
       notie.alert('error', this.errors.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);
