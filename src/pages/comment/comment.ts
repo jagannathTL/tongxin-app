@@ -42,15 +42,13 @@ export class CommentPage {
     if (this.global.IS_LOGGEDIN == false) {
       this.app.getRootNav().setRoot(LoginPage);
     }
-    this.getMarketCDatas();
+    setTimeout(()=>{
+      this.getMarketCDatas();
+    },500);
   }
 
   ionViewWillEnter() {
     this.viewCtrl.setBackButtonText('首页');
-  }
-
-  ionViewDidLoad() {
-
   }
 
   onCancel(e) {

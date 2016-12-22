@@ -38,33 +38,35 @@ export class CommentListPage {
     this.mName = param.get("mName");
     this.from = param.get("from");
     this.marketId = param.get("mId");
+    setTimeout(()=>{
+      if (this.from) {
+        this.titleStr = "操作指导";
+        this.sName = '返回';
+        this.comList = [];
+        let load = loading.create();
+        load.present();
+        Promise.all([this.getQH1Data(), this.getQH2Data(), this.getXH1Data(), this.getXH2Data()]).then((data: any) => {
+        this.qhList = _.orderBy(this.qhList, ['time'], ['desc']);
+        this.xhList = _.orderBy(this.xhList, ['time'], ['desc']);
+          if (this.type == "qh") {
 
-    if (this.from) {
-      this.titleStr = "操作指导";
-      this.sName = '返回';
-      this.comList = [];
-      let load = loading.create();
-      load.present();
-      Promise.all([this.getQH1Data(), this.getQH2Data(), this.getXH1Data(), this.getXH2Data()]).then((data: any) => {
-      this.qhList = _.orderBy(this.qhList, ['time'], ['desc']);
-      this.xhList = _.orderBy(this.xhList, ['time'], ['desc']);
-        if (this.type == "qh") {
+            this.comList = this.qhList;
+          }
+          else if (this.type == "xh") {
 
-          this.comList = this.qhList;
-        }
-        else if (this.type == "xh") {
+            this.comList = this.xhList;
+          }
+        }).catch(err => {
 
-          this.comList = this.xhList;
-        }
-      }).catch(err => {
+        }).done(() => {
+          load.dismiss();
+        })
+      } else {
+        this.titleStr = this.mName;
+        this.getDetailData();
+      }
+    },500);
 
-      }).done(() => {
-        load.dismiss();
-      })
-    } else {
-      this.titleStr = this.mName;
-      this.getDetailData();
-    }
   }
 
   ionViewWillEnter() {
