@@ -18,14 +18,14 @@ declare const Swiper: any;
 })
 export class OnboardPage {
 
-  constructor(public zone:NgZone, public app:App, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public events: Events, public yellowSvc: YellowSvc) {
+  constructor(public zone: NgZone, public app: App, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public events: Events, public yellowSvc: YellowSvc) {
 
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.platform.ready().then(() => {
-        Splashscreen.hide();
-        // this.app.getRootNav().push(TabsPage);
+      Splashscreen.hide();
+      // this.app.getRootNav().push(TabsPage);
     });
   }
 
@@ -33,31 +33,34 @@ export class OnboardPage {
     new Swiper(".swiper-container", {
       pagination: ".swiper-pagination",
       paginationClickable: true,
+      onInit: (swiper) => {
+        swiper.lockSwipeToPrev();
+      },
       onTransitionStart: (swiper) => {
-        if (swiper.isBeginning == true){
+        if (swiper.isBeginning == true) {
           swiper.lockSwipeToPrev();
-        }else{
+        } else {
           swiper.unlockSwipeToPrev();
         }
-        if (swiper.isEnd == true){
+        if (swiper.isEnd == true) {
           swiper.lockSwipeToNext();
-        }else{
+        } else {
           swiper.unlockSwipeToNext();
         }
       }
     });
   }
 
-  gotoApp(){
+  gotoApp() {
     this.zone.run(() => {
       this.app.getRootNav().push(TabsPage);
     });
-      this.storage.set('isFirst', false).then(() => {
-        this.yellowSvc.checkLogin();
+    this.storage.set('isFirst', false).then(() => {
+      this.yellowSvc.checkLogin();
       //   this.zone.run(() => {
       //     this.app.getRootNav().setRoot(TabsPage);
       // });
-      });
+    });
   }
 
 }
