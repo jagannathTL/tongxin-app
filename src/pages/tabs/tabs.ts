@@ -36,12 +36,14 @@ export class TabsPage {
     this.info = InfoPage;
 
     this.storage.get('isFirst').then((first: any) => {
-      if(first != null && first != undefined){
+      if (first != null && first != undefined) {
         this.zone.run(() => {
-        platform.ready().then(() => {
-            Splashscreen.hide();
-        });
-      })
+          platform.ready().then(() => {
+            setTimeout(() => {
+              Splashscreen.hide();
+            }, 500);
+          });
+        })
       }
     });
 
