@@ -7,6 +7,7 @@ import { InfoPage } from '../info/info';
 import { InboxSvc } from '../../providers/inbox-svc';
 import { Global } from '../../providers/global';
 import { Splashscreen, Badge } from 'ionic-native';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the Tabs page.
@@ -26,17 +27,22 @@ export class TabsPage {
   circle: any;
   badge = 0;
 
-  constructor(public navCtrl: NavController, public inboxSvc: InboxSvc,
+  constructor(public storage: Storage, public navCtrl: NavController, public inboxSvc: InboxSvc,
     public global: Global, public loadingCtrl: LoadingController,
     public events: Events, public platform: Platform, public zone: NgZone) {
-      debugger
     this.home = HomePage;
     this.inbox = InboxPage;
     this.circle = CirclePage;
     this.info = InfoPage;
 
-    platform.ready().then(() => {
-      Splashscreen.hide();
+    this.storage.get('isFirst').then((first: any) => {
+      if(first != null && first != undefined){
+        this.zone.run(() => {
+        platform.ready().then(() => {
+            Splashscreen.hide();
+        });
+      })
+      }
     });
 
     events.unsubscribe('inbox:clearTabsBadge');

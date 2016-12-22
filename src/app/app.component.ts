@@ -18,7 +18,7 @@ declare const notie: any;
 })
 export class MyApp {
   @ViewChild('myNav') nav: NavController
-  // rootPage: any = TabsPage;
+  rootPage: any = TabsPage;
   // rootPage: any = OnboardPage;
   // rootPage: any;
 
@@ -69,12 +69,14 @@ export class MyApp {
         if(first == null || first == undefined){
           this.zone.run(() => {
             this.nav.setRoot(OnboardPage);
-          });
-        }else{
-          this.zone.run(() => {
-            this.nav.setRoot(TabsPage);
+            // this.nav.push(OnboardPage);
           });
         }
+        // else{
+        //   this.zone.run(() => {
+        //     this.nav.setRoot(TabsPage);
+        //   });
+        // }
       });
 
       BackgroundMode.ondeactivate().subscribe(data => {

@@ -24,7 +24,8 @@ export class OnboardPage {
 
   ionViewDidEnter(){
     this.platform.ready().then(() => {
-      Splashscreen.hide();
+        Splashscreen.hide();
+        // this.app.getRootNav().push(TabsPage);
     });
   }
 
@@ -36,11 +37,14 @@ export class OnboardPage {
   }
 
   gotoApp(){
+    this.zone.run(() => {
+      this.app.getRootNav().push(TabsPage);
+    });
       this.storage.set('isFirst', false).then(() => {
         this.yellowSvc.checkLogin();
-        this.zone.run(() => {
-          this.app.getRootNav().setRoot(TabsPage);
-      });
+      //   this.zone.run(() => {
+      //     this.app.getRootNav().setRoot(TabsPage);
+      // });
       });
   }
 

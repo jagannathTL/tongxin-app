@@ -136,25 +136,31 @@ export class CommentListPage {
   }
 
   subscribeOrC(pro, isOrder, slide) {
+    if (pro.isOrder == 'NO') {
+      pro.isOrder = 'YES';
+    }
+    else {
+      pro.isOrder = 'NO';
+    }
     this.commentSvc.subscribeOrCancel(pro.id, isOrder, this.global.MOBILE).then((data: any) => {
       if (data.result == "error") {
         if (pro.isOrder == "NO") {
+          pro.isOrder = "YES";
           notie.alert('error', this.errors.SUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
         }
         else {
+          pro.isOrder = "NO";
           notie.alert('error', this.errors.UNSUBSCRIBE_FAILED, this.global.NOTIFICATION_DURATION);
         }
       }
-      else {
-        this.zone.run(() => {
-          if (pro.isOrder == 'NO') {
-            pro.isOrder = 'YES';
-          }
-          else {
-            pro.isOrder = 'NO';
-          }
-        });
-      }
+      // else {
+      //     if (pro.isOrder == 'NO') {
+      //       pro.isOrder = 'YES';
+      //     }
+      //     else {
+      //       pro.isOrder = 'NO';
+      //     }
+      // }
     }).catch((err) => {
       notie.alert('error', this.errors.OPTION_FAILED, this.global.NOTIFICATION_DURATION);
     }).done(() => {
