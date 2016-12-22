@@ -6,7 +6,7 @@ import { HomePage } from '../home/home';
 import { InfoPage } from '../info/info';
 import { InboxSvc } from '../../providers/inbox-svc';
 import { Global } from '../../providers/global';
-import { Splashscreen, Badge } from 'ionic-native';
+import { Badge } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 
 /*
