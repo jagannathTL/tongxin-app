@@ -89,13 +89,12 @@ export class InboxPage {
           temp.push({ id: data[i].id, date: data[i].date, dateStr: data[i].dateStr, msg: data[i].msg, url: data[i].url, isRead: true });
         }
         this.items = _.concat(temp, this.items);//保持传过来的数据的顺序，确保最大日期的在最上边显示。
-        // this.items = _.concat(data, this.items);
-        this.inboxSvc.clearBadge(this.global.MOBILE).then(() => {
-          this.events.publish('inbox:clearTabsBadge');
-        }).catch((err) => console.log('clearBadge error!'));
       } else {
         notie.alert('warning', this.errors.NOMORE_DATA, this.global.NOTIFICATION_DURATION);
       }
+      this.inboxSvc.clearBadge(this.global.MOBILE).then(() => {
+        this.events.publish('inbox:clearTabsBadge');
+      }).catch((err) => console.log('clearBadge error!'));
     }).catch(error => {
       console.log(error);
     }).done(() => {
@@ -105,14 +104,12 @@ export class InboxPage {
     });
   }
 
-
   doInfinite(infiniteScroll) {
-    if(this.items.length == 0)
-    {
+    if (this.items.length == 0) {
       //没有数据就不能再刷新。否则不知道下边的_.last(this.items).date会不会报错。
-      setTimeout(()=>{
+      setTimeout(() => {
         this.zone.run(() => { infiniteScroll.complete(); });
-      },500)
+      }, 500)
       return;
     }
     this.inboxSvc.loadMoreItems(this.global.MOBILE, _.last(this.items).date).then(data => {
