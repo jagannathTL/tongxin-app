@@ -29,8 +29,8 @@
       </div>
     </div>
     <!-- Add Arrows -->
-    <div class="swiper-button-next tappable" *ngIf="allTradeImgs.length > 0"></div>
-    <div class="swiper-button-prev tappable" *ngIf="allTradeImgs.length > 0"></div>
+    <div class="swiper-button-next tappable" *ngIf="allTradeImgs.length > 1"></div>
+    <div class="swiper-button-prev tappable" *ngIf="allTradeImgs.length > 1"></div>
     <button clear ion-button icon-only color="danger" (click)="removeTradePics()" *ngIf="allTradeImgs.length > 0" style="position:absolute;left:2%;bottom:2%;z-index:99999;font-size:3rem;opacity:0.6;"><ion-icon name="remove-circle"></ion-icon></button>
     <button clear ion-button icon-only color="negative" (click)="addTradePics()" *ngIf="allTradeImgs.length < 3" style="position:absolute;right:2%;bottom:2%;z-index:99999;font-size:3rem;opacity:0.6;"><ion-icon name="add-circle"></ion-icon></button>
   </div>
