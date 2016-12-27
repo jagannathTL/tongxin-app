@@ -75,6 +75,39 @@ export class InboxPage {
     }
   }
 
+  readAll() {
+    var readList: any = [];
+    this.storage.keys().then((data: any) => {
+      var readKey = data.filter((key: any) => {
+        return key == 'readList';
+      })
+      if (readKey != null && readKey != undefined && readKey.length > 0) {
+        this.storage.get('readList').then((data: any) => {
+          if (data != null && data != undefined) {
+            readList = data;
+          }
+          _.each(this.items, item => {
+            item.isRead = false;
+            var read = readList.filter((r: any) => {
+              return r.id == item.id;
+            })
+            if (read == null || read == undefined || read.length <= 0) {
+              readList.push({ id: item.id });
+            }
+          })
+          this.storage.set('readList', readList);
+        })
+      }
+      else {
+        _.each(this.items, item => {
+          item.isRead = false;
+          readList.push({ id: item.id });
+        });
+        this.storage.set('readList', readList);
+      }
+    })
+  }
+
   doRefresh(refresher) {
     //把加载的数据传到inbox的items参数里面
     console.log(this.lastDate);
