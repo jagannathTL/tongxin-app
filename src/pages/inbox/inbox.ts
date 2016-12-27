@@ -9,6 +9,7 @@ import { CommentDetailPage } from '../comment-detail/comment-detail';
 import moment from 'moment';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
+import { Clipboard } from 'ionic-native';
 
 /*
   Generated class for the Inbox page.
@@ -188,5 +189,10 @@ export class InboxPage {
       msg: item.msg,
       date: item.dateStr
     });
+  }
+
+  copyItem(i, slidingItem) {
+    Clipboard.copy(i.msg + ' ' + i.dateStr);
+    slidingItem.close();
   }
 }
