@@ -24,6 +24,7 @@ export class PriceSvc {
       this.http.get(this.global.SERVER + "/Handlers/PriceHandler.ashx?method=getHistoryPrices&productId=" + productId + '&start=' + start + '&end=' + end).map(res => res.json()).subscribe(data => {
         data = _.forEach(data, x => {
           this.translate(x);
+          x.average = ((parseFloat(x.HPrice) + parseFloat(x.LPrice)) / 2).toFixed(2);
         });
         resolve(data);
       }, err => {

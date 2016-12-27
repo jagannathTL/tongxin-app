@@ -33,10 +33,29 @@
 
   </div>
   <ion-list padding-top>
+    <ion-item>
+      <ion-row>
+        <ion-col>
+          价格
+        </ion-col>
+        <ion-col width-25 text-right>
+          均价
+        </ion-col>
+        <ion-col width-25 text-right>
+          涨跌
+        </ion-col>
+        <ion-col text-right>
+          日期
+        </ion-col>
+      </ion-row>
+    </ion-item>
     <ion-item *ngFor='let y of items'>
       <ion-row>
         <ion-col [ngClass]="{'negative': y.Change < 0, 'positive': y.Change > 0, 'zero': y.Change == 0}">
           {{y.priceString}}
+        </ion-col>
+        <ion-col width-25 text-right [ngClass]="{'negative': y.Change < 0, 'positive': y.Change > 0, 'zero': y.Change == 0}">
+          {{y.average}}
         </ion-col>
         <ion-col width-25 text-right [ngClass]="{'negative': y.Change < 0, 'positive': y.Change > 0, 'zero': y.Change == 0}">
           {{y.absChange}}
@@ -49,3 +68,9 @@
   </ion-list>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>均价：{{average}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

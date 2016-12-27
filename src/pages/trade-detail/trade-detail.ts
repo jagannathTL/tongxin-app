@@ -59,15 +59,15 @@ export class TradeDetailPage {
       this.documentType = 2;
       this.productLabelName = '供应';
     }
-    setTimeout(()=>{
+    setTimeout(() => {
       this.setIndustryList();
       this.getAddressData();
-    },500);
+    }, 500);
   }
 
   setIndustryList() {
     if (this.documentType == 2) {
-      this.industryList.push('抓刚机');
+      this.industryList.push('抓钢机');
       this.industryList.push('粉碎机');
       this.industryList.push('打包机');
       this.industryList.push('剪切机');
@@ -78,6 +78,8 @@ export class TradeDetailPage {
       this.industryList.push('锅炉');
       this.industryList.push('吸盘');
       this.industryList.push('车船');
+      this.industryList.push('矿山');
+      this.industryList.push('其他');
     }
     else {
       this.industryList.push('基本金属');
