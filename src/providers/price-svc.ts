@@ -23,8 +23,8 @@ export class PriceSvc {
     return new Promise((resolve, reject) => {
       this.http.get(this.global.SERVER + "/Handlers/PriceHandler.ashx?method=getHistoryPrices&productId=" + productId + '&start=' + start + '&end=' + end).map(res => res.json()).subscribe(data => {
         data = _.forEach(data, x => {
-          this.translate(x);
           x.average = ((parseFloat(x.HPrice) + parseFloat(x.LPrice)) / 2).toFixed(2);
+          this.translate(x);
         });
         resolve(data);
       }, err => {
@@ -84,6 +84,9 @@ export class PriceSvc {
       x.priceString = x.LPrice;
     } else {
       x.priceString = x.LPrice + '-' + x.HPrice;
+    }
+    if (x.average == null || x.average == '0.00' || x.average == '' || x.average == 'NaN') {
+      x.average = '停收';
     }
     return x;
   }

@@ -24,14 +24,14 @@ export class PriceHistoryPage {
   items = [];
   start = moment().add(-1, 'months').format('YYYY-MM-DD');
   end = moment().add(1, 'days').format('YYYY-MM-DD');
-  average: number;
+  average: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, public priceSvc: PriceSvc, public global: Global, public errors: Errors, public loadingCtrl: LoadingController) {
     this.product = navParams.get('product');
     this.backText = navParams.get('backText');
-    setTimeout(()=>{
+    setTimeout(() => {
       this.getHistoryPrices();
-    },500);
+    }, 500);
   }
 
   getHistoryPrices() {
@@ -43,9 +43,15 @@ export class PriceHistoryPage {
     loading.present();
     this.priceSvc.getPriceHistory(this.product.ProductId, this.start, this.end).then(data => {
       this.items = data;
-      this.average = (_.meanBy(this.items, x => {
-        return parseFloat(x.average);
-      })).toFixed(2);
+      let count = 0;
+      let sum = 0;
+      _.each(this.items, x => {
+        if(parseFloat(x.average) > 0){
+          count++;
+          sum += parseFloat(x.average);
+        }
+      });
+      this.average = (sum / count).toFixed(2);
       this.giveChart();
     }).catch(err => {
       notie.alert('error', this.errors.GET_DATA_FAILED, this.global.NOTIFICATION_DURATION);
