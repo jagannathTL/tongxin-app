@@ -43,7 +43,7 @@
         <div class="swiper-slide pro" *ngFor="let s of inBuckets">
           <ion-list>
             <ion-item *ngFor="let m of s.markets" style="padding-left: 0;" text-wrap>
-              <button id="firstTitle" color='light' ion-item (click)='gotoCommentDetail(s,m)'>
+              <button id="firstTitle" color='navbar' ion-item (click)='gotoCommentDetail(s,m)'>
                 {{m.name}}
               </button>
               <button id="small" ion-item (click)="goDetail(p)" *ngFor="let p of m.pinglun">
