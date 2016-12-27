@@ -83,7 +83,8 @@ export class CommentPage {
   moreBuckets() {
     let modal = this.modalCtrl.create(InOutBucketsPage, {
       inBucketList: this.inBuckets,
-      outBucketList: this.outBuckets
+      outBucketList: this.outBuckets,
+      from:'comment'
     }, {
         showBackdrop: true,
         enableBackdropDismiss: true
@@ -149,6 +150,7 @@ export class CommentPage {
             this.outBuckets.push(r);//未关注
           }
         });
+        console.log(this.inBuckets);
       });
       this.marketC = new Swiper('.marketC', {
         spaceBetween: 10,

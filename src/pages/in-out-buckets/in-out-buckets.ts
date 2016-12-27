@@ -23,6 +23,7 @@ export class InOutBucketsPage {
   defaultObj: any;
   sortOut: any;
   sortB: any;
+  fromPage='';
 
   constructor(public navCtrl: NavController, public params: NavParams, public bucketSvc: BucketSvc, public global: Global, public loading: LoadingController, public viewCtrl: ViewController) {
     this.allList = params.get('inBucketList');
@@ -34,6 +35,7 @@ export class InOutBucketsPage {
       return all.id != 0;
     });
     this.outBuckets = params.get('outBucketList');
+    this.fromPage = params.get('from');
   }
 
   appendOut(name){
@@ -118,13 +120,11 @@ export class InOutBucketsPage {
 
   ionViewWillLeave()
   {
-    console.log('leave');
     this.inBuckets.forEach((inB) => {
       var str = inB.id + "|";
       this.groupIDList += str;
     });
-
-    this.bucketSvc.updateBuckets(this.groupIDList, this.global.MOBILE).then((data) => {
+    this.bucketSvc.updateBuckets(this.groupIDList, this.global.MOBILE,this.fromPage).then((data) => {
 
     });
   }

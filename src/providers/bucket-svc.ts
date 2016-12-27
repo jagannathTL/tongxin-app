@@ -23,7 +23,7 @@ export class BucketSvc {
     }).join('&');
   }
 
-  updateBuckets(ids, mobile)
+  updateBuckets(ids, mobile,from)
   {
     return new Promise((resolve, reject) => {
       let body = this.jsonToURLEncoded({ method: 'groupChannel', mobile: mobile, groups: ids });
@@ -33,7 +33,16 @@ export class BucketSvc {
       let options = new RequestOptions({
         headers: headers
       });
-      this.http.post(this.global.SERVER + '/Handlers/XHMarketHandler.ashx', body, options).subscribe((data) => {
+      console.log('ids:'+ids);
+      let url=this.global.SERVER+'/Handlers/';
+      if(from=='price')
+      {
+        url+='XHMarketHandler.ashx';
+      }
+      else{
+        url+='PLHandler.ashx';
+      }
+      this.http.post(url, body, options).subscribe((data) => {
           resolve(data);
       },err => {
         throw new Error(err);

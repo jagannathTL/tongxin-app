@@ -84,7 +84,8 @@ export class PricePage {
   moreBuckets() {
     let modal = this.modalCtrl.create(InOutBucketsPage, {
       inBucketList: this.inBuckets,
-      outBucketList: this.outBuckets
+      outBucketList: this.outBuckets,
+      from:'price'
     });
     modal.onDidDismiss((data: any) => {
       this.inBuckets = data.list;
